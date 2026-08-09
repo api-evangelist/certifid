@@ -1,0 +1,168 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/certifid-v2-apis-openapi.json
+docs: https://api.certifid.com/swagger/index.html
+format: mixed
+format_note: >-
+  CertifID does not use RFC 9457 (application/problem+json). Two distinct error
+  envelopes coexist in the same API, and which one you get depends on whether the
+  request failed in the ASP.NET Core framework layer or in CertifID business logic:
+  (1) Microsoft.AspNetCore.Mvc.ProblemDetails - the RFC 7807 shape ASP.NET Core
+  emits by default (type/title/status/detail/instance), served as application/json
+  rather than application/problem+json; and (2) a CertifID Response envelope
+  carrying an errors[] array of ResponseError objects with an INTEGER code, a
+  message and a details string. Clients must handle both. No single media type
+  identifies an error response - 4xx bodies are served as application/json,
+  text/json and text/plain alternatives of the same schema.
+envelopes:
+- name: ProblemDetails
+  schema: Microsoft.AspNetCore.Mvc.ProblemDetails
+  standard: RFC 7807 (shape only; not served as application/problem+json)
+  media_types:
+  - application/json
+  - text/json
+  - text/plain
+  fields:
+  - name: type
+    type: string
+    nullable: true
+  - name: title
+    type: string
+    nullable: true
+  - name: status
+    type: integer
+    nullable: true
+  - name: detail
+    type: string
+    nullable: true
+  - name: instance
+    type: string
+    nullable: true
+  note: additionalProperties is open, so extension members may appear.
+  used_by: 400, 404, 422 responses
+- name: CertifID Response envelope
+  schema: CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response`1
+  standard: proprietary
+  media_types:
+  - application/json
+  - text/json
+  - text/plain
+  fields:
+  - name: errors
+    type: array of ResponseError
+  - name: 'ResponseError.code'
+    type: integer (int32)
+    note: A numeric CertifID error code, not an HTTP status.
+  - name: 'ResponseError.message'
+    type: string
+  - name: 'ResponseError.details'
+    type: string
+  used_by: 400 responses on the Send/Collect/Confirm and verification flows
+- name: ModelStateRepresentation
+  schema: CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation
+  standard: proprietary (ASP.NET model-state validation)
+  fields:
+  - name: httpStatusCode
+    type: HttpStatusCode enum
+  - name: errors
+    type: ModelStateErrorsRepresentation
+  used_by: 400 and 404 field-validation responses
+status_codes:
+- status: 400
+  title: Bad Request
+  occurrences: 24
+  envelopes:
+  - ProblemDetails
+  - CertifID Response envelope
+  - ModelStateRepresentation
+  causes:
+  - Missing required fields (for example Recipient.FirstName, Recipient.LastName,
+      RequestDetails.DeliveryMethod)
+  - Invalid data format (email format, phone number must be 10 digits, invalid
+      delivery method)
+  - Invalid routing number
+  remediation: Correct the named field and resubmit. Validation errors are returned
+    in the errors[] array with per-field detail.
+- status: 401
+  title: Unauthorized
+  occurrences: 55
+  envelopes: []
+  causes:
+  - Bearer token missing, invalid, or expired.
+  remediation: >-
+    Obtain a new access token from https://auth.certifid.com/oauth/token with
+    audience https://api.certifid.com. Note that one operation's published
+    description says "API key is missing, invalid, or expired" even though the
+    declared security scheme is OAuth 2.0 - the documentation is inconsistent here.
+  note: >-
+    401 is declared on 55 of 57 operations but carries no response schema at all,
+    so the error body on an auth failure is undocumented.
+- status: 403
+  title: Forbidden
+  occurrences: 54
+  envelopes: []
+  causes:
+  - The authenticated account's company does not have the relevant product enabled
+      (for example identity verification).
+  - The consumer does not have access to the requested Disbursement (Payoff).
+  - The consumer cannot upload a statement for a disbursement they cannot access.
+  remediation: >-
+    Entitlement is per-company and per-product. Confirm the product is enabled for
+    the account and that the token carries the required product scope (for example
+    PayoffProtectProduct or RequestProduct).
+  note: 403 is declared on 54 operations and, like 401, carries no response schema.
+- status: 404
+  title: Not Found
+  occurrences: 39
+  envelopes:
+  - ProblemDetails
+  - ModelStateRepresentation
+  causes:
+  - The Disbursement (Payoff) ID provided was not found.
+  - No lender logo exists for the provided lenderId.
+  - The referenced request, order or resource does not exist or is not visible to
+      the caller.
+  remediation: Verify the identifier and that it belongs to the caller's company.
+  note: One 404 is declared with an application/pdf content type (certificate
+    retrieval), so a not-found on a document endpoint may not be JSON.
+- status: 422
+  title: Unprocessable Content
+  occurrences: 1
+  envelopes:
+  - ProblemDetails
+  causes:
+  - The request was well-formed but semantically rejected.
+  remediation: Inspect the ProblemDetails detail member.
+- status: 500
+  title: Internal Server Error
+  occurrences: 7
+  envelopes: []
+  causes:
+  - An unexpected error occurred while processing the request.
+  remediation: Retry with backoff; contact support@certifid.com with the timestamp
+    if it persists.
+  note: No schema and no correlation identifier is returned, so a 500 cannot be
+    self-serviced by the caller.
+error_codes:
+- code: 119
+  meaning: Invalid Phone Number.
+  source: >-
+    Published inline in the operation description for the wiring-instruction
+    request endpoints as a fenced code block. This is the ONLY numeric CertifID
+    error code documented anywhere in the specification.
+  envelope: CertifID Response envelope (ResponseError.code)
+gaps:
+- >-
+  The ResponseError.code space is an integer enum with exactly one published
+  value (119). Integrators cannot branch on business errors because the code
+  registry is not published.
+- >-
+  401, 403 and 500 - the three most-declared error statuses, covering 116 response
+  declarations - have no schema, no example and no error body documented.
+- >-
+  Errors are not served as application/problem+json, so RFC 9457-aware clients
+  cannot detect them by media type.
+- No error response anywhere in the specification carries an example.
+- >-
+  No correlation/trace identifier is returned on any error response, so a failed
+  call cannot be tied to a support ticket.

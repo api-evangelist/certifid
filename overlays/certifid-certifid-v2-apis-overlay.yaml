@@ -1,0 +1,327 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the CertifID V2 APIs
+  version: 1.0.0
+extends: ../openapi/certifid-v2-apis-openapi.json
+x-generated: '2026-08-09'
+x-method: generated
+x-source: openapi/certifid-v2-apis-openapi.json
+x-note: >-
+  Non-destructive enhancements API Evangelist derived for the CertifID V2 APIs. It adds nothing that
+  is not implied by the source document: a servers[] entry naming the host that actually serves the
+  specification, and a deterministic operationId for each of the 56 operations that lack one (built
+  from the path segments and method, verified collision-free across all 57 operations). No schema,
+  parameter, security or response content is altered. Applying this overlay is what makes the CertifID
+  surface addressable by SDK generators, MCP tool bindings and agent skills.
+actions:
+- target: $
+  description: >-
+    Declare the production server, which the source specification omits entirely. Generated clients
+    otherwise default to a relative base path.
+  update:
+    servers:
+    - url: https://api.certifid.com
+      description: CertifID production API (the host that serves this specification).
+- target: $.paths['/api/Test/{resourceId}'].get
+  description: Add a stable operationId (GetTestByResourceId); the source operation declares none.
+  update:
+    operationId: GetTestByResourceId
+- target: $.paths['/api/Test/{resourceId}/JustAuth0'].get
+  description: >-
+    Add a stable operationId (GetTestJustAuth0ByResourceId); the source operation declares none.
+  update:
+    operationId: GetTestJustAuth0ByResourceId
+- target: $.paths['/api/Test/{resourceId}/NoAuth'].get
+  description: Add a stable operationId (GetTestNoAuthByResourceId); the source operation declares
+    none.
+  update:
+    operationId: GetTestNoAuthByResourceId
+- target: $.paths['/api/v1/Account'].get
+  description: Add a stable operationId (GetAccount); the source operation declares none.
+  update:
+    operationId: GetAccount
+- target: $.paths['/api/v1/Account/{id}'].get
+  description: Add a stable operationId (GetAccountById); the source operation declares none.
+  update:
+    operationId: GetAccountById
+- target: $.paths['/api/v1/Account/{id}/Underwriter'].get
+  description: Add a stable operationId (GetAccountUnderwriterById); the source operation declares
+    none.
+  update:
+    operationId: GetAccountUnderwriterById
+- target: $.paths['/api/v1/Account/{locationId}/BankInformation'].get
+  description: >-
+    Add a stable operationId (GetAccountBankInformationByLocationId); the source operation declares
+    none.
+  update:
+    operationId: GetAccountBankInformationByLocationId
+- target: $.paths['/api/v1/AccountVerifications'].post
+  description: Add a stable operationId (PostAccountVerifications); the source operation declares
+    none.
+  update:
+    operationId: PostAccountVerifications
+- target: $.paths['/api/v1/AccountVerifications/Search'].post
+  description: Add a stable operationId (AccountVerificationsSearch); the source operation declares
+    none.
+  update:
+    operationId: AccountVerificationsSearch
+- target: $.paths['/api/v1/AccountVerifications/{id}'].get
+  description: >-
+    Add a stable operationId (GetAccountVerificationsById); the source operation declares none.
+  update:
+    operationId: GetAccountVerificationsById
+- target: $.paths['/api/v1/AccountVerifications/{id}/Cancel'].post
+  description: >-
+    Add a stable operationId (AccountVerificationsCancelById); the source operation declares none.
+  update:
+    operationId: AccountVerificationsCancelById
+- target: $.paths['/api/v1/Bank/{abaRoutingNumber}'].get
+  description: Add a stable operationId (GetBankByAbaRoutingNumber); the source operation declares
+    none.
+  update:
+    operationId: GetBankByAbaRoutingNumber
+- target: $.paths['/api/v1/Bank/{abaRoutingNumber}/WiringDetails'].get
+  description: >-
+    Add a stable operationId (GetBankWiringDetailsByAbaRoutingNumber); the source operation declares
+    none.
+  update:
+    operationId: GetBankWiringDetailsByAbaRoutingNumber
+- target: $.paths['/api/v1/Disbursements/CreateDisbursement'].post
+  description: >-
+    Add a stable operationId (DisbursementsCreateDisbursement); the source operation declares none.
+  update:
+    operationId: DisbursementsCreateDisbursement
+- target: $.paths['/api/v1/Disbursements/EditDisbursement'].post
+  description: >-
+    Add a stable operationId (DisbursementsEditDisbursement); the source operation declares none.
+  update:
+    operationId: DisbursementsEditDisbursement
+- target: $.paths['/api/v1/Disbursements/GetDisbursementById/{id}'].post
+  description: >-
+    Add a stable operationId (DisbursementsGetDisbursementByIdById); the source operation declares
+    none.
+  update:
+    operationId: DisbursementsGetDisbursementByIdById
+- target: $.paths['/api/v1/Disbursements/GetDisbursementCancelationReasons'].post
+  description: >-
+    Add a stable operationId (DisbursementsGetDisbursementCancelationReasons); the source operation
+    declares none.
+  update:
+    operationId: DisbursementsGetDisbursementCancelationReasons
+- target: $.paths['/api/v1/Disbursements/GetDisbursementStatementsByDisbursementId/{id}'].post
+  description: >-
+    Add a stable operationId (DisbursementsGetDisbursementStatementsByDisbursementIdById); the source
+    operation declares none.
+  update:
+    operationId: DisbursementsGetDisbursementStatementsByDisbursementIdById
+- target: $.paths['/api/v1/Disbursements/GetDisbursementVerificationFieldsFromStatement'].post
+  description: >-
+    Add a stable operationId (DisbursementsGetDisbursementVerificationFieldsFromStatement); the source
+    operation declares none.
+  update:
+    operationId: DisbursementsGetDisbursementVerificationFieldsFromStatement
+- target: $.paths['/api/v1/Disbursements/GetLoanType'].post
+  description: Add a stable operationId (DisbursementsGetLoanType); the source operation declares
+    none.
+  update:
+    operationId: DisbursementsGetLoanType
+- target: $.paths['/api/v1/Disbursements/SearchDisbursements'].post
+  description: >-
+    Add a stable operationId (DisbursementsSearchDisbursements); the source operation declares none.
+  update:
+    operationId: DisbursementsSearchDisbursements
+- target: $.paths['/api/v1/Disbursements/UploadDisbursementDocument'].post
+  description: >-
+    Add a stable operationId (DisbursementsUploadDisbursementDocument); the source operation declares
+    none.
+  update:
+    operationId: DisbursementsUploadDisbursementDocument
+- target: $.paths['/api/v1/Disbursements/getPdfByDisbursementId/{disbursementId}'].post
+  description: >-
+    Add a stable operationId (PostDisbursementsGetPdfByDisbursementIdByDisbursementId); the source
+    operation declares none.
+  update:
+    operationId: PostDisbursementsGetPdfByDisbursementIdByDisbursementId
+- target: $.paths['/api/v1/Integration/Collect/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationCollectByRequestId); the source operation declares none.
+  update:
+    operationId: GetIntegrationCollectByRequestId
+- target: $.paths['/api/v1/Integration/Collect/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationCollectCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetIntegrationCollectCertificateByRequestId
+- target: $.paths['/api/v1/Integration/Confirm/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationConfirmByRequestId); the source operation declares none.
+  update:
+    operationId: GetIntegrationConfirmByRequestId
+- target: $.paths['/api/v1/Integration/Confirm/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationConfirmCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetIntegrationConfirmCertificateByRequestId
+- target: $.paths['/api/v1/Integration/Disbursement/{disbursementId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationDisbursementCertificateByDisbursementId); the source
+    operation declares none.
+  update:
+    operationId: GetIntegrationDisbursementCertificateByDisbursementId
+- target: $.paths['/api/v1/Integration/Disbursement/{id}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationDisbursementById); the source operation declares none.
+  update:
+    operationId: GetIntegrationDisbursementById
+- target: $.paths['/api/v1/Integration/Identity/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationIdentityByRequestId); the source operation declares none.
+  update:
+    operationId: GetIntegrationIdentityByRequestId
+- target: $.paths['/api/v1/Integration/Identity/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationIdentityCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetIntegrationIdentityCertificateByRequestId
+- target: $.paths['/api/v1/Integration/PayoffOrder/{id}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationPayoffOrderByPayoffOrderIdId); the source operation declares
+    none.
+  update:
+    operationId: GetIntegrationPayoffOrderByPayoffOrderIdId
+- target: $.paths['/api/v1/Integration/PayoffOrder/{payoffOrderId}/Quote/{quoteId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationPayoffOrderQuoteCertificateByPayoffOrderIdQuoteId); the
+    source operation declares none.
+  update:
+    operationId: GetIntegrationPayoffOrderQuoteCertificateByPayoffOrderIdQuoteId
+- target: $.paths['/api/v1/Integration/Send/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetIntegrationSendByRequestId); the source operation declares none.
+  update:
+    operationId: GetIntegrationSendByRequestId
+- target: $.paths['/api/v1/Integration/Send/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIntegrationSendCertificateByRequestId); the source operation declares
+    none.
+  update:
+    operationId: GetIntegrationSendCertificateByRequestId
+- target: $.paths['/api/v1/Lenders/GetLenderLogoById'].post
+  description: Add a stable operationId (LendersGetLenderLogoById); the source operation declares
+    none.
+  update:
+    operationId: LendersGetLenderLogoById
+- target: $.paths['/api/v1/Lenders/SearchLenders'].post
+  description: Add a stable operationId (LendersSearchLenders); the source operation declares none.
+  update:
+    operationId: LendersSearchLenders
+- target: $.paths['/api/v1/PayoffOrdering/CancelPayoffOrder'].post
+  description: >-
+    Add a stable operationId (PayoffOrderingCancelPayoffOrder); the source operation declares none.
+  update:
+    operationId: PayoffOrderingCancelPayoffOrder
+- target: $.paths['/api/v1/PayoffOrdering/CreatePayoffOrder'].post
+  description: >-
+    Add a stable operationId (PayoffOrderingCreatePayoffOrder); the source operation declares none.
+  update:
+    operationId: PayoffOrderingCreatePayoffOrder
+- target: $.paths['/api/v1/PayoffOrdering/GetAvailablePayoffOrderLenders'].get
+  description: >-
+    Add a stable operationId (PayoffOrderingGetAvailablePayoffOrderLenders); the source operation
+    declares none.
+  update:
+    operationId: PayoffOrderingGetAvailablePayoffOrderLenders
+- target: >-
+    $.paths['/api/v1/PayoffOrdering/GetCertificate/{payoffOrderId}/quote/{quoteId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetPayoffOrderingGetCertificateQuoteCertificateByPayoffOrderIdQuoteId);
+    the source operation declares none.
+  update:
+    operationId: GetPayoffOrderingGetCertificateQuoteCertificateByPayoffOrderIdQuoteId
+- target: $.paths['/api/v1/PayoffOrdering/GetPayoffOrderById/{id}'].get
+  description: >-
+    Add a stable operationId (PayoffOrderingGetPayoffOrderByIdById); the source operation declares
+    none.
+  update:
+    operationId: PayoffOrderingGetPayoffOrderByIdById
+- target: $.paths['/api/v1/PayoffOrdering/UpdatePayoffOrder'].post
+  description: >-
+    Add a stable operationId (PayoffOrderingUpdatePayoffOrder); the source operation declares none.
+  update:
+    operationId: PayoffOrderingUpdatePayoffOrder
+- target: $.paths['/api/v1/Users/GetUsersProducts'].post
+  description: Add a stable operationId (UsersGetUsersProducts); the source operation declares none.
+  update:
+    operationId: UsersGetUsersProducts
+- target: $.paths['/api/v1/WiringInstructions/Collect'].post
+  description: >-
+    Add a stable operationId (PostWiringInstructionsCollect); the source operation declares none.
+  update:
+    operationId: PostWiringInstructionsCollect
+- target: $.paths['/api/v1/WiringInstructions/Collect/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsCollectByRequestId); the source operation declares
+    none.
+  update:
+    operationId: GetWiringInstructionsCollectByRequestId
+- target: $.paths['/api/v1/WiringInstructions/Collect/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsCollectCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetWiringInstructionsCollectCertificateByRequestId
+- target: $.paths['/api/v1/WiringInstructions/Confirm'].post
+  description: >-
+    Add a stable operationId (PostWiringInstructionsConfirm); the source operation declares none.
+  update:
+    operationId: PostWiringInstructionsConfirm
+- target: $.paths['/api/v1/WiringInstructions/Confirm/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsConfirmByRequestId); the source operation declares
+    none.
+  update:
+    operationId: GetWiringInstructionsConfirmByRequestId
+- target: $.paths['/api/v1/WiringInstructions/Confirm/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsConfirmCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetWiringInstructionsConfirmCertificateByRequestId
+- target: $.paths['/api/v1/WiringInstructions/Send'].post
+  description: Add a stable operationId (PostWiringInstructionsSend); the source operation declares
+    none.
+  update:
+    operationId: PostWiringInstructionsSend
+- target: $.paths['/api/v1/WiringInstructions/Send/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsSendByRequestId); the source operation declares
+    none.
+  update:
+    operationId: GetWiringInstructionsSendByRequestId
+- target: $.paths['/api/v1/WiringInstructions/Send/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetWiringInstructionsSendCertificateByRequestId); the source operation
+    declares none.
+  update:
+    operationId: GetWiringInstructionsSendCertificateByRequestId
+- target: $.paths['/api/v1/identity/GetIdentityRequestCertificate/{requestId}/Certificate'].get
+  description: >-
+    Add a stable operationId (GetIdentityGetIdentityRequestCertificateCertificateByRequestId); the
+    source operation declares none.
+  update:
+    operationId: GetIdentityGetIdentityRequestCertificateCertificateByRequestId
+- target: $.paths['/api/v1/identity/IdVerificationResultUrlWebhook/{requestId}'].post
+  description: >-
+    Add a stable operationId (PostIdentityIdVerificationResultUrlWebhookByRequestId); the source
+    operation declares none.
+  update:
+    operationId: PostIdentityIdVerificationResultUrlWebhookByRequestId
+- target: $.paths['/api/v1/identity/IdentityVerification/{requestId}'].get
+  description: >-
+    Add a stable operationId (GetIdentityIdentityVerificationByRequestId); the source operation declares
+    none.
+  update:
+    operationId: GetIdentityIdentityVerificationByRequestId

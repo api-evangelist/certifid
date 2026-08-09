@@ -1,0 +1,166 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/certifid-v2-apis-openapi.json
+docs: https://api.certifid.com/swagger/index.html
+summary: >-
+  Cross-cutting runtime semantics for the CertifID V2 APIs, derived from the live
+  OpenAPI 3.0.1 definition served at api.certifid.com. The API is an ASP.NET Core
+  service fronted by Cloudflare and Envoy. It is REST-shaped but strongly
+  RPC-flavoured in its newer surfaces: the Disbursements, PayoffOrdering, Lenders
+  and Users groups use POST for verb-named read operations
+  (POST /api/v1/Disbursements/GetDisbursementById/{id}), while the older
+  WiringInstructions, AccountVerifications and Integration groups are
+  resource-shaped. Integrators should not assume HTTP-method semantics.
+auth:
+  style: OAuth 2.0 bearer token
+  scheme: oauth2 (authorizationCode flow)
+  authorization_url: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+  token_url: https://auth.certifid.com/oauth/token
+  provider: Auth0 (tenant auth.certifid.com)
+  audience: https://api.certifid.com
+  applied: >-
+    A top-level security requirement applies oauth2 to every operation; 54 of 57
+    operations additionally declare operation-level scope requirements. Three
+    /api/Test/* operations exist, one of which is explicitly named NoAuth.
+  detail: authentication/certifid-authentication.yml
+  scopes: scopes/certifid-scopes.yml
+idempotency:
+  supported: false
+  evidence: >-
+    The string "idempoten" does not appear anywhere in the 251KB specification. No
+    Idempotency-Key header parameter is declared on any operation, and no
+    operation declares any header parameter at all.
+  nearest_equivalent:
+    field: externalReferenceId
+    where: >-
+      Present on the account-verification request and query models
+      (ExternalReferenceRequestModel, AccountVerificationsListQuery.externalReferenceId).
+    note: >-
+      This is a client-supplied correlation key that lets an integrator find their
+      own record again - it is NOT an idempotency key. Nothing in the published
+      contract states that replaying a create with the same externalReferenceId
+      returns the original resource instead of creating a second one.
+  risk: >-
+    Every money-movement and verification create operation
+    (CreateDisbursement, CreatePayoffOrder, WiringInstructions/Send,
+    WiringInstructions/Collect, WiringInstructions/Confirm,
+    AccountVerifications, IdentityVerification) is a non-idempotent POST. A
+    network timeout on any of them is unsafe to retry.
+  no_pointer_emitted: >-
+    No type Idempotency pointer was wired into apis.yml, because the capability is
+    genuinely absent. This is a real gap for CertifID to close, not a cataloguing
+    miss.
+pagination:
+  supported: true
+  style: page-number, request-body (not query-string)
+  applies_to:
+  - POST /api/v1/AccountVerifications/Search
+  - POST /api/v1/Disbursements/SearchDisbursements
+  request_fields:
+  - name: pageSize
+    type: integer
+  - name: zeroBasedPage
+    type: integer
+    note: Page index is ZERO-based. Requesting page 1 returns the second page.
+  - name: sortFields
+    type: array
+  - name: query
+    type: string
+  response_envelope: CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.PagedData
+  response_fields:
+  - name: items
+    type: array
+  - name: pageSize
+    type: integer
+  - name: zeroBasedCurrentPage
+    type: integer
+  - name: totalItems
+    type: integer
+  - name: totalPages
+    type: integer
+  note: >-
+    No cursor, offset or Link-header pagination anywhere. Because paging
+    parameters travel in the POST body, they cannot be expressed as a bookmarkable
+    URL.
+filtering:
+  supported: true
+  style: request-body query object
+  fields:
+  - status
+  - useCase
+  - partyType
+  - externalReferenceId
+  - createdGte
+  - createdLte
+  - searchTerm
+  note: createdGte / createdLte give an inclusive created-date range.
+sorting:
+  supported: true
+  field: sortFields
+  enum_schema: SortField
+  note: Sorting is declared as an array of enum values in the request body.
+versioning:
+  style: URI path
+  current: v1
+  pattern: /api/v1/...
+  spec_title: CertifID V2 APIs
+  spec_version: v1
+  note: >-
+    The product surface is branded "V2 APIs" while every path is /api/v1 and the
+    OpenAPI info.version is "v1". No Accept-header or query-string versioning, and
+    no API-Version request or response header is declared.
+  policy_published: false
+field_expansion:
+  supported: false
+  note: No expand, fields or include parameter exists on any operation.
+metadata:
+  supported: false
+  note: >-
+    No free-form metadata object. externalReferenceId is the only client-owned
+    field for tying a CertifID record to an external system.
+request_tracing:
+  supported: false
+  note: >-
+    No X-Request-Id or correlation header is declared on any request or response.
+    A traceId property appears inside one schema but is not surfaced as a response
+    header, so a caller cannot self-serve a support ticket from a failed call.
+rate_limiting:
+  documented: false
+  note: >-
+    No rate-limit documentation, no RateLimit / X-RateLimit / Retry-After headers,
+    and no 429 response is declared on any of the 57 operations. Limits may exist
+    at the Cloudflare edge but are not part of the published contract.
+errors:
+  detail: errors/certifid-problem-types.yml
+  envelope: >-
+    Two coexisting shapes - ASP.NET Core ProblemDetails (RFC 7807 shape, served as
+    application/json not application/problem+json) and a proprietary CertifID
+    Response envelope with an integer errors[].code.
+  media_types:
+  - application/json
+  - text/json
+  - text/plain
+content_negotiation:
+  note: >-
+    Most operations advertise application/json, text/json and text/plain variants
+    of the same schema - an ASP.NET Core default rather than a deliberate design.
+    Certificate endpoints return application/pdf.
+lifecycle:
+  detail: lifecycle/certifid-lifecycle.yml
+spec_quality:
+  operation_count: 57
+  schema_count: 111
+  operation_ids_present: 1
+  operation_ids_missing: 56
+  note: >-
+    Only ONE operation (CreateIdentityVerification on
+    POST /api/v1/identity/IdentityVerification) declares an operationId. The other
+    56 are unnamed, so every generated SDK, MCP tool binding and agent skill must
+    synthesise method names from path and verb. This is the single highest-value
+    fix available to CertifID in its specification.
+  examples_present: false
+  servers_block: absent
+  servers_note: >-
+    The specification declares no servers[] array, so the base URL
+    (https://api.certifid.com) must be inferred from where the document is hosted.
+    Generated clients will default to a relative path.

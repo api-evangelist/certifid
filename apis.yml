@@ -1,18 +1,66 @@
 aid: certifid
 name: CertifID
-description: 'CertifID is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: CertifID is a wire fraud prevention, identity verification and funds
+  protection platform for the real estate closing process, serving title agents, law
+  firms, real estate agents, lenders and home buyers and sellers. Its products verify
+  the identities of transaction participants, verify business and bank account ownership,
+  securely share and confirm wiring instructions, order and verify mortgage payoffs,
+  collect earnest money and cash-to-close payments, provide secure eSigning, and insure
+  wires against fraud loss. CertifID exposes a public "CertifID V2 APIs" REST surface
+  at api.certifid.com for third-party integrations, documented with a live OpenAPI
+  3.0.1 definition served from Swagger UI and secured with Auth0-backed OAuth 2.0.
+image: https://cdn.prod.website-files.com/60a41ae959fbb36bd6808d6e/688ce259fd22b6b6905c812d_thumbnail-homepage.png
 url: https://raw.githubusercontent.com/api-evangelist/certifid/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-09'
 modified: '2026-08-09'
 tags:
 - Company
-apis: []
+- Wire Fraud Prevention
+- Real Estate
+- Title Insurance
+- Identity Verification
+- Business Verification
+- Payments
+- Fraud Prevention
+- Escrow and Settlement
+- Financial Services
+- Security
+apis:
+- aid: certifid:certifid-v2-apis
+  name: CertifID V2 APIs
+  description: Access to CertifID data and functions for 3rd Party Integrations. A
+    57-operation REST API covering identity verification, account/bank verification,
+    wiring instruction Send/Collect/Confirm flows, disbursements, payoff ordering,
+    lender lookup and integration certificates. Secured with OAuth 2.0 authorization
+    code flow against Auth0 (auth.certifid.com) with an api.certifid.com audience.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Identity Verification
+  - Wiring Instructions
+  - Disbursements
+  - Payoff Ordering
+  - Account Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-v2-apis-openapi.json
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+  - type: Overlay
+    url: overlays/certifid-certifid-v2-apis-overlay.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +68,63 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.certifid.com/
+- type: APIReference
+  url: https://api.certifid.com/swagger/index.html
+- type: OpenAPI
+  url: openapi/certifid-v2-apis-openapi.json
+- type: Authentication
+  url: authentication/certifid-authentication.yml
+- type: OAuthScopes
+  url: scopes/certifid-scopes.yml
+- type: DomainSecurity
+  url: security/certifid-domain-security.yml
+- type: WellKnown
+  url: well-known/certifid-well-known.yml
+- type: OpenIDConnect
+  url: well-known/certifid-openid-configuration.json
+- type: ErrorCatalog
+  url: errors/certifid-problem-types.yml
+- type: Conventions
+  url: conventions/certifid-conventions.yml
+- type: DataModel
+  url: data-model/certifid-data-model.yml
+- type: Overlay
+  url: overlays/certifid-certifid-v2-apis-overlay.yaml
+- type: Conformance
+  url: conformance/certifid-conformance.yml
+- type: Compliance
+  url: conformance/certifid-conformance.yml
+- type: TrustCenter
+  url: https://trust.certifid.com/
+- type: Lifecycle
+  url: lifecycle/certifid-lifecycle.yml
+- type: StatusPage
+  url: https://status.certifid.com/
+- type: ChangeLog
+  url: changelog/certifid-changelog.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/certifid-llms.txt
+- type: GitHubOrganization
+  url: https://github.com/CertifID
+- type: Login
+  url: https://portal.certifid.com/
+- type: SignUp
+  url: https://www.certifid.com/request-a-demo
+- type: Support
+  url: https://www.certifid.com/contact-us
+- type: Blog
+  url: https://www.certifid.com/resources/articles
+- type: TermsOfService
+  url: https://www.certifid.com/company/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.certifid.com/company/privacy-policy
+- type: Integrations
+  url: https://www.certifid.com/integrations
+x-enrichment:
+  date: '2026-08-09'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

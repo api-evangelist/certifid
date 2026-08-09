@@ -1,0 +1,127 @@
+generated: '2026-08-09'
+method: probed
+source: live probes of every CertifID host (www, api, portal, auth, status, trust)
+summary: >-
+  CertifID publishes no /.well-known/ documents on its marketing host
+  (www.certifid.com, a Webflow site that answers every unknown path with an HTML
+  404 shell) and none on its API host (api.certifid.com returns a bare 404 for
+  every /.well-known/ path). The only real well-known surface is the Auth0 tenant
+  at auth.certifid.com, which serves a full OpenID Connect discovery document plus
+  the RFC 8414 OAuth authorization-server metadata and a JWKS. This is the
+  authorization server that fronts the CertifID V2 APIs (audience
+  https://api.certifid.com).
+probes:
+- host: auth.certifid.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: certifid-openid-configuration.json
+  note: OpenID Connect discovery for the Auth0 tenant fronting the CertifID V2 APIs.
+- host: auth.certifid.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: certifid-oauth-authorization-server.json
+  note: RFC 8414 authorization-server metadata (identical payload to the OIDC discovery
+    document).
+- host: auth.certifid.com
+  path: /.well-known/jwks.json
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: null
+  note: JWKS referenced by jwks_uri; not saved verbatim (rotating signing keys).
+- host: www.certifid.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: text/html; charset=utf-8
+  file: null
+- host: www.certifid.com
+  path: /.well-known/api-catalog
+  status: 404
+  content_type: text/html; charset=utf-8
+  file: null
+- host: www.certifid.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html; charset=utf-8
+  file: null
+- host: www.certifid.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: text/html; charset=utf-8
+  file: null
+- host: www.certifid.com
+  path: /llms.txt
+  status: 404
+  content_type: text/html; charset=utf-8
+  file: null
+- host: www.certifid.com
+  path: /robots.txt
+  status: 200
+  content_type: text/plain; charset=utf-8
+  file: null
+  note: 'Single line: a sitemap reference only. No agent or crawler directives.'
+- host: api.certifid.com
+  path: /.well-known/security.txt
+  status: 404
+  content_type: null
+  file: null
+- host: api.certifid.com
+  path: /.well-known/openid-configuration
+  status: 404
+  content_type: null
+  file: null
+- host: api.certifid.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: null
+  file: null
+- host: api.certifid.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  content_type: null
+  file: null
+  note: RFC 9728 protected-resource metadata is absent, so an MCP client cannot
+    discover the authorization server from the API host alone.
+- host: api.certifid.com
+  path: /.well-known/agent-card.json
+  status: 404
+  content_type: null
+  file: null
+- host: api.certifid.com
+  path: /.well-known/agent.json
+  status: 404
+  content_type: null
+  file: null
+- host: portal.certifid.com
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/html
+  file: null
+  note: >-
+    SOFT 200 - NOT a real document. portal.certifid.com is a single-page app whose
+    catch-all returns the identical 882-byte HTML shell for every /.well-known/*
+    path, including paths that cannot exist. Verified by diffing a control path.
+    Recorded as absent.
+- host: portal.certifid.com
+  path: /.well-known/agent-card.json
+  status: 200
+  content_type: text/html
+  file: null
+  note: >-
+    SOFT 200 - same SPA catch-all shell, byte-identical to the control path. Not an
+    agent card. No a2a/ artifact was written.
+- host: portal.certifid.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: text/html
+  file: null
+  note: SOFT 200 - same SPA catch-all shell. Recorded as absent.
+findings:
+- No security.txt (RFC 9116) is published on any CertifID host.
+- No /.well-known/api-catalog (RFC 9727), so the API is not machine-discoverable
+    from the domain root.
+- No A2A agent card on any host; the only 200s were an SPA catch-all shell.
+- The Auth0 discovery document is the single machine-readable identity surface,
+    and it is complete - PKCE S256, private_key_jwt, revocation and device-code
+    endpoints are all advertised.

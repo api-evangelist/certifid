@@ -1,0 +1,81 @@
+generated: '2026-08-09'
+method: searched
+source: https://www.certifid.com/product-updates/product-updates
+docs: https://www.certifid.com/product-updates/product-updates
+summary: >-
+  CertifID publishes a product-update hub organised as four seasonal releases per
+  year. It is a product-marketing changelog, not an API changelog: entries name
+  shipped product capabilities and are dated, but none of them records API-level
+  change - no added or removed endpoints, no schema changes, no breaking-change
+  notice, and no version numbers.
+scheme: seasonal (Winter / Spring / Summer / Fall + year)
+current_version: Summer 2026
+api_changelog: false
+api_changelog_note: >-
+  No dated changelog exists for the CertifID V2 APIs themselves. An integrator
+  cannot learn from any public page when an endpoint or field changed. The OpenAPI
+  definition at api.certifid.com carries info.version "v1" and is not itself
+  versioned or archived.
+breaking_change_policy: false
+entries:
+- version: Summer 2026
+  date: '2026-08-20'
+  title: 2026 Summer Office Hours
+  url: https://www.certifid.com/product-updates/summer-2026
+  status: announced
+  breaking: []
+  additions: []
+  highlights:
+  - >-
+    Announced as an office-hours session with the Product Managers covering "big
+    changes this summer"; the page is an event invitation and does not enumerate
+    the changes.
+  http_status: 200
+- version: Spring 2026
+  date: '2026-05-19'
+  title: A completely new closing experience
+  url: https://www.certifid.com/product-updates/spring-2026
+  status: released
+  breaking: []
+  additions:
+  - Secure client experience (rebrandable closing portal)
+  highlights:
+  - >-
+    "A completely new closing experience - designed around your brand and backed by
+    the trust infrastructure your clients deserve."
+  http_status: 200
+- version: Winter 2026
+  date: '2026'
+  title: A New Chapter for Closings
+  url: https://www.certifid.com/product-updates/winter-2026
+  status: released
+  breaking: []
+  additions:
+  - Payoff Ordering
+  - eSigning
+  - Earnest Money Deposits
+  - FinCEN filing
+  highlights:
+  - >-
+    The largest release in the window. Payoff Ordering and eSigning both surface in
+    the API (the PayoffOrdering tag carries 6 operations) and both appear as
+    components on the status page, so this release is visible in the contract.
+  http_status: 200
+- version: Fall 2026
+  date: '2026-11'
+  title: Announced, not yet published
+  url: https://www.certifid.com/product-updates/product-updates
+  status: announced
+  breaking: []
+  additions: []
+  highlights:
+  - Listed on the hub as "Coming November 2026" with no detail.
+related:
+- name: Winter Launch 2026 office hours
+  url: https://www.certifid.com/product-updates/winter-launch-2026-office-hours
+gaps:
+- >-
+  No API changelog. The product-update hub is the only dated change surface and it
+  speaks to end users, not integrators.
+- Entries carry no version numbers and no links to affected endpoints.
+- No RSS or JSON feed for the product-update hub.

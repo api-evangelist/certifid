@@ -1,0 +1,301 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/certifid-v2-apis-openapi.json
+summary: >-
+  Entity-relationship graph for the CertifID V2 APIs, derived from the 111
+  component schemas and their $ref links plus id-reference fields. The domain has
+  four largely independent product clusters that share only the Company/Location
+  tenancy spine: wiring-instruction requests (Send/Collect/Confirm), identity and
+  account verification, payoff protection (disbursements), and payoff ordering.
+  There is no single top-level "transaction" resource joining them - transactionId
+  appears as a field on request models but is never itself an addressable resource.
+identifier_style:
+  format: >-
+    Identifiers are opaque strings (typically GUIDs) with no type prefix. Unlike
+    prefixed-id APIs, a CertifID identifier does not carry its own type, so
+    requestId, disbursementId, payoffOrderId and quoteId are not distinguishable
+    from one another by inspection.
+  path_params:
+  - requestId
+  - id
+  - payoffOrderId
+  - resourceId
+  - disbursementId
+  - quoteId
+  - locationId
+  - abaRoutingNumber
+entities:
+- name: PayoffOrder
+  schema: CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder
+  cluster: payoff-ordering
+  property_count: 29
+  id_fields:
+  - id
+  - companyId
+  - locationId
+  - userId
+  - parentOrderId
+  - childOrderId
+  relationships:
+  - type: belongs_to
+    target: Company
+    via: companyId
+  - type: belongs_to
+    target: Location
+    via: locationId
+  - type: belongs_to
+    target: User
+    via: userId
+  - type: belongs_to
+    target: PayoffOrder
+    via: parentOrderId
+    note: Self-referential. Orders form a parent/child tree, so a payoff order can
+      be split or superseded by a child order.
+  - type: has_many
+    target: PayoffOrder
+    via: childOrderId
+  - type: has_many
+    target: PayoffQuote
+    via: $ref PayoffQuote
+  - type: has_many
+    target: PayoffOrderEvent
+    via: $ref PayoffOrderEvent
+    note: The only event-history collection in the whole data model.
+  - type: has_one
+    target: PayoffOrderLenderInfo
+    via: $ref
+  - type: has_one
+    target: IntegrationData
+    via: $ref
+  enums:
+  - PayoffOrderStatus
+  - PayoffAccountType
+- name: PayoffQuote
+  schema: CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote
+  cluster: payoff-ordering
+  property_count: 9
+  id_fields:
+  - quoteId
+  relationships:
+  - type: belongs_to
+    target: PayoffOrder
+    via: parent $ref
+  note: >-
+    Certificates are addressed by the ORDER and QUOTE pair -
+    /api/v1/PayoffOrdering/GetCertificate/{payoffOrderId}/quote/{quoteId}/Certificate
+    - so a quote is not independently addressable.
+- name: PayoffProtect (Disbursement)
+  schema: CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel
+  cluster: payoff-protection
+  property_count: 16
+  id_fields:
+  - id
+  - accountId
+  - userId
+  - underwriterId
+  relationships:
+  - type: belongs_to
+    target: Account
+    via: accountId
+  - type: belongs_to
+    target: User
+    via: userId
+  - type: belongs_to
+    target: Underwriter
+    via: underwriterId
+  - type: has_one
+    target: BankInfo
+    via: $ref
+  - type: has_one
+    target: PayoffProtectLenderResponseModel
+    via: $ref
+  - type: has_one
+    target: PayoffProtectLoanResponseModel
+    via: $ref
+  - type: has_many
+    target: BorrowerResponseModel
+    via: $ref
+  - type: has_one
+    target: IntegrationData
+    via: $ref
+  note: >-
+    "Disbursement" and "PayoffProtect" are the same entity under two names - the
+    API paths say Disbursements while the schemas say PayoffProtect. Statements are
+    attached via UploadDisbursementDocument and read back via
+    GetDisbursementStatementsByDisbursementId.
+- name: AccountVerification
+  schema: CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel
+  cluster: verification
+  property_count: 8
+  id_fields:
+  - id
+  relationships:
+  - type: has_one
+    target: ExternalReference
+    via: externalReferenceId
+    note: Client-supplied correlation key, not a CertifID-owned identifier.
+  - type: has_one
+    target: Transaction
+    via: transactionId
+    note: >-
+      transactionId appears on the request model (TransactionRequestModel) but no
+      Transaction resource is addressable in the API.
+  enums:
+  - AccountVerificationStatus
+  - AccountVerificationUseCase
+  - PartyType
+- name: Party
+  schema: PartyRequestModel / IndividualPartyRequestModel / BusinessPartyRequestModel
+  cluster: verification
+  relationships:
+  - type: has_one
+    target: Address
+    via: $ref AddressRequestModel
+  - type: has_one
+    target: PersonName
+    via: $ref PersonNameRequestModel
+  - type: has_one
+    target: TaxId
+    via: $ref IndividualTaxIdRequestModel or BusinessTaxIdRequestModel
+  - type: has_one
+    target: BusinessRegistration
+    via: $ref BusinessRegistrationRequestModel
+  note: >-
+    Party is polymorphic by discriminator - an individual carries a person name and
+    individual tax id, a business carries a registration and business tax id. This
+    is the single most reused sub-graph in the model.
+- name: Request (Send / Collect / Confirm / Identity)
+  schema: CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
+  cluster: wiring-instructions
+  property_count: 14
+  id_fields:
+  - underwriterId
+  relationships:
+  - type: belongs_to
+    target: Underwriter
+    via: underwriterId
+  - type: has_one
+    target: PropertyAddress
+    via: $ref
+  - type: has_one
+    target: RejectFeedback
+    via: $ref
+  enums:
+  - PublicRequestStatus
+  note: >-
+    Send, Collect and Confirm share one request shape wrapped in a generic
+    OutboundRequest envelope; the flow is distinguished by the path, not the
+    schema. Every request type has a matching /Certificate endpoint returning a PDF
+    attestation - the certificate is the product's actual deliverable.
+- name: IdentityRequest
+  schema: CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
+  cluster: verification
+  relationships:
+  - type: has_one
+    target: VerificationDetails
+    via: $ref
+  enums:
+  - PublicIdentityRequestStatus
+- name: WiringInformation
+  schema: CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel
+  cluster: wiring-instructions
+  property_count: 6
+  id_fields:
+  - id
+  relationships:
+  - type: has_one
+    target: BankDetails
+    via: $ref
+  - type: has_one
+    target: CreditTo
+    via: $ref CreditToViewModel
+- name: BankDetails
+  schema: CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails
+  cluster: reference-data
+  property_count: 8
+  relationships: []
+  enums:
+  - BankWireStatusType
+  note: >-
+    Looked up by ABA routing number rather than by an internal id -
+    /api/v1/Bank/{abaRoutingNumber}. Reference data, not tenant-owned.
+- name: Lender
+  schema: LenderResponseModel / LenderSummary
+  cluster: reference-data
+  id_fields:
+  - id
+  - lenderId
+  note: Reference data searched by name; carries a logo retrieved by lenderId.
+- name: Location
+  schema: CertifID.V2.PublicAPI.ViewModels.Locations.LocationViewModel
+  cluster: tenancy
+  property_count: 4
+  id_fields:
+  - id
+  - companyId
+  relationships:
+  - type: belongs_to
+    target: Company
+    via: companyId
+  - type: has_one
+    target: BankInformation
+    via: /api/v1/Account/{locationId}/BankInformation
+- name: Underwriter
+  schema: CertifID.V2.PublicAPI.ViewModels.Underwriters.UnderwriterViewModel
+  cluster: tenancy
+  property_count: 2
+  id_fields:
+  - id
+  relationships:
+  - type: has_many
+    target: Account
+    via: /api/v1/Account/{id}/Underwriter
+- name: Account
+  cluster: tenancy
+  note: >-
+    The tenancy root. Reachable via /api/v1/Account and /api/v1/Account/{id}; owns
+    Locations, an Underwriter and bank information. accountId is referenced by
+    PayoffProtect.
+clusters:
+- name: tenancy
+  entities:
+  - Account
+  - Location
+  - Underwriter
+  - User
+  note: The only spine shared by all product clusters.
+- name: wiring-instructions
+  entities:
+  - Request
+  - WiringInformation
+- name: verification
+  entities:
+  - AccountVerification
+  - IdentityRequest
+  - Party
+- name: payoff-protection
+  entities:
+  - PayoffProtect (Disbursement)
+- name: payoff-ordering
+  entities:
+  - PayoffOrder
+  - PayoffQuote
+- name: reference-data
+  entities:
+  - BankDetails
+  - Lender
+observations:
+- >-
+  There is no addressable Transaction resource even though transactionId is one of
+  the most common id fields in the schemas (9 occurrences). The transaction is a
+  concept in the request payloads only.
+- >-
+  Naming is inconsistent across clusters: the same entity is Disbursement in the
+  paths and PayoffProtect in the schemas, and Company/Account/Location overlap
+  without a published definition of each.
+- >-
+  Every customer-facing flow terminates in a PDF Certificate endpoint. The
+  certificate, not the JSON resource, is the artifact the business cares about.
+- >-
+  PayoffOrder is the only entity with a self-referential parent/child relationship
+  and the only one carrying an event history.

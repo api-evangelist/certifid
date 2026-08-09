@@ -1,0 +1,18 @@
+generated: '2026-08-09'
+method: derived
+source: openapi/certifid-v2-apis-openapi.json
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+    tokenUrl: https://auth.certifid.com/oauth/token
+    scopes: 0
+  sources:
+  - openapi/certifid-v2-apis-openapi.json

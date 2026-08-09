@@ -1,0 +1,111 @@
+generated: '2026-08-09'
+method: generated
+source: openapi/certifid-v2-apis-openapi.json
+api: CertifID V2 APIs
+base_url: https://api.certifid.com
+description: >-
+  Packaged Agent Skills for the CertifID V2 APIs, generated from the live OpenAPI 3.0.1
+  definition served at api.certifid.com. Each skill covers one marquee CertifID flow and
+  is grounded in real paths, methods, summaries, enums, scopes and documented error
+  causes taken verbatim from that specification. CertifID publishes no skills, no
+  AGENTS.md and no llms.txt of its own; these are API Evangelist generations.
+operation_id_note: >-
+  CertifID's specification assigns an operationId to exactly ONE of its 57 operations
+  (CreateIdentityVerification). Every other operation id referenced by these skills comes
+  from overlays/certifid-certifid-v2-apis-overlay.yaml, which adds a deterministic,
+  collision-free id per operation. Paths, methods and summaries are always verbatim.
+cross_cutting_warnings:
+- >-
+  NO IDEMPOTENCY. The string "idempoten" does not appear anywhere in the specification
+  and no operation declares any header parameter. Every create - wiring instruction Send,
+  Collect and Confirm, identity verification, account verification, CreateDisbursement
+  and CreatePayoffOrder - is a non-idempotent POST that moves money or contacts a real
+  person. Reconcile before retrying a timeout; never blind-retry.
+- >-
+  NO WEBHOOKS AND NO EVENTS. CertifID publishes no consumer event surface and no
+  AsyncAPI. Completion is discovered by polling only. The endpoint named
+  IdVerificationResultUrlWebhook is an inbound receiver for CertifID's own IDV vendor,
+  not a subscription integrators can use.
+- >-
+  NO DOCUMENTED RATE LIMIT. No 429 is declared on any of the 57 operations and no
+  RateLimit or Retry-After header appears. The real ceiling is unknown, so poll
+  conservatively with backoff.
+- >-
+  READS ARE OFTEN POST. The Disbursements, Lenders and Users groups use POST for
+  verb-named read operations. Do not assume HTTP-method semantics and do not let caching
+  treat them as safe.
+- >-
+  PAGINATION IS ZERO-BASED AND IN THE BODY. zeroBasedPage means page 1 is the second
+  page, and because paging parameters travel in the POST body a page is not a
+  bookmarkable URL.
+- >-
+  TWO ERROR ENVELOPES. ASP.NET ProblemDetails (served as application/json, never
+  application/problem+json) and a proprietary CertifID Response envelope with an integer
+  errors[].code. Only one numeric code (119, Invalid Phone Number) is published. 401, 403
+  and 500 carry no schema at all.
+- >-
+  403 MEANS ENTITLEMENT, NOT AUTH. A 403 documents that the company lacks the product
+  (identity verification, PayoffProtectProduct) or that the consumer cannot access that
+  resource. Retrying never fixes it.
+skills:
+- name: certifid-send-wiring-instructions
+  file: certifid-send-wiring-instructions.md
+  flow: Send
+  summary: Securely send wiring instructions to a buyer and retrieve the PDF certificate.
+  operations: 5
+  scopes:
+  - CertifIDUser
+  - RequestProduct
+  - ResourceAccessToken|read:requests|requestId|SendRequest
+- name: certifid-collect-and-confirm-wiring-instructions
+  file: certifid-collect-and-confirm-wiring-instructions.md
+  flow: Collect / Confirm
+  summary: Collect a seller's wiring instructions and confirm instructions already held.
+  operations: 6
+  scopes:
+  - CertifIDUser
+  - RequestProduct
+  - ResourceAccessToken|read:requests|requestId|CollectRequest
+  - ResourceAccessToken|read:requests|requestId|ConfirmRequest
+- name: certifid-verify-identity
+  file: certifid-verify-identity.md
+  flow: Match / IDV
+  summary: Initiate an identity verification, poll it, and retrieve its certificate.
+  operations: 3
+  scopes:
+  - CertifIDUser
+  - ResourceAccessToken|read:requests|requestId|IdentityRequest
+- name: certifid-verify-account-and-business
+  file: certifid-verify-account-and-business.md
+  flow: Payoff / Business Verifications
+  summary: Create, search, read and cancel account and business verifications.
+  operations: 6
+  scopes:
+  - CertifIDUser
+  - RequestCreator
+- name: certifid-order-and-verify-payoff
+  file: certifid-order-and-verify-payoff.md
+  flow: Payoff Ordering + Disbursements (PayoffProtect)
+  summary: Order a mortgage payoff from a lender and verify the payoff disbursement.
+  operations: 17
+  scopes:
+  - CertifIDUser
+  - PayoffProtectProduct
+  - ResourceAccessToken|read:payofforder|payoffOrderId|PayoffOrder
+  - ResourceAccessToken|read:disbursements|id|DisbursementVerification
+coverage:
+  operations_total: 57
+  operations_covered: 37
+  uncovered:
+  - group: Account / Location / Underwriter
+    reason: Tenancy reads (Account, Location, Underwriter, bank information) used as
+      supporting lookups rather than a flow of their own.
+  - group: Integration
+    reason: >-
+      12 read-only Integration/* operations that mirror the Send, Collect, Confirm,
+      Identity, Disbursement and PayoffOrder resources for title-production-system
+      partners. They duplicate flows already covered.
+  - group: Test
+    reason: Three diagnostic /api/Test/* endpoints, one explicitly unauthenticated.
+  - group: Users / WiringInstructions metadata
+    reason: Single supporting reads.

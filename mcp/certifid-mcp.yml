@@ -1,0 +1,325 @@
+generated: '2026-08-09'
+method: derived
+status: candidate
+source: openapi/certifid-v2-apis-openapi.json
+description: >-
+  CertifID operates NO Model Context Protocol server. This artifact is a CANDIDATE tool list that
+  API Evangelist derived from the 57 operations in the live CertifID V2 APIs OpenAPI definition.
+  It is a design input showing what an MCP server over this API could expose - it is not something
+  CertifID publishes, and no type: MCPServer pointer was wired into apis.yml for it, because doing
+  so would credit CertifID with an agent surface it does not operate.
+probes:
+- url: https://mcp.certifid.com/
+  result: DNS did not resolve
+- url: https://api.certifid.com/mcp
+  http_status: 404
+  method: GET and JSON-RPC tools/list POST
+- url: https://www.certifid.com/mcp
+  http_status: 404
+probed: '2026-08-09'
+server: null
+auth_note: >-
+  If CertifID were to ship an MCP server, the authorization story is already most of the way there:
+  the Auth0 tenant at auth.certifid.com publishes full OIDC and RFC 8414 metadata with PKCE S256.
+  The missing piece is RFC 9728 protected-resource metadata at https://api.certifid.com/.well-known/oauth-protected-resource,
+  which returned 404 - without it an MCP client cannot discover the authorization server from the
+  resource host.
+input_schema_note: >-
+  Every candidate tool inherits its input schema from the backing OpenAPI operation parameters and
+  requestBody. Because 56 of 57 operations carry no operationId, the rest: names below are the deterministic
+  ids added by overlays/certifid-certifid-v2-apis-overlay.yaml, not names CertifID publishes.
+safety_note: >-
+  A majority of these operations move money or bind a real-estate closing - CreateDisbursement, CreatePayoffOrder,
+  the WiringInstructions Send/Collect/Confirm flows and the verification creates. None of them is
+  idempotent and none accepts an Idempotency-Key, so an MCP client that retries a timed-out call
+  risks duplicating a disbursement. Any real server over this API should mark those tools as consequential
+  and require confirmation.
+tool_count: 54
+tools:
+- tool: certifid_account_verifications_cancel_by_id
+  category: AccountVerifications
+  rest: AccountVerificationsCancelById
+  http: POST /api/v1/AccountVerifications/{id}/Cancel
+  summary: Cancel an account verification.
+- tool: certifid_account_verifications_search
+  category: AccountVerifications
+  rest: AccountVerificationsSearch
+  http: POST /api/v1/AccountVerifications/Search
+  summary: Search account verifications for the authenticated tenant.
+- tool: certifid_get_account_verifications_by_id
+  category: AccountVerifications
+  rest: GetAccountVerificationsById
+  http: GET /api/v1/AccountVerifications/{id}
+  summary: Retrieve an account verification by id.
+- tool: certifid_post_account_verifications
+  category: AccountVerifications
+  rest: PostAccountVerifications
+  http: POST /api/v1/AccountVerifications
+  summary: Create a new account verification.
+- tool: certifid_get_bank_by_aba_routing_number
+  category: BankLookup
+  rest: GetBankByAbaRoutingNumber
+  http: GET /api/v1/Bank/{abaRoutingNumber}
+  summary: Lookup a correspondent bank's details based on their ABA/routing number.
+- tool: certifid_get_bank_wiring_details_by_aba_routing_number
+  category: BankLookup
+  rest: GetBankWiringDetailsByAbaRoutingNumber
+  http: GET /api/v1/Bank/{abaRoutingNumber}/WiringDetails
+  summary: Lookup a bank's wiring details based on their ABA/routing number.
+- tool: certifid_get_wiring_instructions_collect_by_request_id
+  category: CollectRequest
+  rest: GetWiringInstructionsCollectByRequestId
+  http: GET /api/v1/WiringInstructions/Collect/{requestId}
+  summary: Retrieve the latest state of an initiated request within CertifID's platform.
+- tool: certifid_get_wiring_instructions_collect_certificate_by_request_id
+  category: CollectRequest
+  rest: GetWiringInstructionsCollectCertificateByRequestId
+  http: GET /api/v1/WiringInstructions/Collect/{requestId}/Certificate
+  summary: Get the confirmation PDF certificate associated with a successfully completed request.
+- tool: certifid_post_wiring_instructions_collect
+  category: CollectRequest
+  rest: PostWiringInstructionsCollect
+  http: POST /api/v1/WiringInstructions/Collect
+  summary: Initiate a new request to request a seller's wiring instructions.
+- tool: certifid_get_wiring_instructions_confirm_by_request_id
+  category: ConfirmRequest
+  rest: GetWiringInstructionsConfirmByRequestId
+  http: GET /api/v1/WiringInstructions/Confirm/{requestId}
+  summary: Retrieve the latest state of an initiated confirm request within CertifID's platform.
+- tool: certifid_get_wiring_instructions_confirm_certificate_by_request_id
+  category: ConfirmRequest
+  rest: GetWiringInstructionsConfirmCertificateByRequestId
+  http: GET /api/v1/WiringInstructions/Confirm/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed confirm request.
+- tool: certifid_post_wiring_instructions_confirm
+  category: ConfirmRequest
+  rest: PostWiringInstructionsConfirm
+  http: POST /api/v1/WiringInstructions/Confirm
+  summary: Initiate a new request to Confirm a seller's wiring instructions.
+- tool: certifid_disbursements_create_disbursement
+  category: Disbursements
+  rest: DisbursementsCreateDisbursement
+  http: POST /api/v1/Disbursements/CreateDisbursement
+  summary: Create a new Disbursement (Payoff)
+- tool: certifid_disbursements_edit_disbursement
+  category: Disbursements
+  rest: DisbursementsEditDisbursement
+  http: POST /api/v1/Disbursements/EditDisbursement
+  summary: Edit a Disbursement (Payoff)
+- tool: certifid_disbursements_get_disbursement_by_id_by_id
+  category: Disbursements
+  rest: DisbursementsGetDisbursementByIdById
+  http: POST /api/v1/Disbursements/GetDisbursementById/{id}
+  summary: Gets a Disbursement (Payoff) by ID
+- tool: certifid_disbursements_get_disbursement_cancelation_reasons
+  category: Disbursements
+  rest: DisbursementsGetDisbursementCancelationReasons
+  http: POST /api/v1/Disbursements/GetDisbursementCancelationReasons
+  summary: Returns a list of Disbursement Cancelation Reasons
+- tool: certifid_disbursements_get_disbursement_statements_by_disbursement_id_by_id
+  category: Disbursements
+  rest: DisbursementsGetDisbursementStatementsByDisbursementIdById
+  http: POST /api/v1/Disbursements/GetDisbursementStatementsByDisbursementId/{id}
+  summary: Gets List of Payoff statements associated to the requested Disbursement
+- tool: certifid_disbursements_get_disbursement_verification_fields_from_statement
+  category: Disbursements
+  rest: DisbursementsGetDisbursementVerificationFieldsFromStatement
+  http: POST /api/v1/Disbursements/GetDisbursementVerificationFieldsFromStatement
+  summary: Get Disbursement Verification Fields From uploaded Statement
+- tool: certifid_disbursements_get_loan_type
+  category: Disbursements
+  rest: DisbursementsGetLoanType
+  http: POST /api/v1/Disbursements/GetLoanType
+  summary: Return a list of Payoff Loan types
+- tool: certifid_disbursements_search_disbursements
+  category: Disbursements
+  rest: DisbursementsSearchDisbursements
+  http: POST /api/v1/Disbursements/SearchDisbursements
+  summary: Gets a list of Disbursements (Payoffs) for a specified Account (Location)
+- tool: certifid_disbursements_upload_disbursement_document
+  category: Disbursements
+  rest: DisbursementsUploadDisbursementDocument
+  http: POST /api/v1/Disbursements/UploadDisbursementDocument
+  summary: Upload and save a Disbursment (Payoff) statement as a .pdf in certifIDs system
+- tool: certifid_post_disbursements_get_pdf_by_disbursement_id_by_disbursement_id
+  category: Disbursements
+  rest: PostDisbursementsGetPdfByDisbursementIdByDisbursementId
+  http: POST /api/v1/Disbursements/getPdfByDisbursementId/{disbursementId}
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed send request.
+- tool: certifid_create_identity_verification
+  category: IdentityRequest
+  rest: CreateIdentityVerification
+  http: POST /api/v1/identity/IdentityVerification
+  summary: Initiates a new identity verification request for a recipient.
+- tool: certifid_get_identity_get_identity_request_certificate_certificate_by_request_id
+  category: IdentityRequest
+  rest: GetIdentityGetIdentityRequestCertificateCertificateByRequestId
+  http: GET /api/v1/identity/GetIdentityRequestCertificate/{requestId}/Certificate
+  summary: Get the confirmation PDF certificate associated with a successfully completed IDV request.
+- tool: certifid_get_identity_identity_verification_by_request_id
+  category: IdentityRequest
+  rest: GetIdentityIdentityVerificationByRequestId
+  http: GET /api/v1/identity/IdentityVerification/{requestId}
+  summary: Retrieves the latest state of an initiated IDV request.
+- tool: certifid_post_identity_id_verification_result_url_webhook_by_request_id
+  category: IdentityRequest
+  rest: PostIdentityIdVerificationResultUrlWebhookByRequestId
+  http: POST /api/v1/identity/IdVerificationResultUrlWebhook/{requestId}
+  summary: Webhook that is called with id verification results - results_url
+- tool: certifid_get_integration_collect_by_request_id
+  category: Integration
+  rest: GetIntegrationCollectByRequestId
+  http: GET /api/v1/Integration/Collect/{requestId}
+  summary: Retrieve the latest state of an initiated request within CertifID's platform.
+- tool: certifid_get_integration_collect_certificate_by_request_id
+  category: Integration
+  rest: GetIntegrationCollectCertificateByRequestId
+  http: GET /api/v1/Integration/Collect/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed collect request.
+- tool: certifid_get_integration_confirm_by_request_id
+  category: Integration
+  rest: GetIntegrationConfirmByRequestId
+  http: GET /api/v1/Integration/Confirm/{requestId}
+  summary: Retrieve the latest state of an initiated confirm request within CertifID's platform.
+- tool: certifid_get_integration_confirm_certificate_by_request_id
+  category: Integration
+  rest: GetIntegrationConfirmCertificateByRequestId
+  http: GET /api/v1/Integration/Confirm/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed collect request.
+- tool: certifid_get_integration_disbursement_by_id
+  category: Integration
+  rest: GetIntegrationDisbursementById
+  http: GET /api/v1/Integration/Disbursement/{id}
+  summary: Gets a Disbursement (Payoff) by ID
+- tool: certifid_get_integration_disbursement_certificate_by_disbursement_id
+  category: Integration
+  rest: GetIntegrationDisbursementCertificateByDisbursementId
+  http: GET /api/v1/Integration/Disbursement/{disbursementId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully validated disbursement.
+- tool: certifid_get_integration_identity_by_request_id
+  category: Integration
+  rest: GetIntegrationIdentityByRequestId
+  http: GET /api/v1/Integration/Identity/{requestId}
+  summary: Retrieves the latest state of an initiated IDV request.
+- tool: certifid_get_integration_identity_certificate_by_request_id
+  category: Integration
+  rest: GetIntegrationIdentityCertificateByRequestId
+  http: GET /api/v1/Integration/Identity/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed identity request.
+- tool: certifid_get_integration_payoff_order_by_payoff_order_id_id
+  category: Integration
+  rest: GetIntegrationPayoffOrderByPayoffOrderIdId
+  http: GET /api/v1/Integration/PayoffOrder/{id}
+  summary: Gets a payoff order by its ID.
+- tool: certifid_get_integration_payoff_order_quote_certificate_by_payoff_order_id_quote_id
+  category: Integration
+  rest: GetIntegrationPayoffOrderQuoteCertificateByPayoffOrderIdQuoteId
+  http: GET /api/v1/Integration/PayoffOrder/{payoffOrderId}/Quote/{quoteId}/Certificate
+  summary: Get the quote PDF associated with payoff order.
+- tool: certifid_get_integration_send_by_request_id
+  category: Integration
+  rest: GetIntegrationSendByRequestId
+  http: GET /api/v1/Integration/Send/{requestId}
+  summary: Retrieve the latest state of an initiated send request within CertifID's platform.
+- tool: certifid_get_integration_send_certificate_by_request_id
+  category: Integration
+  rest: GetIntegrationSendCertificateByRequestId
+  http: GET /api/v1/Integration/Send/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed send request.
+- tool: certifid_lenders_get_lender_logo_by_id
+  category: Lenders
+  rest: LendersGetLenderLogoById
+  http: POST /api/v1/Lenders/GetLenderLogoById
+  summary: Retrieves a Lender Logo using the Lender Id
+- tool: certifid_lenders_search_lenders
+  category: Lenders
+  rest: LendersSearchLenders
+  http: POST /api/v1/Lenders/SearchLenders
+  summary: "Endpoint to search for Lenders by Name.  This is a partial search. \r\nFor example, \"\
+    US\" would return \"US Bank\", \"Bank of the US\", etc.\r\nOnly available to consumers with Payoff\
+    \ Protect product access."
+- tool: certifid_get_account
+  category: Location
+  rest: GetAccount
+  http: GET /api/v1/Account
+  summary: Retrieve the list of accounts that the customer has access to within CertifID's platform.
+- tool: certifid_get_account_by_id
+  category: Location
+  rest: GetAccountById
+  http: GET /api/v1/Account/{id}
+  summary: Retrieve a specific account belonging to the customer within CertifID's platform.
+- tool: certifid_get_payoff_ordering_get_certificate_quote_certificate_by_payoff_order_id_quote_id
+  category: PayoffOrdering
+  rest: GetPayoffOrderingGetCertificateQuoteCertificateByPayoffOrderIdQuoteId
+  http: GET /api/v1/PayoffOrdering/GetCertificate/{payoffOrderId}/quote/{quoteId}/Certificate
+  summary: Get the quote PDF associated with payoff order.
+- tool: certifid_payoff_ordering_cancel_payoff_order
+  category: PayoffOrdering
+  rest: PayoffOrderingCancelPayoffOrder
+  http: POST /api/v1/PayoffOrdering/CancelPayoffOrder
+  summary: Cancels an existing payoff order.
+- tool: certifid_payoff_ordering_create_payoff_order
+  category: PayoffOrdering
+  rest: PayoffOrderingCreatePayoffOrder
+  http: POST /api/v1/PayoffOrdering/CreatePayoffOrder
+  summary: Creates a new payoff order.
+- tool: certifid_payoff_ordering_get_available_payoff_order_lenders
+  category: PayoffOrdering
+  rest: PayoffOrderingGetAvailablePayoffOrderLenders
+  http: GET /api/v1/PayoffOrdering/GetAvailablePayoffOrderLenders
+  summary: Fetches the details of existing lenders.
+- tool: certifid_payoff_ordering_get_payoff_order_by_id_by_id
+  category: PayoffOrdering
+  rest: PayoffOrderingGetPayoffOrderByIdById
+  http: GET /api/v1/PayoffOrdering/GetPayoffOrderById/{id}
+  summary: Gets a payoff order by its ID.
+- tool: certifid_payoff_ordering_update_payoff_order
+  category: PayoffOrdering
+  rest: PayoffOrderingUpdatePayoffOrder
+  http: POST /api/v1/PayoffOrdering/UpdatePayoffOrder
+  summary: Updates an existing payoff order.
+- tool: certifid_get_wiring_instructions_send_by_request_id
+  category: SendRequest
+  rest: GetWiringInstructionsSendByRequestId
+  http: GET /api/v1/WiringInstructions/Send/{requestId}
+  summary: Retrieve the latest state of an initiated send request within CertifID's platform.
+- tool: certifid_get_wiring_instructions_send_certificate_by_request_id
+  category: SendRequest
+  rest: GetWiringInstructionsSendCertificateByRequestId
+  http: GET /api/v1/WiringInstructions/Send/{requestId}/Certificate
+  summary: >-
+    Get the confirmation PDF certificate associated with a successfully completed send request.
+- tool: certifid_post_wiring_instructions_send
+  category: SendRequest
+  rest: PostWiringInstructionsSend
+  http: POST /api/v1/WiringInstructions/Send
+  summary: Initiate a new request to send wiring instructions to a buyer.
+- tool: certifid_get_account_underwriter_by_id
+  category: Underwriter
+  rest: GetAccountUnderwriterById
+  http: GET /api/v1/Account/{id}/Underwriter
+  summary: Retrieves a list of underwriters associated to the location
+- tool: certifid_users_get_users_products
+  category: Users
+  rest: UsersGetUsersProducts
+  http: POST /api/v1/Users/GetUsersProducts
+  summary: Retrieves a list of Products for current user
+- tool: certifid_get_account_bank_information_by_location_id
+  category: WiringInstructions
+  rest: GetAccountBankInformationByLocationId
+  http: GET /api/v1/Account/{locationId}/BankInformation
+  summary: Retrieve a the wiring instructions available to the specified location/account.
+excluded:
+- operations:
+  - GetTestByResourceId
+  - GetTestJustAuth0ByResourceId
+  - GetTestNoAuthByResourceId
+  reason: >-
+    Diagnostic /api/Test/* endpoints, including an explicitly unauthenticated one; not product capability.

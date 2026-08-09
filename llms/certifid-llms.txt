@@ -1,0 +1,99 @@
+# CertifID
+
+> CertifID is a wire fraud prevention, identity verification and funds protection platform for the
+> real estate closing process, serving title agents, law firms, real estate agents, lenders, and home
+> buyers and sellers. It verifies the identities of transaction participants, verifies business and
+> bank account ownership, securely shares and confirms wiring instructions, orders and verifies
+> mortgage payoffs, collects earnest money and cash-to-close payments, provides secure eSigning, and
+> insures wires against fraud loss.
+
+Generated: 2026-08-09
+Method: generated (CertifID publishes no llms.txt; https://www.certifid.com/llms.txt returns HTTP 404)
+Source: openapi/certifid-v2-apis-openapi.json and the CertifID public web surface
+
+## API at a glance
+
+- **Name**: CertifID V2 APIs — "Access to CertifID data and functions for 3rd Party Integrations"
+- **Base URL**: https://api.certifid.com
+- **Reference**: https://api.certifid.com/swagger/index.html (Swagger UI)
+- **Specification**: OpenAPI 3.0.1, 57 operations, 111 component schemas, served at
+  `https://api.certifid.com/swagger/CertifID%20V2%20APIs/swagger.json`
+- **Auth**: OAuth 2.0 authorization code against Auth0 at https://auth.certifid.com,
+  audience `https://api.certifid.com`
+- **Discovery**: https://auth.certifid.com/.well-known/openid-configuration (HTTP 200)
+- **Status**: https://status.certifid.com (Atlassian Statuspage, with a public JSON API)
+
+## Operation groups
+
+- **WiringInstructions** — Send, Collect and Confirm flows; each has an initiate POST, a status GET,
+  and a PDF certificate GET.
+- **IdentityRequest** — identity verification (IDV) create, read and certificate.
+- **AccountVerifications** — create, search, read and cancel bank-account and business verifications.
+- **Disbursements** (called *PayoffProtect* in the schemas) — 10 operations covering payoff creation,
+  editing, statement upload, verification-field extraction, search and certificate.
+- **PayoffOrdering** — 6 operations to order a payoff statement from a lender, with a parent/child
+  order tree and an event history.
+- **Integration** — 12 read-only operations mirroring the above resources for title-production-system
+  partners (SoftPro, ResWare, RamQuest, AIM+, Settlor, AtClose).
+- **BankLookup / Lenders / Location / Underwriter / Users / Account** — reference and tenancy reads.
+- **Test** — three diagnostic endpoints, one explicitly unauthenticated.
+
+## What an integrator must know
+
+- **No idempotency.** No operation accepts an `Idempotency-Key` and the term does not appear in the
+  specification. Every create — wiring instructions, verifications, disbursements, payoff orders —
+  is a non-idempotent POST. Reconcile before retrying a timeout; do not blind-retry.
+- **No webhooks or events.** There is no consumer event surface and no AsyncAPI. Poll for completion.
+  The endpoint named `IdVerificationResultUrlWebhook` is an inbound receiver for CertifID's own IDV
+  vendor, not a subscription.
+- **No documented rate limit.** No `429` is declared and no rate-limit headers appear.
+- **Reads are often POST.** The Disbursements, Lenders and Users groups use POST for verb-named reads.
+- **Pagination is zero-based and body-carried.** `zeroBasedPage` / `pageSize` in the request body;
+  `PagedData` in the response. Page 1 is the second page.
+- **Two error envelopes.** ASP.NET `ProblemDetails` (as `application/json`, never
+  `application/problem+json`) and a proprietary CertifID `Response` envelope with an integer
+  `errors[].code`. Only one code is published: `119`, Invalid Phone Number. `401`, `403` and `500`
+  carry no schema.
+- **`403` means entitlement.** The company lacks the product, or the caller cannot access that
+  resource. Retrying will not help.
+- **56 of 57 operations have no operationId** and the spec declares no `servers[]` array.
+
+## Artifacts in this profile
+
+- [OpenAPI](openapi/certifid-v2-apis-openapi.json): the live specification, saved verbatim.
+- [Overlay](overlays/certifid-certifid-v2-apis-overlay.yaml): adds `servers[]` and a deterministic
+  operationId to the 56 operations that lack one.
+- [Authentication](authentication/certifid-authentication.yml) and
+  [OAuth scopes](scopes/certifid-scopes.yml): 12 scopes read from operation-level security.
+- [Conventions](conventions/certifid-conventions.yml): auth, pagination, versioning, tracing,
+  rate limiting, and the idempotency gap.
+- [Error catalog](errors/certifid-problem-types.yml): both envelopes, all status codes, the one
+  published error code.
+- [Data model](data-model/certifid-data-model.yml): entity graph across five product clusters.
+- [Conformance](conformance/certifid-conformance.yml): standards met and missed, plus SOC 2 Type II.
+- [Lifecycle](lifecycle/certifid-lifecycle.yml) and [Changelog](changelog/certifid-changelog.yml).
+- [Well-known](well-known/certifid-well-known.yml): every probe, including the soft-200s rejected.
+- [MCP candidate](mcp/certifid-mcp.yml): a derived tool list. CertifID operates no MCP server.
+- [Agent skills](skills/_index.yml): five packaged flows.
+
+## Web
+
+- Website: https://www.certifid.com/
+- Integrations: https://www.certifid.com/integrations
+- Product updates: https://www.certifid.com/product-updates/product-updates
+- Articles: https://www.certifid.com/resources/articles
+- Trust center: https://trust.certifid.com/
+- Status: https://status.certifid.com/
+- Sign in: https://portal.certifid.com/
+- Get started: https://www.certifid.com/request-a-demo
+- GitHub: https://github.com/CertifID
+- Terms: https://www.certifid.com/company/terms-of-service
+- Privacy: https://www.certifid.com/company/privacy-policy
+- Support: support@certifid.com
+
+## Not published by CertifID
+
+No llms.txt, no security.txt, no api-catalog, no A2A agent card, no MCP server, no AsyncAPI, no
+public SDK on npm/PyPI/NuGet/RubyGems/Packagist, no CLI, no public Postman collection, no pricing
+page, no API changelog, no deprecation policy, and no published rate limits. The developer reference
+is a bare Swagger UI on the API host; there is no developer portal.

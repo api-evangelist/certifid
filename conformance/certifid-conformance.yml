@@ -1,0 +1,183 @@
+generated: '2026-08-09'
+method: searched
+source: >-
+  openapi/certifid-v2-apis-openapi.json,
+  well-known/certifid-openid-configuration.json,
+  https://www.certifid.com/article/soc-2-certification-and-what-it-really-means-for-you,
+  https://trust.certifid.com/
+summary: >-
+  CertifID conforms strongly on identity (a complete Auth0 OIDC/OAuth 2.0
+  authorization server with public discovery) and publishes a SOC 2 Type II
+  attestation on its own blog and a Thoropass-hosted trust center. It conforms
+  weakly on API-level web standards: no RFC 9457 problem details, no RFC 9116
+  security.txt, no RFC 9727 api-catalog, no RFC 8594 deprecation signalling, and
+  no idempotency.
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    The OpenAPI declares a single oauth2 securityScheme with an authorizationCode
+    flow (authorizationUrl https://auth.certifid.com/authorize, tokenUrl
+    https://auth.certifid.com/oauth/token) applied to every operation via a
+    top-level security requirement.
+  source: openapi/certifid-v2-apis-openapi.json
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    https://auth.certifid.com/.well-known/openid-configuration returned HTTP 200
+    with issuer https://auth.certifid.com/, a jwks_uri, userinfo, revocation,
+    device-authorization and backchannel-authentication endpoints, and the standard
+    claims set.
+  source: well-known/certifid-openid-configuration.json
+  probed: '2026-08-09'
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: >-
+    https://auth.certifid.com/.well-known/oauth-authorization-server returned HTTP
+    200 with an identical metadata payload.
+  source: well-known/certifid-oauth-authorization-server.json
+  probed: '2026-08-09'
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: >-
+    code_challenge_methods_supported advertises S256 (and plain). Note that the
+    Swagger UI configuration on the API host sets
+    usePkceWithAuthorizationCodeGrant to false, so the published console does not
+    exercise PKCE even though the authorization server supports it.
+  source: well-known/certifid-openid-configuration.json
+- id: rfc7523
+  name: JWT Bearer / private_key_jwt client authentication
+  conforms: true
+  evidence: >-
+    token_endpoint_auth_methods_supported includes private_key_jwt; grant_types
+    include urn:ietf:params:oauth:grant-type:jwt-bearer and
+    urn:ietf:params:oauth:grant-type:token-exchange.
+  source: well-known/certifid-openid-configuration.json
+- id: openapi
+  name: OpenAPI Specification 3.0.1
+  conforms: true
+  evidence: >-
+    A parseable OpenAPI 3.0.1 document with 57 operations and 111 component schemas
+    is served at
+    https://api.certifid.com/swagger/CertifID%20V2%20APIs/swagger.json and rendered
+    by Swagger UI at https://api.certifid.com/swagger/index.html.
+  probed: '2026-08-09'
+  http_status: 200
+  caveats:
+  - No servers[] array is declared.
+  - 56 of 57 operations lack an operationId.
+  - No request or response examples anywhere in the document.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457 / RFC 7807)
+  conforms: false
+  evidence: >-
+    Error bodies use the ASP.NET Core ProblemDetails SHAPE
+    (type/title/status/detail/instance) but are served as application/json,
+    text/json and text/plain - never application/problem+json. A second,
+    proprietary CertifID Response envelope with an integer errors[].code coexists
+    with it, so there is no single error contract.
+  source: errors/certifid-problem-types.yml
+- id: idempotency
+  name: HTTP idempotency keys (draft-ietf-httpapi-idempotency-key-header)
+  conforms: false
+  evidence: >-
+    The string "idempoten" does not appear in the 251KB specification. No operation
+    declares any header parameter. Every money-movement create is a non-idempotent
+    POST.
+  source: conventions/certifid-conventions.yml
+- id: pagination
+  name: Paginated collections
+  conforms: true
+  evidence: >-
+    A PagedData envelope (items, pageSize, zeroBasedCurrentPage, totalItems,
+    totalPages) is returned by the AccountVerifications and Disbursements search
+    operations. Page-number style, zero-based, with paging parameters carried in
+    the POST body rather than the query string.
+  source: conventions/certifid-conventions.yml
+- id: rfc9116
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returned HTTP 404 on www.certifid.com and on
+    api.certifid.com. portal.certifid.com returned a soft 200 that is an SPA
+    catch-all HTML shell, confirmed by diffing a control path.
+  source: well-known/certifid-well-known.yml
+  probed: '2026-08-09'
+- id: rfc9727
+  name: api-catalog (RFC 9727)
+  conforms: false
+  evidence: /.well-known/api-catalog returned HTTP 404 on www.certifid.com.
+  probed: '2026-08-09'
+- id: rfc8594
+  name: Sunset header / deprecation signalling (RFC 8594)
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation header is declared on any operation and no operation
+    is marked deprecated. No deprecation policy is published.
+  source: lifecycle/certifid-lifecycle.yml
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+  conforms: false
+  evidence: >-
+    /.well-known/oauth-protected-resource returned HTTP 404 on api.certifid.com, so
+    an MCP or agent client cannot discover the authorization server from the
+    resource host.
+  probed: '2026-08-09'
+- id: asyncapi
+  name: AsyncAPI / published event surface
+  conforms: false
+  applicable: false
+  evidence: >-
+    No AsyncAPI document, no event catalog and no consumer-facing webhook
+    subscription surface exists. The single endpoint named "Webhook"
+    (POST /api/v1/identity/IdVerificationResultUrlWebhook/{requestId}) is an
+    INBOUND receiver CertifID exposes to its own identity-verification vendor, not
+    an event CertifID delivers to integrators. No type Webhooks pointer was wired.
+  source: openapi/certifid-v2-apis-openapi.json
+compliance:
+  certifications:
+  - name: SOC 2 Type II
+    status: attested
+    evidence: >-
+      CertifID published a first-party article by Peter Marsh, its Head of
+      Security, Compliance and IT, announcing SOC 2 Type II certification.
+    source: https://www.certifid.com/article/soc-2-certification-and-what-it-really-means-for-you
+    published: '2023-11-01'
+    updated: '2023-11-02'
+    http_status: 200
+    probed: '2026-08-09'
+  trust_center:
+    url: https://trust.certifid.com/
+    platform: Thoropass (formerly Laika)
+    http_status: 200
+    probed: '2026-08-09'
+    machine_readable: false
+    note: >-
+      The trust center root serves a real Thoropass trust-center application
+      (page title "Trust Center", loading the Thoropass trust-center bundle from
+      laika-app-prod). Its contents are rendered client-side from an authenticated
+      API, and every sub-path including /api/* returns the same HTML shell - a soft
+      200 confirmed by diffing a control path. The certification list behind it
+      could therefore not be read programmatically; the SOC 2 Type II claim above
+      is sourced from CertifID's own article instead, not from the trust center.
+  regulatory_context:
+  - name: FinCEN Residential Real Estate Rule
+    relationship: product capability
+    evidence: >-
+      CertifID announced FinCEN filing in its Winter 2026 product update and
+      publishes a FinCEN Real Estate Report; this is a compliance capability
+      CertifID offers its customers, not a certification CertifID holds.
+    source: https://www.certifid.com/product-updates/winter-2026
+gaps:
+- Publish a security.txt (RFC 9116) so researchers have a disclosure route.
+- Serve error bodies as application/problem+json and converge the two error
+    envelopes into one.
+- Add Idempotency-Key support to every money-movement create operation.
+- >-
+  Publish /.well-known/oauth-protected-resource on api.certifid.com so agent and
+  MCP clients can discover the authorization server.
+- Add operationIds to the 56 operations that lack them.

@@ -1,0 +1,92 @@
+generated: '2026-08-09'
+method: searched
+source: https://status.certifid.com/api/v2/summary.json
+summary: >-
+  CertifID runs a public Atlassian Statuspage and ships a quarterly, seasonally
+  named product release. It publishes no API versioning policy, no deprecation
+  policy, and no SLA on any public page.
+status_page:
+  published: true
+  url: https://status.certifid.com/
+  platform: Atlassian Statuspage
+  page_id: 2wrgy76b5x81
+  name: CertifID Services
+  time_zone: America/New_York
+  machine_readable: true
+  api: https://status.certifid.com/api/v2/summary.json
+  probed: '2026-08-09'
+  http_status: 200
+  components:
+  - name: Login
+    status: operational
+  - name: Notifications
+    status: operational
+  - name: Payments
+    status: operational
+  - name: Send
+    status: operational
+  - name: Collect / Confirm
+    status: operational
+  - name: Match / IDV
+    status: operational
+  - name: Payoff / Business Verifications
+    status: operational
+  - name: Payoff Ordering
+    status: operational
+  - name: E-Signing
+    status: operational
+  note: >-
+    The nine components map cleanly onto the API tag groups, which makes the status
+    page a usable dependency signal for an integrator: Send, Collect / Confirm and
+    Match / IDV correspond to the WiringInstructions and IdentityRequest
+    operations, and Payoff / Business Verifications and Payoff Ordering correspond
+    to the Disbursements and PayoffOrdering operations.
+  subscribe: https://status.certifid.com/ (email and webhook subscription offered
+    by the Statuspage platform)
+health_endpoint:
+  url: https://api.certifid.com/health
+  http_status: 200
+  probed: '2026-08-09'
+  body: '{"status":"Healthy","errors":[]}'
+  note: >-
+    An unauthenticated ASP.NET Core health-check endpoint is exposed on the
+    production API host. It is not referenced anywhere in the OpenAPI definition.
+versioning:
+  policy_published: false
+  style: URI path (/api/v1/)
+  current_version: v1
+  note: >-
+    The specification is titled "CertifID V2 APIs" with info.version "v1" while all
+    paths are /api/v1. No document explains the relationship between the V2 product
+    branding and the v1 path segment, and no policy states how a future version
+    would be introduced or how long v1 would be supported.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation in the specification carries deprecated: true, and no Sunset or
+    Deprecation response header is declared anywhere. No deprecation policy page
+    exists on certifid.com. Because of this, no type Deprecation pointer was wired
+    into apis.yml.
+sla:
+  published: false
+  note: >-
+    No uptime commitment or support-response SLA is published on a page reachable
+    without a sales conversation. Terms of service are at
+    https://www.certifid.com/company/terms-of-service.
+support:
+  email: support@certifid.com
+  contact_page: https://www.certifid.com/contact-us
+  help_center: https://help.certifid.com/
+  help_center_note: >-
+    help.certifid.com resolves in DNS to Cloudflare and is referenced from search
+    results, but every probe on 2026-08-09 failed - curl timed out (exit 28) and a
+    rendering fetch returned HTTP 522 (origin unreachable). No pointer was wired to
+    it because the host did not serve content during this pass.
+release_cadence:
+  style: quarterly, seasonally named product releases
+  detail: changelog/certifid-changelog.yml
+  index: https://www.certifid.com/product-updates/product-updates
