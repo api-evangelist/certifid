@@ -29,24 +29,16 @@ tags:
 - Financial Services
 - Security
 apis:
-- aid: certifid:certifid-v2-apis
-  name: CertifID V2 APIs
-  description: Access to CertifID data and functions for 3rd Party Integrations. A
-    57-operation REST API covering identity verification, account/bank verification,
-    wiring instruction Send/Collect/Confirm flows, disbursements, payoff ordering,
-    lender lookup and integration certificates. Secured with OAuth 2.0 authorization
-    code flow against Auth0 (auth.certifid.com) with an api.certifid.com audience.
+- aid: certifid:certifid-accountverifications-api
+  name: CertifID Account Verifications API
+  description: The AccountVerifications API from CertifID — 4 operation(s) for accountverifications.
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
   tags:
-  - Identity Verification
-  - Wiring Instructions
-  - Disbursements
-  - Payoff Ordering
-  - Account Verification
+  - AccountVerifications
   properties:
   - type: OpenAPI
-    url: openapi/certifid-v2-apis-openapi.json
+    url: openapi/certifid-accountverifications-api-openapi.yml
   - type: APIReference
     url: https://api.certifid.com/swagger/index.html
   - type: Authentication
@@ -59,20 +51,328 @@ apis:
     url: conventions/certifid-conventions.yml
   - type: DataModel
     url: data-model/certifid-data-model.yml
-  - type: Overlay
-    url: overlays/certifid-certifid-v2-apis-overlay.yaml
+- aid: certifid:certifid-banklookup-api
+  name: CertifID Bank Lookup API
+  description: The BankLookup API from CertifID — 2 operation(s) for banklookup.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - BankLookup
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-banklookup-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-collectrequest-api
+  name: CertifID Collect Request API
+  description: The CollectRequest API from CertifID — 3 operation(s) for collectrequest.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - CollectRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-collectrequest-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-confirmrequest-api
+  name: CertifID Confirm Request API
+  description: The ConfirmRequest API from CertifID — 3 operation(s) for confirmrequest.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - ConfirmRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-confirmrequest-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-disbursements-api
+  name: CertifID Disbursements API
+  description: The Disbursements API from CertifID — 10 operation(s) for disbursements.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Disbursements
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-disbursements-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-identityrequest-api
+  name: CertifID Identity Request API
+  description: The IdentityRequest API from CertifID — 4 operation(s) for identityrequest.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - IdentityRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-identityrequest-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-integration-api
+  name: CertifID Integration API
+  description: The Integration API from CertifID — 12 operation(s) for integration.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-integration-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-lenders-api
+  name: CertifID Lenders API
+  description: The Lenders API from CertifID — 2 operation(s) for lenders.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Lenders
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-lenders-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-location-api
+  name: CertifID Location API
+  description: The Location API from CertifID — 2 operation(s) for location.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-location-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-payoffordering-api
+  name: CertifID Payoff Ordering API
+  description: The PayoffOrdering API from CertifID — 6 operation(s) for payoffordering.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - PayoffOrdering
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-payoffordering-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-sendrequest-api
+  name: CertifID Send Request API
+  description: The SendRequest API from CertifID — 3 operation(s) for sendrequest.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - SendRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-sendrequest-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-test-api
+  name: CertifID Test API
+  description: The Test API from CertifID — 3 operation(s) for test.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Test
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-test-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-underwriter-api
+  name: CertifID Underwriter API
+  description: The Underwriter API from CertifID — 1 operation(s) for underwriter.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Underwriter
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-underwriter-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-users-api
+  name: CertifID Users API
+  description: The Users API from CertifID — 1 operation(s) for users.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-users-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
+- aid: certifid:certifid-wiringinstructions-api
+  name: CertifID Wiring Instructions API
+  description: The WiringInstructions API from CertifID — 1 operation(s) for wiringinstructions.
+  humanURL: https://api.certifid.com/swagger/index.html
+  baseURL: https://api.certifid.com
+  tags:
+  - WiringInstructions
+  properties:
+  - type: OpenAPI
+    url: openapi/certifid-wiringinstructions-api-openapi.yml
+  - type: APIReference
+    url: https://api.certifid.com/swagger/index.html
+  - type: Authentication
+    url: authentication/certifid-authentication.yml
+  - type: OAuthScopes
+    url: scopes/certifid-scopes.yml
+  - type: ErrorCatalog
+    url: errors/certifid-problem-types.yml
+  - type: Conventions
+    url: conventions/certifid-conventions.yml
+  - type: DataModel
+    url: data-model/certifid-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: mcp/certifid-mcp.yml
 - type: Website
   url: https://www.certifid.com/
 - type: APIReference
   url: https://api.certifid.com/swagger/index.html
 - type: OpenAPI
-  url: openapi/certifid-v2-apis-openapi.json
+  url: openapi/_original/certifid-v2-apis-openapi.json
 - type: Authentication
   url: authentication/certifid-authentication.yml
 - type: OAuthScopes
