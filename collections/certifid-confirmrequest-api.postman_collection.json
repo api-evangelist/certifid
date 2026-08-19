@@ -1,0 +1,924 @@
+{
+  "item": [
+    {
+      "id": "5f432843-f9ec-4845-bdc9-4926341e1134",
+      "name": "ConfirmRequest",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74a48a59-773b-4e6c-819e-aa2bf0efdd5a",
+          "name": "Retrieve the latest state of an initiated confirm request within CertifID's platform.",
+          "request": {
+            "name": "Retrieve the latest state of an initiated confirm request within CertifID's platform.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "WiringInstructions",
+                "Confirm",
+                ":requestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) The ID of the request, assigned by CertifID's platform upon initiation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cc2881c6-c08f-4473-961b-5c45ba20c74b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the request, assigned by CertifID's platform upon initiation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"RealEstateAgent\",\n    \"roleOther\": null,\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": null,\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": null,\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"status\": \"Failed\",\n    \"rejectFeedback\": {\n      \"type\": \"Other\",\n      \"typeDisplayText\": \"string\",\n      \"freeText\": \"string\"\n    },\n    \"beneficiaryAba\": \"string\",\n    \"correspondentAba\": \"011401533\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"867530-9\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903576-8\",\n    \"createdUtc\": \"1970-05-04T22:56:56.344Z\",\n    \"expiresOnUtc\": \"1953-10-11T15:55:25.623Z\"\n  },\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c21b6166-6a37-4be6-b522-e2850c2fa6e8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the request, assigned by CertifID's platform upon initiation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97a399a2-7319-4f95-bff1-d15eb2556adb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the request, assigned by CertifID's platform upon initiation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9589c28a-2896-4056-8471-6d3a2b8b6371",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the request, assigned by CertifID's platform upon initiation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54f594b9-8ec9-4e80-9759-f6084476ebb9",
+          "name": "Get the confirmation PDF certificate associated with a successfully completed confirm request.",
+          "request": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed confirm request.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "WiringInstructions",
+                "Confirm",
+                ":requestId",
+                "Certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) The ID of the completed confirm request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8202b290-2956-42b7-afab-8ff4fdb0dd25",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed confirm request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a5c4aba-836d-402f-9978-68af6614aaa2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed confirm request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "80d683e1-2a69-4020-8e88-dee8d41a0b44",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed confirm request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d720389f-50ef-44db-a166-821854067853",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed confirm request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2d68627-f150-4dfa-85c1-5b13c1c1fa81",
+          "name": "Initiate a new request to Confirm a seller's wiring instructions.",
+          "request": {
+            "name": "Initiate a new request to Confirm a seller's wiring instructions.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "WiringInstructions",
+                "Confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string,null-email>\",\n    \"phone\": \"<string,null>\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"<string,null>\"\n  },\n  \"accountId\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": \"<number,null-double>\",\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"<string,null>\",\n      \"streetAddress2\": \"<string,null>\",\n      \"city\": \"<string,null>\",\n      \"state\": \"<string,null>\",\n      \"zip\": \"<string,null>\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"<string,null>\",\n    \"creditToAccountNumber\": \"<string,null>\",\n    \"finalCreditToName\": \"<string,null>\",\n    \"finalCreditToAccountNumber\": \"<string,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdc06ada-bb15-452b-9257-512924d1f32c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"8675309\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903528434\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": null,\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": null,\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"status\": \"Started\",\n    \"rejectFeedback\": {\n      \"type\": \"IncorrectAccountNumber\",\n      \"typeDisplayText\": \"string\",\n      \"freeText\": \"string\"\n    },\n    \"beneficiaryAba\": \"string\",\n    \"correspondentAba\": \"011401533\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"867530-9\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903576-8\",\n    \"createdUtc\": \"2001-04-23T15:01:03.978Z\",\n    \"expiresOnUtc\": null\n  },\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba0ee71e-2612-4583-9f84-0ef2d2d8abf8",
+              "name": "Error codes and description: \n\n```119``` - Invalid Phone Number.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"8675309\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903528434\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d387e654-9687-413b-a157-5e5dfcddf522",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"8675309\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903528434\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdd4e4f5-2a12-45d4-a3f4-ae4ddee997d7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"8675309\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903528434\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c17a711-9f4a-47f3-89d9-205386b7369c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "WiringInstructions",
+                    "Confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"underwriterId\": \"<string,null>\",\n    \"transactionAmount\": 50000,\n    \"expectedSettlementDate\": \"<string,null-date-time>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    },\n    \"beneficiaryAba\": \"<string>\",\n    \"correspondentAba\": \"<string,null>\",\n    \"creditToName\": \"CertifID GP\",\n    \"creditToAccountNumber\": \"8675309\",\n    \"finalCreditToName\": \"Final\",\n    \"finalCreditToAccountNumber\": \"903528434\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0e359481-c824-4f91-b1f0-205d66260536",
+    "name": "CertifID V2 Confirm Request API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

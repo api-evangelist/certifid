@@ -1,0 +1,321 @@
+{
+  "item": [
+    {
+      "id": "e644753e-8288-4618-8e42-f5cc3cef6181",
+      "name": "WiringInstructions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2464f632-ecdd-455f-9da9-3cf7a6cb2ee0",
+          "name": "Retrieve a the wiring instructions available to the specified location/account.",
+          "request": {
+            "name": "Retrieve a the wiring instructions available to the specified location/account.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Account",
+                ":locationId",
+                "BankInformation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "locationId",
+                  "description": "(Required) The ID of the specific location/account to retrieve the wiring instructions for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afcc91ab-b5a9-4c1c-9198-b07a1591b554",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":locationId",
+                    "BankInformation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "locationId",
+                      "description": "(Required) The ID of the specific location/account to retrieve the wiring instructions for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"Main Central Account\",\n    \"creditTo\": {\n      \"accountName\": \"string\",\n      \"accountNumber\": \"string\"\n    },\n    \"finalCreditTo\": {\n      \"accountName\": \"string\",\n      \"accountNumber\": \"string\"\n    },\n    \"beneficiaryBank\": {\n      \"abaRoutingNumber\": \"111904943\",\n      \"institutionFullName\": \"Texas Bank\",\n      \"streetAddress\": \"1120 US Hwy 79 N\",\n      \"city\": \"Henderson\",\n      \"state\": \"TX\",\n      \"zipCode\": \"75652\",\n      \"phoneNumber\": \"9036571466\",\n      \"bankWireStatus\": \"CannotTransactWiresElectronically\"\n    },\n    \"correspondentBank\": {\n      \"abaRoutingNumber\": \"111904943\",\n      \"institutionFullName\": \"Texas Bank\",\n      \"streetAddress\": \"1120 US Hwy 79 N\",\n      \"city\": \"Henderson\",\n      \"state\": \"TX\",\n      \"zipCode\": \"75652\",\n      \"phoneNumber\": \"9036571466\",\n      \"bankWireStatus\": \"CannotTransactWires\"\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"Main Central Account\",\n    \"creditTo\": {\n      \"accountName\": \"string\",\n      \"accountNumber\": \"string\"\n    },\n    \"finalCreditTo\": {\n      \"accountName\": \"string\",\n      \"accountNumber\": \"string\"\n    },\n    \"beneficiaryBank\": {\n      \"abaRoutingNumber\": \"111904943\",\n      \"institutionFullName\": \"Texas Bank\",\n      \"streetAddress\": \"1120 US Hwy 79 N\",\n      \"city\": \"Henderson\",\n      \"state\": \"TX\",\n      \"zipCode\": \"75652\",\n      \"phoneNumber\": \"9036571466\",\n      \"bankWireStatus\": \"CannotTransactWires\"\n    },\n    \"correspondentBank\": {\n      \"abaRoutingNumber\": \"111904943\",\n      \"institutionFullName\": \"Texas Bank\",\n      \"streetAddress\": \"1120 US Hwy 79 N\",\n      \"city\": \"Henderson\",\n      \"state\": \"TX\",\n      \"zipCode\": \"75652\",\n      \"phoneNumber\": \"9036571466\",\n      \"bankWireStatus\": \"Valid\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e32e9599-a3f9-4391-988c-5ce589bed851",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":locationId",
+                    "BankInformation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "locationId",
+                      "description": "(Required) The ID of the specific location/account to retrieve the wiring instructions for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0e0bc48f-4836-45ce-b4cb-77da00db8d92",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":locationId",
+                    "BankInformation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "locationId",
+                      "description": "(Required) The ID of the specific location/account to retrieve the wiring instructions for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef86c157-9e8e-4faf-b0d1-77e88aef05da",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":locationId",
+                    "BankInformation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "locationId",
+                      "description": "(Required) The ID of the specific location/account to retrieve the wiring instructions for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": null,\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8347fe1b-06ff-4648-ac10-d57f01bf66f0",
+    "name": "CertifID V2 Wiring Instructions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

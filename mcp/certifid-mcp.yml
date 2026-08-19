@@ -2,12 +2,11 @@ generated: '2026-08-09'
 method: derived
 status: candidate
 source: openapi/certifid-v2-apis-openapi.json
-description: >-
-  CertifID operates NO Model Context Protocol server. This artifact is a CANDIDATE tool list that
-  API Evangelist derived from the 57 operations in the live CertifID V2 APIs OpenAPI definition.
-  It is a design input showing what an MCP server over this API could expose - it is not something
-  CertifID publishes, and no type: MCPServer pointer was wired into apis.yml for it, because doing
-  so would credit CertifID with an agent surface it does not operate.
+description: 'CertifID operates NO Model Context Protocol server. This artifact is a CANDIDATE tool list
+  that API Evangelist derived from the 57 operations in the live CertifID V2 APIs OpenAPI definition.
+  It is a design input showing what an MCP server over this API could expose - it is not something CertifID
+  publishes, and no type: MCPServer pointer was wired into apis.yml for it, because doing so would credit
+  CertifID with an agent surface it does not operate.'
 probes:
 - url: https://mcp.certifid.com/
   result: DNS did not resolve
@@ -18,21 +17,19 @@ probes:
   http_status: 404
 probed: '2026-08-09'
 server: null
-auth_note: >-
-  If CertifID were to ship an MCP server, the authorization story is already most of the way there:
-  the Auth0 tenant at auth.certifid.com publishes full OIDC and RFC 8414 metadata with PKCE S256.
+auth_note: 'If CertifID were to ship an MCP server, the authorization story is already most of the way
+  there: the Auth0 tenant at auth.certifid.com publishes full OIDC and RFC 8414 metadata with PKCE S256.
   The missing piece is RFC 9728 protected-resource metadata at https://api.certifid.com/.well-known/oauth-protected-resource,
-  which returned 404 - without it an MCP client cannot discover the authorization server from the
-  resource host.
-input_schema_note: >-
-  Every candidate tool inherits its input schema from the backing OpenAPI operation parameters and
-  requestBody. Because 56 of 57 operations carry no operationId, the rest: names below are the deterministic
-  ids added by overlays/certifid-certifid-v2-apis-overlay.yaml, not names CertifID publishes.
-safety_note: >-
-  A majority of these operations move money or bind a real-estate closing - CreateDisbursement, CreatePayoffOrder,
-  the WiringInstructions Send/Collect/Confirm flows and the verification creates. None of them is
-  idempotent and none accepts an Idempotency-Key, so an MCP client that retries a timed-out call
-  risks duplicating a disbursement. Any real server over this API should mark those tools as consequential
+  which returned 404 - without it an MCP client cannot discover the authorization server from the resource
+  host.'
+input_schema_note: 'Every candidate tool inherits its input schema from the backing OpenAPI operation
+  parameters and requestBody. Because 56 of 57 operations carry no operationId, the rest: names below
+  are the deterministic ids added by overlays/certifid-certifid-v2-apis-overlay.yaml, not names CertifID
+  publishes.'
+safety_note: A majority of these operations move money or bind a real-estate closing - CreateDisbursement,
+  CreatePayoffOrder, the WiringInstructions Send/Collect/Confirm flows and the verification creates. None
+  of them is idempotent and none accepts an Idempotency-Key, so an MCP client that retries a timed-out
+  call risks duplicating a disbursement. Any real server over this API should mark those tools as consequential
   and require confirmation.
 tool_count: 54
 tools:
@@ -90,8 +87,7 @@ tools:
   category: ConfirmRequest
   rest: GetWiringInstructionsConfirmCertificateByRequestId
   http: GET /api/v1/WiringInstructions/Confirm/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed confirm request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed confirm request.
 - tool: certifid_post_wiring_instructions_confirm
   category: ConfirmRequest
   rest: PostWiringInstructionsConfirm
@@ -146,8 +142,7 @@ tools:
   category: Disbursements
   rest: PostDisbursementsGetPdfByDisbursementIdByDisbursementId
   http: POST /api/v1/Disbursements/getPdfByDisbursementId/{disbursementId}
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed send request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed send request.
 - tool: certifid_create_identity_verification
   category: IdentityRequest
   rest: CreateIdentityVerification
@@ -177,8 +172,7 @@ tools:
   category: Integration
   rest: GetIntegrationCollectCertificateByRequestId
   http: GET /api/v1/Integration/Collect/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed collect request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed collect request.
 - tool: certifid_get_integration_confirm_by_request_id
   category: Integration
   rest: GetIntegrationConfirmByRequestId
@@ -188,8 +182,7 @@ tools:
   category: Integration
   rest: GetIntegrationConfirmCertificateByRequestId
   http: GET /api/v1/Integration/Confirm/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed collect request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed collect request.
 - tool: certifid_get_integration_disbursement_by_id
   category: Integration
   rest: GetIntegrationDisbursementById
@@ -199,8 +192,7 @@ tools:
   category: Integration
   rest: GetIntegrationDisbursementCertificateByDisbursementId
   http: GET /api/v1/Integration/Disbursement/{disbursementId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully validated disbursement.
+  summary: Get the confirmation PDF certificate associated with a successfully validated disbursement.
 - tool: certifid_get_integration_identity_by_request_id
   category: Integration
   rest: GetIntegrationIdentityByRequestId
@@ -210,8 +202,7 @@ tools:
   category: Integration
   rest: GetIntegrationIdentityCertificateByRequestId
   http: GET /api/v1/Integration/Identity/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed identity request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed identity request.
 - tool: certifid_get_integration_payoff_order_by_payoff_order_id_id
   category: Integration
   rest: GetIntegrationPayoffOrderByPayoffOrderIdId
@@ -231,8 +222,7 @@ tools:
   category: Integration
   rest: GetIntegrationSendCertificateByRequestId
   http: GET /api/v1/Integration/Send/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed send request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed send request.
 - tool: certifid_lenders_get_lender_logo_by_id
   category: Lenders
   rest: LendersGetLenderLogoById
@@ -242,9 +232,9 @@ tools:
   category: Lenders
   rest: LendersSearchLenders
   http: POST /api/v1/Lenders/SearchLenders
-  summary: "Endpoint to search for Lenders by Name.  This is a partial search. \r\nFor example, \"\
-    US\" would return \"US Bank\", \"Bank of the US\", etc.\r\nOnly available to consumers with Payoff\
-    \ Protect product access."
+  summary: "Endpoint to search for Lenders by Name.  This is a partial search. \r\nFor example, \"US\"\
+    \ would return \"US Bank\", \"Bank of the US\", etc.\r\nOnly available to consumers with Payoff Protect\
+    \ product access."
 - tool: certifid_get_account
   category: Location
   rest: GetAccount
@@ -294,8 +284,7 @@ tools:
   category: SendRequest
   rest: GetWiringInstructionsSendCertificateByRequestId
   http: GET /api/v1/WiringInstructions/Send/{requestId}/Certificate
-  summary: >-
-    Get the confirmation PDF certificate associated with a successfully completed send request.
+  summary: Get the confirmation PDF certificate associated with a successfully completed send request.
 - tool: certifid_post_wiring_instructions_send
   category: SendRequest
   rest: PostWiringInstructionsSend
@@ -321,5 +310,10 @@ excluded:
   - GetTestByResourceId
   - GetTestJustAuth0ByResourceId
   - GetTestNoAuthByResourceId
-  reason: >-
-    Diagnostic /api/Test/* endpoints, including an explicitly unauthenticated one; not product capability.
+  reason: Diagnostic /api/Test/* endpoints, including an explicitly unauthenticated one; not product capability.
+deployment:
+  mode: none
+  verified: derived
+  tools: 54
+  checked: '2026-08-12'
+  source: catalog MCP census

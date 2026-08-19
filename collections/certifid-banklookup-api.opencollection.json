@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Bank Lookup API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BankLookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lookup a bank's wiring details based on their ABA/routing number.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Bank/:abaRoutingNumber/WiringDetails",
+            "params": [
+              {
+                "name": "abaRoutingNumber",
+                "value": "",
+                "type": "path",
+                "description": "The ABA/routing number of the bank to lookup."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lookup a bank's wiring details based on their ABA/routing number."
+        },
+        {
+          "info": {
+            "name": "Lookup a correspondent bank's details based on their ABA/routing number.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Bank/:abaRoutingNumber",
+            "params": [
+              {
+                "name": "abaRoutingNumber",
+                "value": "",
+                "type": "path",
+                "description": "The ABA/routing number of the bank to lookup."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lookup a correspondent bank's details based on their ABA/routing number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

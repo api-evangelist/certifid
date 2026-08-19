@@ -1,0 +1,850 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Identity Request API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: IdentityRequest
+paths:
+  /api/v1/identity/IdentityVerification:
+    post:
+      tags:
+      - IdentityRequest
+      summary: Initiates a new identity verification request for a recipient.
+      description: "This endpoint creates an identity verification request that will be sent to the specified\
+        \ recipient\nvia their preferred delivery method (email, text, or share link). The recipient will\
+        \ be prompted to\ncomplete the identity verification process through a secure link.\n        \
+        \    \nThe verification process validates the recipient's identity using multi-factor authentication\n\
+        and returns a verification result that can be used to confirm the identity of parties involved\n\
+        in real estate transactions.\n            \n**Delivery Methods:**\n- `email_or_text`: Sends verification\
+        \ link via email or SMS to the recipient\n- `share_link`: Generates a unique shareable link returned\
+        \ in the response's VerificationDetails.UniqueLink\n            \n**Request Flow:**\n1. Submit\
+        \ identity verification request with recipient details\n2. System creates request and sends invitation\
+        \ (if email_or_text) or returns share link\n3. Recipient receives invitation and completes verification\n\
+        4. System processes verification result and updates request status\n5. Webhook notification sent\
+        \ to results_url (if configured)\n            \n**Authentication:**\nRequires API key authentication.\
+        \ The caller's company must have identity verification enabled."
+      operationId: CreateIdentityVerification
+      requestBody:
+        description: The identity verification request details including recipient information and delivery
+          preferences.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
+      responses:
+        '200':
+          description: Successfully created the identity verification request. Returns the request details
+            including the unique request ID, status, and verification details (including share link if
+            applicable).
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        '400':
+          description: "Bad request. Validation errors occurred with the provided data. Common issues\
+            \ include:\n             - Missing required fields (Recipient.FirstName, Recipient.LastName,\
+            \ RequestDetails.DeliveryMethod)\n             - Invalid data format (email format, phone\
+            \ number must be 10 digits, invalid delivery method)\n             - Invalid routing number\
+            \ (if applicable)\n             - Invalid phone number format\n             Returns Response\
+            \ object with Errors array containing detailed error information."
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
+        '401':
+          description: Unauthorized. API key is missing, invalid, or expired.
+        '403':
+          description: Forbidden. The authenticated account's company does not have identity verification
+            enabled.
+        '500':
+          description: Internal server error. An unexpected error occurred while processing the request.
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/identity/IdVerificationResultUrlWebhook/{requestId}:
+    post:
+      tags:
+      - IdentityRequest
+      summary: Webhook that is called with id verification results - results_url
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ApiResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ApiResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ApiResult'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+  /api/v1/identity/IdentityVerification/{requestId}:
+    get:
+      tags:
+      - IdentityRequest
+      summary: Retrieves the latest state of an initiated IDV request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the submitted IDV request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/identity/GetIdentityRequestCertificate/{requestId}/Certificate:
+    get:
+      tags:
+      - IdentityRequest
+      summary: Get the confirmation PDF certificate associated with a successfully completed IDV request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+components:
+  schemas:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus'
+        verificationDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
+      type: object
+      properties:
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: The street address of the property being described.
+          example: 123 Some Way
+        streetAddress2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the street address.
+          example: Unit 12
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city of the property being described.
+          example: Georgetown
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state of the property being described.
+          example: OR
+        zip:
+          type:
+          - string
+          - 'null'
+          description: The ZIP code of the property being described.
+          example: '78642'
+      additionalProperties: false
+      description: A description of the property in question.
+    CertifID.V2.Common.Models.Results.ExceptionInfo:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        stackTrace:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        innerException:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      enum:
+      - Other
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
+      type: string
+      description: The role of the party in the real estate deal.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel:
+      required:
+      - deliveryMethod
+      type: object
+      properties:
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the title underwriter to associate with the request.
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
+        deliveryMethod:
+          minLength: 1
+          type: string
+          description: The method by which identity is to be verified.
+          example: email_or_text
+      additionalProperties: false
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: string
+      additionalProperties: false
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
+    CertifID.V2.Common.Models.Results.ServiceData:
+      required:
+      - serviceName
+      type: object
+      properties:
+        serviceName:
+          type: string
+        instanceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Display name of the status of the request
+        uniqueLink:
+          type:
+          - string
+          - 'null'
+          description: Unique link if share_link was chosen as delivery method
+        descriptionTitle:
+          type: string
+          description: Description title of the status of the verification request
+        descriptionLong:
+          type: string
+          description: Verbose description of the status of the verification request
+        descriptionShort:
+          type: string
+          description: Concise description of the status of the verification request
+      additionalProperties: false
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
+    CertifID.V2.Common.Models.Results.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
+        httpStatus:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+      additionalProperties: false
+    CertifID.V2.Common.Models.Results.StatusCode:
+      enum:
+      - UnexpectedErrorOccurred
+      - MissingRequiredParameter
+      - CompanyService_GetCurrentUserError
+      - CompanyService_InvalidOrMissingQueryError
+      - CompanyService_NoQueryError
+      - CompanyService_LocationNotFoundError
+      - CompanyService_IntegrationNotFoundError
+      - CompanyService_SaveLocationError
+      - CompanyService_SaveLogoError
+      - CompanyService_LogoNotFoundError
+      - CompanyService_ResourceSpecifiedError
+      - CompanyService_DirectAssingmentNotFoundError
+      - CompanyService_WiringInfoNotFoundError
+      - CompanyService_UnderwriterNotFoundError
+      - CompanyService_UserIdNotFoundError
+      - CompanyService_SaveCompanyError
+      - CompanyService_QueryCompanyUserError
+      - CompanyService_SaveCompanyUserError
+      - CompanyService_SaveUserInviteError
+      - CompanyService_UserInviteNotFound
+      - CompanyService_Validation_UserInviteNotInitialized
+      - CompanyService_UserNotFoundError
+      - CompanyService_Validation_UserInviteInFinalState
+      - CompanyService_UpdateUserAttributesError
+      - CompanyService_UpdateUserAttributes_AttributeTreeMismatch
+      - CompanyService_UpdateUserAttributes_InvalidAttributeCombination
+      - CompanyService_DirectAssignmentForAdminError
+      - CompanyService_UploadedFileIsNotAnImage
+      - CompanyService_CompanyPaymentAccountNotFound
+      - CompanyService_PaymentConfigNotFound
+      - CompanyService_ClientHubConfigNotFound
+      - CompanyService_RcsConfigNotFound
+      - CompanyService_CompanyBusinessNotFound
+      - Log_SaveItemFailed
+      - Log_ActivityLogAccessError
+      - Log_ActivityLogInvalidPagedQuery_Locations
+      - Notifications_SaveNotificationFailed
+      - Notifications_GetAccessError
+      - Notifications_UpdateNotificationFailed
+      - Notifications_DeletePhoneNotificationFailed
+      - Notifications_DeleteEmailNotificationFailed
+      - Notifications_UnknownSetting
+      - Notifications_ReplayNotificationFailed
+      - Notifications_InvalidShortlink
+      - Notifications_DisabledSetting
+      - Notifications_WebhookSecurityFailed
+      - Notifications_WebhookMissingNotificationId
+      - Requests_SaveRequestFailed
+      - Requests_RequestAccessError
+      - Requests_CompanyServiceAccessError
+      - Requests_Validation_MissingCompanyId
+      - Requests_Validation_MissingLocationId
+      - Requests_Validation_MissingUserId
+      - Requests_Validation_UnknownRequestId
+      - Requests_Validation_StatusChangeFailure_AlreadyStarted
+      - Requests_Validation_StatusChangeIgnored_AreadyStarted
+      - Requests_Validation_StatusChangeFailure_RequestInFinalState
+      - Requests_Validation_InvalidRequestType
+      - Requests_Validation_StatusMustBeStarted
+      - Requests_Validation_WiringInstructionsAlreadyExist
+      - Requests_Validation_MissingRoutingNumber
+      - Requests_Validation_MissingAccountNumber
+      - Requests_Validation_MissingWiringInstructions
+      - Requests_Validation_MissingAddressForWiringInstructions
+      - Requests_Validation_MissingBankInfoForWiringInstructions
+      - Requests_Validation_RequestIdMustBeNull
+      - Requests_Validation_IntegrationsSetButNotSupported
+      - Requests_Validation_IntegrationNotFound
+      - Requests_Validation_StatusChangeFailure_AlreadyOpened
+      - Requests_Validation_MissingFileNumber
+      - Requests_SaveMppPolicyItemFailed
+      - Requests_MppPolicyItemAccessError
+      - Requests_DeleteMppPolicyItemFailed
+      - Requests_MppPolicyPriceDefinitionGenerationError
+      - Requests_ActivityCreationError
+      - Payments_Validation_MissingRequestModel
+      - Payments_Validation_MissingId
+      - Payments_Validation_MissingReferenceId
+      - Payments_Validation_MissingCustomerEmail
+      - Payments_Validation_MissingInsurancePolicyId
+      - Payments_Validation_IsAboveMaxPolicy
+      - Payments_PaymentAlreadyExistsError
+      - Payments_SaveIntentError
+      - Payments_GetUpdatedIntentError
+      - Payments_GetIntentError
+      - Payments_IntentNotFound
+      - Payments_IntentFaulted
+      - Security_UserInviteActivitySessionCreated
+      - Security_UserInviteActivitySessionCreatedException
+      - Security_UserInviteActivitySessionRetrieved
+      - Security_UserInviteActivitySessionRetrievedException
+      - Security_UserInviteActivitySessionExtended
+      - Security_UserInviteActivitySessionExtendedException
+      - Security_ClientRequestActivitySessionCreated
+      - Security_ClientRequestActivitySessionCreatedException
+      - Security_ClientRequestActivitySessionRetrieved
+      - Security_ClientRequestActivitySessionRetrievedException
+      - Security_ClientRequestActivitySessionExtended
+      - Security_ClientRequestActivitySessionExtendedException
+      - Security_NewDigitalVerificationIdCreated
+      - Security_NewDigitalVerificationIdCreatedException
+      - Security_ClientDigitalVerificationStatusPassed
+      - Security_ClientDigitalVerificationStatusFailed
+      - Security_ClientDigitalVerificationException
+      - Security_UserInviteDigitalVerificationStatusPassed
+      - Security_UserInviteDigitalVerificationStatusFailed
+      - Security_UserInviteDigitalVerificationException
+      - Security_LoggedInUserDigitalVerificationStatusPassed
+      - Security_LoggedInUserDigitalVerificationStatusFailed
+      - Security_LoggedInUserDigitalVerificationException
+      - Security_MfaVerificationSessionRetrieved
+      - Security_MfaVerificationSessionRetrievedException
+      - Security_MfaClientRequestPhoneVerificationInitiated
+      - Security_MfaClientRequestPhoneVerificiationInitiatiedException
+      - Security_MfaClientRequestEmailVerificationInitiated
+      - Security_MfaClientRequestEmailVerificationInitiatedException
+      - Security_MfaUserInvitePhoneVerificationInitiated
+      - Security_MfaUserInvitePhoneVerificationInitiatedException
+      - Security_NoMfaSessionFound
+      - Security_MfaSessionFailed
+      - Security_MfaVerificationSessionDoesNotExistForSubjectId
+      - Security_MfaSessionVerificationAttemptsCapReached
+      - Security_MfaVerificationSessionAlreadyInFinalState
+      - Security_MfaVerificationSubsequentAttemptAfterSuccessfulAttempt
+      - Security_MfaVerificationSessionLocked
+      - Security_MfaSessionPassed
+      - Security_MfaSessionTryAgain
+      - Security_MfaVerificationSessionFaulted
+      - Security_MfaVerificationSessionException
+      - Security_KbaGetQuestionsActivitySessionDoesNotExist
+      - Security_KbaGetQuestionsLockedOut
+      - Security_KbaGetQuestionsNoQuestionsReturned
+      - Security_KbaGetQuestionReturnedQuestions
+      - Security_KbaGetQuestionsException
+      - Security_KbaSendAnswersActivitySessionDoesNotExist
+      - Security_KbaSendAnswersLockedOut
+      - Security_KbaSendAnswersTimeLimitReached
+      - Security_KbaSendAnswersReturnedFollowUpQuestions
+      - Security_KbaSendAnswersPassed
+      - Security_KbaSendAnswersFailed
+      - Security_KbaSendAnswersException
+      - Security_LoggedInUserActivitySessionRetrieved
+      - Security_LoggedInUserActivitySessionException
+      - Security_LoggedInUserActivitySessionCreated
+      - Security_LoggedInUserActivitySessionCreationException
+      - Security_LoggedInUserActivitySessionExtended
+      - Security_LoggedInUserActivitySessionExtensionException
+      - Security_ClientHubActivitySessionRetrieved
+      - Security_ClientHubActivitySessionException
+      - Security_ClientHubActivitySessionCreated
+      - Security_ClientHubActivitySessionCreationException
+      - Security_ClientHubActivitySessionExtended
+      - Security_ClientHubActivitySessionExtensionException
+      - Security_ClientHubRequestPhoneVerificationInitiated
+      - Security_ClientHubRequestPhoneVerificiationInitiatiedException
+      - Security_KbaGetQuestionsIndividualNotFound
+      - Auth0_GetAllAuth0UsersException
+      - Auth0_GetAllAuth0RolesException
+      - Auth0_GetAuth0UserByIdException
+      - Auth0_UpdateUseFailed_400
+      - Auth0_UpdateUserFailed_401
+      - Auth0_UpdateUserFailed_403
+      - Auth0_UpdateUserFailed_404
+      - Auth0_UpdateUserFailed_429
+      - Auth0_WebhookGetUserByIdException
+      - Auth0_WebhookAcknowledgeLoginException
+      - Auth0_WebhookAcknowledgePasswordChangeException
+      - Auth0_WebhookAcknowledgeUserDeleteException
+      - Auth0_WebhookGetActiveAttributesByUserIdException
+      - PublicApiService_WebhookCallFailed_IncrementFailure
+      - PublicApiService_WebhookCallSuccess_ResetFailure
+      - DocumentService_VirusFound
+      - DocumentService_DocumentNotFound
+      - DocumentService_PdfIntegrityFlagged
+      - DocumentService_PdfIntegrityScanUnavailable
+      - DocumentService_PdfIntegrityCannotScanEncrypted
+      - DocumentService_PdfIntegrityCannotScanMalformed
+      - Bff_MaxFileSizeExceeded
+      - Bff_FileTypeNotSupported
+      - Bff_PayoffIdNotProvided
+      - Bff_FileNameContainsInvalidCharacters
+      - Bff_AccessToPayoffForbidden
+      - Bff_PayoffNotFound
+      - Bff_PermissionToDeletePayoffStatementDenied
+      - Bff_CannotUploadPayoffStatementsToAPayoffInANonFinalizedStatus
+      - Bff_AccessToDocumentForbidden
+      - EventEngine_MissingApiKey
+      - EventEngine_InvalidApiKey
+      - EventEngine_InvalidJson
+      - EventEngine_NotAuthorized
+      - EventEngine_WriteFailed
+      - EventEngine_SchemaValidationFailed
+      - PaymentAccountsService_FetchSensitiveDataFailed
+      - PaymentAccountsService_UpdateSensitiveDataFailed
+      - PaymentAccountsService_FetchPaymentAccountsFailed
+      - PaymentAccountsService_UpdatePaymentAccountFailed
+      - PaymentAccountsService_DeletePaymentAccountFailed
+      - PaymentAccountsService_PaymentAccountNotFound
+      - PaymentAccountsService_PaymentAccountAlreadyExists
+      - PaymentAccountsService_PaymentAccountNotValid
+      - PaymentAccountsService_FetchPaymentWalletFailed
+      - PaymentAccountsService_UpdatePaymentWalletFailed
+      - PaymentAccountsService_DeletePaymentWalletFailed
+      - PaymentAccountsService_PaymentWalletNotFound
+      - PaymentAccountsService_PaymentWalletAlreadyExists
+      - PaymentAccountsService_PaymentWalletNotValid
+      - UnknownError
+      type: string
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        details:
+          type: string
+      additionalProperties: false
+    ? CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails
+    : type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError'
+        serverInfo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus:
+      enum:
+      - Verified
+      - Expired
+      - Started
+      - Sent
+      - Canceled
+      - HighRisk
+      - UnableToVerify
+      - PendingRetry
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's first name.
+          example: Alex
+        lastName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's last name.
+          example: Smith
+        email:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: The party's email address.
+          format: email
+          example: asmith@email.com
+        phone:
+          pattern: ^[0-9]{10}$
+          type:
+          - string
+          - 'null'
+          description: The party's phone number.
+          example: '5038675309'
+        role:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType'
+        roleOther:
+          type:
+          - string
+          - 'null'
+          description: 'If "Other" is selected for the party, allows the integrating system to send a
+            value
+
+            other than the preset list.'
+        customEmailMessage:
+          maxLength: 550
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Custom text section will be part of the recipient's invite message, in the email's
+            body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will\
+            \ be added to the invite email.\n            "
+      additionalProperties: false
+      description: A party to a file/deal.
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo:
+      type: object
+      properties:
+        utcTime:
+          type: string
+          format: date-time
+          readOnly: true
+        version:
+          type: string
+          readOnly: true
+      additionalProperties: false
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.Common.Models.Results.ApiResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        statusCode:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.StatusCode'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.Status'
+        exception:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo'
+        serviceData:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ServiceData'
+      additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

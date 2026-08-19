@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Users API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: Users
+paths:
+  /api/v1/Users/GetUsersProducts:
+    post:
+      tags:
+      - Users
+      summary: Retrieves a list of Products for current user
+      responses:
+        '200':
+          description: Returns Payoff
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Returns unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Returns not found error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+components:
+  schemas:
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type
+          readOnly: true
+        title:
+          type: string
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
+          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
+      additionalProperties: false
+      description: ''
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

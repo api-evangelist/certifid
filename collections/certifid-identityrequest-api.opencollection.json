@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Identity Request API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IdentityRequest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiates a new identity verification request for a recipient.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/identity/IdentityVerification",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates an identity verification request that will be sent to the specified recipient\nvia their preferred delivery method (email, text, or share link). The recipient will be prompted to\ncomplete the identity verification process through a secure link.\n            \nThe verification process validates the recipient's identity using multi-factor authentication\nand returns a verification result that can be used to confirm the identity of parties involved\nin real estate transactions.\n   "
+        },
+        {
+          "info": {
+            "name": "Webhook that is called with id verification results - results_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/identity/IdVerificationResultUrlWebhook/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Webhook that is called with id verification results - results_url"
+        },
+        {
+          "info": {
+            "name": "Retrieves the latest state of an initiated IDV request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/identity/IdentityVerification/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the submitted IDV request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the latest state of an initiated IDV request."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed IDV request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/identity/GetIdentityRequestCertificate/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed IDV request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

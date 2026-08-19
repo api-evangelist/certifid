@@ -1,0 +1,511 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Collect Request API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: CollectRequest
+paths:
+  /api/v1/WiringInstructions/Collect/{requestId}:
+    get:
+      tags:
+      - CollectRequest
+      summary: Retrieve the latest state of an initiated request within CertifID's platform.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the request, assigned by CertifID's platform upon initiation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - RequestProduct
+  /api/v1/WiringInstructions/Collect/{requestId}/Certificate:
+    get:
+      tags:
+      - CollectRequest
+      summary: Get the confirmation PDF certificate associated with a successfully completed request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - RequestProduct
+  /api/v1/WiringInstructions/Collect:
+    post:
+      tags:
+      - CollectRequest
+      summary: Initiate a new request to request a seller's wiring instructions.
+      requestBody:
+        description: 'The details of the file for which a new request is being initiated, and the
+
+          default values to select in the form within CertifID''s platform.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '400':
+          description: "Error codes and description: \n\n```119``` - Invalid Phone Number.\n"
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - RequestProduct
+        - RequestCreator
+components:
+  schemas:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
+      enum:
+      - Other
+      - IncorrectAccountHolder
+      - IncorrectAccountNumber
+      - IncorrectAbaNumber
+      - GetCheck
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel:
+      type: object
+      properties:
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the title underwriter to associate with the request.
+        transactionAmount:
+          type:
+          - number
+          - 'null'
+          description: The monetary amount of the transaction that the wiring instructions are for.
+          format: double
+          example: 50000
+        expectedSettlementDate:
+          type:
+          - string
+          - 'null'
+          description: Expected closing date.
+          format: date-time
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
+      additionalProperties: false
+      description: A request to collect wiring instructions from a recipient (seller or real estate deal).
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
+        typeDisplayText:
+          type: string
+        freeText:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
+      type: object
+      properties:
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: The street address of the property being described.
+          example: 123 Some Way
+        streetAddress2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the street address.
+          example: Unit 12
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city of the property being described.
+          example: Georgetown
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state of the property being described.
+          example: OR
+        zip:
+          type:
+          - string
+          - 'null'
+          description: The ZIP code of the property being described.
+          example: '78642'
+      additionalProperties: false
+      description: A description of the property in question.
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      enum:
+      - Other
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
+      type: string
+      description: The role of the party in the real estate deal.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
+      enum:
+      - CertifId
+      - Expired
+      - Failed
+      - Started
+      - Sent
+      - Rejected
+      - Canceled
+      - HighRisk
+      type: string
+      description: The various statuses of a wiring instructions related request in the CertifID platform.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's first name.
+          example: Alex
+        lastName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's last name.
+          example: Smith
+        email:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: The party's email address.
+          format: email
+          example: asmith@email.com
+        phone:
+          pattern: ^[0-9]{10}$
+          type:
+          - string
+          - 'null'
+          description: The party's phone number.
+          example: '5038675309'
+        role:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType'
+        roleOther:
+          type:
+          - string
+          - 'null'
+          description: 'If "Other" is selected for the party, allows the integrating system to send a
+            value
+
+            other than the preset list.'
+        customEmailMessage:
+          maxLength: 550
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Custom text section will be part of the recipient's invite message, in the email's
+            body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will\
+            \ be added to the invite email.\n            "
+      additionalProperties: false
+      description: A party to a file/deal.
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel:
+      type: object
+      properties:
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the title underwriter to associate with the request.
+        transactionAmount:
+          type:
+          - number
+          - 'null'
+          description: The monetary amount of the transaction that the wiring instructions are for.
+          format: double
+          example: 50000
+        expectedSettlementDate:
+          type:
+          - string
+          - 'null'
+          description: Expected closing date.
+          format: date-time
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus'
+        rejectFeedback:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback'
+        beneficiaryAba:
+          maxLength: 9
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The ABA routing number of the beneficiary bank being confirmed.
+          example: 091000019
+        correspondentAba:
+          maxLength: 9
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The ABA routing number of the correspondent bank being confirmed.
+          example: '011401533'
+        creditToName:
+          maxLength: 55
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account name the credit is to be addressed to.
+          example: CertifID GP
+        creditToAccountNumber:
+          maxLength: 26
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account number the credit is to be addressed to.
+          example: 867530-9
+        finalCreditToName:
+          maxLength: 55
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account name the final credit is to be addressed to.
+          example: Final
+        finalCreditToAccountNumber:
+          maxLength: 26
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account number the final credit is to be addressed to.
+          example: 903576-8
+        createdUtc:
+          type: string
+          description: The date and time when Request was created.
+          format: date-time
+        expiresOnUtc:
+          type:
+          - string
+          - 'null'
+          description: The date and time when the request gets expired if the recipient do not act on
+            it.
+          format: date-time
+      additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Wiring Instructions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WiringInstructions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a the wiring instructions available to the specified location/account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Account/:locationId/BankInformation",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the specific location/account to retrieve the wiring instructions for."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a the wiring instructions available to the specified location/account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

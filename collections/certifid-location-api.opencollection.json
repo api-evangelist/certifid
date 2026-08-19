@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Location API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Location",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of accounts that the customer has access to within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Account",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the list of accounts that the customer has access to within CertifID's platform."
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific account belonging to the customer within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Account/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the location/account to retrieve."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a specific account belonging to the customer within CertifID's platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

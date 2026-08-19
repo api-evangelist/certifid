@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Payoff Ordering API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PayoffOrdering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a new payoff order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/CreatePayoffOrder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new payoff order."
+        },
+        {
+          "info": {
+            "name": "Updates an existing payoff order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/UpdatePayoffOrder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates an existing payoff order."
+        },
+        {
+          "info": {
+            "name": "Gets a payoff order by its ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/GetPayoffOrderById/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a payoff order by its ID."
+        },
+        {
+          "info": {
+            "name": "Fetches the details of existing lenders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/GetAvailablePayoffOrderLenders",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Fetches the details of existing lenders."
+        },
+        {
+          "info": {
+            "name": "Cancels an existing payoff order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/CancelPayoffOrder",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Cancels an existing payoff order."
+        },
+        {
+          "info": {
+            "name": "Get the quote PDF associated with payoff order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/PayoffOrdering/GetCertificate/:payoffOrderId/quote/:quoteId/Certificate",
+            "params": [
+              {
+                "name": "payoffOrderId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the payoff order."
+              },
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the payoff order quote desired."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the quote PDF associated with payoff order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

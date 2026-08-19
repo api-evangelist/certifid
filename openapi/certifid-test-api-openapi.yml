@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Test API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: Test
+paths:
+  /api/Test/{resourceId}:
+    get:
+      tags:
+      - Test
+      parameters:
+      - name: resourceId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|resourceId|CompanyWiringInfo
+  /api/Test/{resourceId}/NoAuth:
+    get:
+      tags:
+      - Test
+      parameters:
+      - name: resourceId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  /api/Test/{resourceId}/JustAuth0:
+    get:
+      tags:
+      - Test
+      parameters:
+      - name: resourceId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - null
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

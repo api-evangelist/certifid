@@ -1,0 +1,1141 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Disbursements API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: Disbursements
+paths:
+  /api/v1/Disbursements/CreateDisbursement:
+    post:
+      tags:
+      - Disbursements
+      summary: Create a new Disbursement (Payoff)
+      requestBody:
+        description: Request model CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.CreatePayoffProtectRequestModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.CreatePayoffProtectRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.CreatePayoffProtectRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.CreatePayoffProtectRequestModel'
+      responses:
+        '201':
+          description: Returns the newly created Disbursement (Payoff)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/GetDisbursementById/{id}:
+    post:
+      tags:
+      - Disbursements
+      summary: Gets a Disbursement (Payoff) by ID
+      parameters:
+      - name: id
+        in: path
+        description: Disbursement (Payoff) ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns Payoff
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '404':
+          description: Returns that the Disbursement (Payoff) ID provided was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Returns Forbidden (consumer does not have access to this Disbursement (Payoff))
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/GetDisbursementStatementsByDisbursementId/{id}:
+    post:
+      tags:
+      - Disbursements
+      summary: Gets List of Payoff statements associated to the requested Disbursement
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.GetDisbursementStatementsResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/SearchDisbursements:
+    post:
+      tags:
+      - Disbursements
+      summary: Gets a list of Disbursements (Payoffs) for a specified Account (Location)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffSimplePagedQuery'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffSimplePagedQuery'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffSimplePagedQuery'
+      responses:
+        '200':
+          description: Returns paged Disbursements (Payoffs)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.PagedData_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/EditDisbursement:
+    post:
+      tags:
+      - Disbursements
+      summary: Edit a Disbursement (Payoff)
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.EditPayoffProtectRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.EditPayoffProtectRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.EditPayoffProtectRequestModel'
+      responses:
+        '200':
+          description: Returns the updated Disbursement (Payoff)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/UploadDisbursementDocument:
+    post:
+      tags:
+      - Disbursements
+      summary: Upload and save a Disbursment (Payoff) statement as a .pdf in certifIDs system
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.UploadDisbursementDocumentModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.UploadDisbursementDocumentModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.UploadDisbursementDocumentModel'
+      responses:
+        '201':
+          description: Disbursement (Payoff) statement was successfully uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.DisbursementStatementUploadResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '404':
+          description: Returns that the Disbursement (Payoff) ID provided was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Returns Forbidden (consumer cannot upload a statement because they do not have
+            access to this Disbursement (Payoff))
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/GetDisbursementVerificationFieldsFromStatement:
+    post:
+      tags:
+      - Disbursements
+      summary: Get Disbursement Verification Fields From uploaded Statement
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.GetDisbursementFieldsFromStatementRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.GetDisbursementFieldsFromStatementRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.GetDisbursementFieldsFromStatementRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.GetDisbursementFieldsFromStatementResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/getPdfByDisbursementId/{disbursementId}:
+    post:
+      tags:
+      - Disbursements
+      summary: Get the confirmation PDF certificate associated with a successfully completed send request.
+      parameters:
+      - name: disbursementId
+        in: path
+        description: The ID of the disbursement
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/GetLoanType:
+    post:
+      tags:
+      - Disbursements
+      summary: Return a list of Payoff Loan types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Disbursements/GetDisbursementCancelationReasons:
+    post:
+      tags:
+      - Disbursements
+      summary: Returns a list of Disbursement Cancelation Reasons
+      responses:
+        '200':
+          description: Returns a list of Disbursement Cancelation Reasons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+components:
+  schemas:
+    CertifID.MortgagePayoff.Common.Models.BankInfo:
+      type: object
+      properties:
+        bankId:
+          type:
+          - string
+          - 'null'
+        bankName:
+          type:
+          - string
+          - 'null'
+        abaRoutingNumber:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.GetDisbursementFieldsFromStatementResponseModel:
+      type: object
+      properties:
+        lenderName:
+          type: string
+          description: Lender Name
+        loanAmount:
+          type: string
+          description: Loan Amount
+        propertyAddress:
+          type: string
+          description: Property Address
+        borrowerFirstName:
+          type: string
+          description: Borrower First Name
+        borrowerLastName:
+          type: string
+          description: Borrower Last Name
+        borrowerEntityName:
+          type: string
+          description: Borrower Entity Name
+        loanType:
+          type: string
+          description: Loan Type
+        routingNumber:
+          type: string
+          description: Routing Number
+        accountNumber:
+          type: string
+          description: Account Number
+        loanNumber:
+          type: string
+          description: Loan Number
+      additionalProperties: false
+    CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus:
+      enum:
+      - UnableToValidate
+      - HighRisk
+      - CertifID
+      - Pending
+      - Canceled
+      - NeedsAttention
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.GetDisbursementStatementsResponseModel:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Entity ID of the document
+        expiresOn:
+          type:
+          - string
+          - 'null'
+          description: Date and time the document expires at
+          format: date-time
+        id:
+          type: string
+          description: ID of the document
+        mimeType:
+          type:
+          - string
+          - 'null'
+          description: Mime Type
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the file
+        isDeleted:
+          type: boolean
+          description: Determine if this Document is marked as deleted (soft delete; data still exists
+            in database)
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.GetDisbursementFieldsFromStatementRequestModel:
+      required:
+      - base64Data
+      - fileName
+      - mimeType
+      type: object
+      properties:
+        fileName:
+          minLength: 1
+          type: string
+          description: Name of the file being uploaded
+        mimeType:
+          minLength: 1
+          type: string
+          description: "What type of file this is. \nAcceptable values are: \"application/pdf\" (.pdf)"
+        base64Data:
+          minLength: 1
+          type: string
+          description: The file data.  File size limited to 20mb or less.
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: Account id also known as LocationId.  This field is OPTIONAL.
+      additionalProperties: false
+      description: Request model for getting disbursement fields from a statement
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.PagedData_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel
+    : type: object
+      properties:
+        pageSize:
+          type: integer
+          description: Number of Items per page.
+          format: int32
+        zeroBasedCurrentPage:
+          type: integer
+          description: Zero-based current page (where 0 is the first page).
+          format: int32
+        totalItems:
+          type: integer
+          description: Total items available (the total of all results without paging).
+          format: int64
+        totalPages:
+          type: integer
+          description: The number of pages that represent results.
+          format: int32
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+          description: The items that are part of the current page
+      additionalProperties: false
+      description: "This class is used to return Paged data. In addition to the list of items, Page state\
+        \ is\nmaintained. Of note: \"Passthrough\" is an arbitrary value passed from the client to the\n\
+        server. It gets returned, unaltered. This is useful for scenarios where multiple calls in\nare\
+        \ play. For example:\n            \nIf a user is applying filters to paged data, and they rapidly\
+        \ send 2 or more requests for\ndata to the server, the client can have a number that increments\
+        \ with each call. That number\nis sent with the request for paged data. When data is received,\
+        \ the client can compare the\n\"Passthrough\" number to the current number, and if they don't\
+        \ match, the client can discard\nthe results, as it is expecting newer results."
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: "Account (Enterprise) Id from which this Payoff was created.  \nCurrently with\
+            \ v2 released, this is actually Location Id"
+        bankAccountNumber:
+          type: string
+          description: The account number at the bank to wire funds to
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.BankInfo'
+        borrowers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel'
+          description: The Borrowers, as entered by the user
+        created:
+          type: string
+          description: Date/Time Record was created
+          format: date-time
+        createdBy:
+          type: string
+          description: The name of the user that created this Payoff record
+        fileNumber:
+          type: string
+          description: File number entered by the user
+        id:
+          type: string
+          description: Id of the record
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel'
+        loan:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel'
+        propertyAddress:
+          type: string
+          description: The property address
+        userId:
+          type: string
+          description: The user id of the user that created this Payoff record
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: UnderwriterId
+        underwriter:
+          type:
+          - string
+          - 'null'
+          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will
+            use this Name for things like
+
+            None, Not Listed'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationData'
+      additionalProperties: false
+      description: Response model for a Payoff
+    CertifID.V2.Common.Models.Integrations.IntegrationData:
+      type: object
+      properties:
+        externalPartyId:
+          type:
+          - string
+          - 'null'
+        fileId:
+          type:
+          - string
+          - 'null'
+        sourceTPS:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationProviderType'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectBeneficiaryBankRequestModel:
+      required:
+      - abaRoutingNumber
+      - bankName
+      type: object
+      properties:
+        abaRoutingNumber:
+          minLength: 1
+          type: string
+          allOf:
+          - pattern: ^[0-9]{9}$
+          - pattern: ^[0-9]{9}$
+          - pattern: ^[0-9]{9}$
+          description: Bank's ABA Routing Number
+        bankName:
+          type: string
+          description: Bank Name
+      additionalProperties: false
+      description: Beneficiary Bank information used for Payoff Protect
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The resolved Lender's ID
+        name:
+          type: string
+          description: Lender name
+        userProvidedLenderName:
+          type: string
+          description: 'This is the original lender name provided by the payoff statement
+
+            It may differ from the official lender name in the lender record.
+
+            For example, the lender record could be "Wells Fargo", while the
+
+            provided lender name could be "Wells Fargo Home Mortgage".  We
+
+            preserve this so we can display it and avoid support issues when
+
+            a user is confused that the lender name has changed on them'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.UploadDisbursementDocumentModel:
+      required:
+      - base64Data
+      - disbursementId
+      - fileName
+      - mimeType
+      type: object
+      properties:
+        fileName:
+          minLength: 1
+          type: string
+          description: Name of the file being uploaded
+        mimeType:
+          type: string
+          description: "What type of file this is. \nAcceptable values are: \"application/pdf\" (.pdf)"
+        base64Data:
+          minLength: 1
+          type: string
+          description: The file data.  File size limited to 20mb or less.
+        disbursementId:
+          minLength: 1
+          type: string
+          description: Disbursement (Payoff) ID
+      additionalProperties: false
+      description: "Inbound model which contains data of a disbursement (payoff) statement to be uploaded\
+        \ and save \nto certifID's system"
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLoanRequestModel:
+      required:
+      - amount
+      - number
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Loan Amount
+          format: double
+          exclusiveMinimum: 0
+          exclusiveMaximum: 79228162514264337593543950335
+        number:
+          minLength: 1
+          type: string
+          description: Loan Number
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Type - typical values are but can be any value: [''Residential Mortgage'', ''HELOC'',
+            ''Commercial Mortgage'' , ''Other'']'
+      additionalProperties: false
+      description: Request model for a Payoff Protect Loan
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.EditPayoffProtectRequestModel:
+      required:
+      - accountId
+      - bankAccountNumber
+      - borrowers
+      - disbursementId
+      - lender
+      - loan
+      - propertyAddress
+      type: object
+      properties:
+        accountId:
+          minLength: 1
+          type: string
+          description: Account Id.  This is called Location Id in V2, but called AccountId here for backwards
+            compatibility.
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: UnderwriterId
+        underwriter:
+          type:
+          - string
+          - 'null'
+          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will
+            use this Name for things like
+
+            None, Not Listed'
+        bankAccountNumber:
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-]{1,26}$
+          type: string
+          description: Bank Account Number
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectBeneficiaryBankRequestModel'
+        borrowers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.BorrowerRequestModel'
+          description: Borrowers on the transaction
+        fileNumber:
+          type:
+          - string
+          - 'null'
+          description: File Number
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLenderRequestModel'
+        loan:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLoanRequestModel'
+        propertyAddress:
+          minLength: 1
+          type: string
+          description: Property Address
+        externalPartyId:
+          type:
+          - string
+          - 'null'
+          description: This ID is used to identify integrations from external parties; it is not a CertifID
+            ID
+        sourceTPS:
+          type:
+          - string
+          - 'null'
+          description: Which SMKT TPS is requesting a PayOff
+        disbursementId:
+          minLength: 1
+          type: string
+          description: Payoff Protect ID
+      additionalProperties: false
+      description: Request model for updating a Payoff Protect
+    CertifID.V2.Common.Models.Integrations.IntegrationProviderType:
+      enum:
+      - None
+      - ResWare
+      - TxM
+      - RamQuest
+      - SoftPro
+      - AimPlus
+      - StewartIndependence
+      - Proliant
+      - SMKT
+      - AtClose
+      - Settlor
+      - Endpoint
+      - PresidentialTitle
+      - TitleManagers
+      - AccuTitle
+      - DeferredInc
+      - EmailBridge
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertResponseModel:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.DisbursementStatementUploadResponseModel:
+      type: object
+      additionalProperties: false
+      description: Outbound model which contains data about the disbursement (payoff) statement upload
+        action
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffSimplePagedQuery:
+      type: object
+      properties:
+        pageSize:
+          maximum: 8000
+          type: integer
+          description: The requested page size. Defaulted to 20.  If PageSize is set to a value less than
+            20, it will be set to 20.
+          format: int32
+        zeroBasedPage:
+          type: integer
+          description: The requested page (zero based).
+          format: int32
+        query:
+          type:
+          - string
+          - 'null'
+          description: "This text field will search for the following fields that contain this optional\
+            \ Query value:  Status, Created By (full name of the user), \nFile Number, Lender Name, Property\
+            \ Address, Beneficiary Bank's Name, Beneficiary Bank's routing number, Loan Number, \nBorrowers\
+            \ (first name, last name or full name)"
+        sortFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.Common.Models.Paging.SortField'
+          description: 'A list of fields to sort on.
+
+            Accepted values are (case sensitive):  status, created, lenderName, createdBy, primary borrower
+            (primary sorting on last name, secondary sorting on first name), isMyRequest'
+      additionalProperties: false
+      description: Pagination used for Payoff Protects
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus'
+        displayName:
+          enum:
+          - Unable To Validate
+          - High Risk
+          - CertifID
+          - Pending
+          - Canceled
+          - Needs Attention
+          type: string
+          description: Gets a human-readable display name for the Status enum value
+          readOnly: true
+        description:
+          type: string
+          description: Description of the Status along with any additional notes
+          readOnly: true
+      additionalProperties: false
+      description: This will contain information about the Status of the Disbursement/Payoff
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
+    CertifID.V2.Common.Models.Paging.SortDirection:
+      enum:
+      - Default
+      - Asc
+      - Desc
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Loan Amount
+          format: double
+        number:
+          type:
+          - string
+          - 'null'
+          description: Loan Number
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Type - typical values are but can be any value: [''Residential Mortgage'', ''HELOC'',
+            ''Commercial Mortgage'' , ''Other'']'
+      additionalProperties: false
+      description: Request model for a Payoff Protect Loan
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.CreatePayoffProtectRequestModel:
+      required:
+      - accountId
+      - bankAccountNumber
+      - borrowers
+      - lender
+      - loan
+      - propertyAddress
+      type: object
+      properties:
+        accountId:
+          minLength: 1
+          type: string
+          description: Account Id.  This is called Location Id in V2, but called AccountId here for backwards
+            compatibility.
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: UnderwriterId
+        underwriter:
+          type:
+          - string
+          - 'null'
+          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will
+            use this Name for things like
+
+            None, Not Listed'
+        bankAccountNumber:
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-]{1,26}$
+          type: string
+          description: Bank Account Number
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectBeneficiaryBankRequestModel'
+        borrowers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.BorrowerRequestModel'
+          description: Borrowers on the transaction
+        fileNumber:
+          type:
+          - string
+          - 'null'
+          description: File Number
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLenderRequestModel'
+        loan:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLoanRequestModel'
+        propertyAddress:
+          minLength: 1
+          type: string
+          description: Property Address
+        externalPartyId:
+          type:
+          - string
+          - 'null'
+          description: This ID is used to identify integrations from external parties; it is not a CertifID
+            ID
+        sourceTPS:
+          type:
+          - string
+          - 'null'
+          description: Which SMKT TPS is requesting a PayOff
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel:
+      type: object
+      properties:
+        entityName:
+          type: string
+          description: Entity Name
+        firstName:
+          type: string
+          description: First Name
+        lastName:
+          type: string
+          description: Last Name
+        type:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType'
+      additionalProperties: false
+      description: Payoff Protect Borrower
+    CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType:
+      enum:
+      - Person
+      - Entity
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.BorrowerRequestModel:
+      required:
+      - type
+      type: object
+      properties:
+        entityName:
+          type: string
+          description: Entity Name
+        firstName:
+          type: string
+          description: First Name
+        lastName:
+          type: string
+          description: Last Name
+        type:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType'
+      additionalProperties: false
+      description: Payoff Protect Borrower
+    CertifID.V2.Common.Models.Paging.SortField:
+      required:
+      - fieldName
+      type: object
+      properties:
+        fieldName:
+          type: string
+        direction:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Paging.SortDirection'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type
+          readOnly: true
+        title:
+          type: string
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
+          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
+      additionalProperties: false
+      description: ''
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffProtect.PayoffProtectLenderRequestModel:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: "ID of the Lender - If consumer of this endpoint does not have a Lender ID, please\
+            \ keep this empty.  If this is populated, it will be \nvalidated against to ensure the Lender\
+            \ ID is an existing Lender in CertifID's system."
+        name:
+          minLength: 1
+          type: string
+          description: Name of the Lender
+      additionalProperties: false
+      description: View model to contain Payoff Protect Lender details
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

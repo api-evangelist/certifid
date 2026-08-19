@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Confirm Request API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ConfirmRequest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the latest state of an initiated confirm request within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/WiringInstructions/Confirm/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the request, assigned by CertifID's platform upon initiation."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the latest state of an initiated confirm request within CertifID's platform."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed confirm request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/WiringInstructions/Confirm/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed confirm request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed confirm request."
+        },
+        {
+          "info": {
+            "name": "Initiate a new request to Confirm a seller's wiring instructions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/WiringInstructions/Confirm",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Initiate a new request to Confirm a seller's wiring instructions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

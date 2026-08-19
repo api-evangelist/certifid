@@ -1,0 +1,321 @@
+{
+  "item": [
+    {
+      "id": "2cdfbc95-5bb0-455a-b80a-2d46d7181484",
+      "name": "Underwriter",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2630e753-a2d7-4b1e-9fe1-19fc3a4790e0",
+          "name": "Retrieves a list of underwriters associated to the location",
+          "request": {
+            "name": "Retrieves a list of underwriters associated to the location",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Account",
+                ":id",
+                "Underwriter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the specific location to retrieve the title underwriters for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "189535e7-50a2-433c-815c-73cd2ac00113",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":id",
+                    "Underwriter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the specific location to retrieve the title underwriters for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"Integrity National Title Insurance Co\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"Integrity National Title Insurance Co\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17f0e4ff-3893-4ff7-b057-d1a3d7392ea7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":id",
+                    "Underwriter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the specific location to retrieve the title underwriters for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94fd7e34-624c-49bd-8da9-5311988cbde6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":id",
+                    "Underwriter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the specific location to retrieve the title underwriters for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5c6290b-b591-462e-b506-83558ca2888b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Account",
+                    ":id",
+                    "Underwriter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the specific location to retrieve the title underwriters for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c9ab9e09-42e9-4377-9e5a-8083df55137c",
+    "name": "CertifID V2 Underwriter API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

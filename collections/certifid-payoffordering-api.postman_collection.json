@@ -1,0 +1,1992 @@
+{
+  "item": [
+    {
+      "id": "b174811c-1017-41b8-ab17-8f0edc7cd273",
+      "name": "PayoffOrdering",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3417e4e6-5000-404f-9c2c-3b0c49403c88",
+          "name": "Creates a new payoff order.",
+          "request": {
+            "name": "Creates a new payoff order.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "CreatePayoffOrder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9dda04a2-20dc-47ef-ab22-d702a0844743",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CreatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdUtc\": null,\n  \"modifiedUtc\": \"1958-04-26T03:25:31.813Z\",\n  \"accountId\": \"string\",\n  \"status\": \"Unorderable\",\n  \"accountType\": \"<string>\",\n  \"fileNumber\": \"string\",\n  \"transactionId\": \"string\",\n  \"loanNumber\": \"string\",\n  \"lender\": {\n    \"lenderId\": null,\n    \"lenderName\": \"string\"\n  },\n  \"borrowerFirstName\": \"string\",\n  \"borrowerLastName\": \"string\",\n  \"secondaryBorrowerFirstName\": \"string\",\n  \"secondaryBorrowerLastName\": \"string\",\n  \"fullPropertyAddress\": \"string\",\n  \"goodThroughDate\": \"string\",\n  \"specialInstructions\": null,\n  \"parentOrderId\": null,\n  \"childOrderId\": \"string\",\n  \"borrowerAuthorizationUrl\": \"string\",\n  \"orderAttachmentUrls\": null,\n  \"payoffOrderEvents\": [\n    {\n      \"createdAt\": \"2009-10-03T04:57:57.822Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    },\n    {\n      \"createdAt\": \"1983-06-30T16:48:27.693Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    }\n  ],\n  \"payoffQuotes\": [\n    {\n      \"wiringInstructionsVerified\": true,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"1963-08-22T04:00:38.325Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"2025-07-02T15:27:58.150Z\"\n    },\n    {\n      \"wiringInstructionsVerified\": false,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"1982-07-24T18:12:25.536Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"1962-08-20T17:19:37.200Z\"\n    }\n  ],\n  \"unstructuredOrderData\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76583925-2464-4674-889f-41dbb26d4441",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CreatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "054e0b59-f435-46b2-919b-e2b5d3843af0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CreatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0334de9d-9880-42f9-9f80-096f0b14b921",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CreatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "60da0a84-0dac-443a-a35f-2385540fba13",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CreatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"borrowerFirstName\": \"<string>\",\n  \"borrowerLastName\": \"<string>\",\n  \"borrowerSsn\": \"<string>\",\n  \"fileNumber\": \"<string>\",\n  \"fullPropertyAddress\": \"<string>\",\n  \"goodThroughDate\": \"<date>\",\n  \"loanNumber\": \"<string>\",\n  \"locationId\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"transactionId\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"base64Content\": \"<byte>\",\n    \"contentType\": \"<string>\",\n    \"fileName\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb7c0577-ad54-4f6b-a412-43625dc152c6",
+          "name": "Updates an existing payoff order.",
+          "request": {
+            "name": "Updates an existing payoff order.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "UpdatePayoffOrder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c3ca2ca-d15f-4c86-9799-69dafb6928b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "UpdatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"createdUtc\": null,\n  \"modifiedUtc\": \"2006-06-16T20:32:36.495Z\",\n  \"accountId\": \"string\",\n  \"status\": \"SubmittedToLender\",\n  \"accountType\": \"<string>\",\n  \"fileNumber\": \"string\",\n  \"transactionId\": null,\n  \"loanNumber\": \"string\",\n  \"lender\": {\n    \"lenderId\": \"string\",\n    \"lenderName\": null\n  },\n  \"borrowerFirstName\": \"string\",\n  \"borrowerLastName\": \"string\",\n  \"secondaryBorrowerFirstName\": null,\n  \"secondaryBorrowerLastName\": null,\n  \"fullPropertyAddress\": \"string\",\n  \"goodThroughDate\": \"string\",\n  \"specialInstructions\": null,\n  \"parentOrderId\": null,\n  \"childOrderId\": null,\n  \"borrowerAuthorizationUrl\": null,\n  \"orderAttachmentUrls\": null,\n  \"payoffOrderEvents\": [\n    {\n      \"createdAt\": \"2024-12-19T07:40:47.233Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    },\n    {\n      \"createdAt\": \"2000-11-15T23:35:10.506Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    }\n  ],\n  \"payoffQuotes\": [\n    {\n      \"wiringInstructionsVerified\": false,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"1959-11-30T16:18:01.195Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"1985-08-26T12:39:20.111Z\"\n    },\n    {\n      \"wiringInstructionsVerified\": true,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"2012-05-11T10:34:17.985Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"2017-04-24T01:01:57.202Z\"\n    }\n  ],\n  \"unstructuredOrderData\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "119b12c1-4ad2-47f5-8437-f3d2a3c612e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "UpdatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f7ca2b3-ee2f-404b-ba65-1d243fa752c7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "UpdatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a26ce696-41ff-482b-8802-a114305c219d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "UpdatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8afe834-4b7b-42dc-9468-30718da26e9b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "UpdatePayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"accountType\": \"<string>\",\n  \"borrowerFirstName\": \"<string,null>\",\n  \"borrowerLastName\": \"<string,null>\",\n  \"borrowerSsn\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"fullPropertyAddress\": \"<string,null>\",\n  \"goodThroughDate\": \"<string,null>\",\n  \"integrationOrderChannel\": \"<string,null>\",\n  \"loanNumber\": \"<string,null>\",\n  \"fileUnderwriterId\": \"<string,null>\",\n  \"integrationChannelUserId\": \"<string,null>\",\n  \"lenderId\": \"<string,null>\",\n  \"rawLenderName\": \"<string,null>\",\n  \"secondaryBorrowerFirstName\": \"<string,null>\",\n  \"secondaryBorrowerLastName\": \"<string,null>\",\n  \"secondaryBorrowerSsn\": \"<string,null>\",\n  \"specialInstructions\": \"<string,null>\",\n  \"unstructuredOrderData\": \"<object,null>\",\n  \"borrowerAuth\": {\n    \"fileName\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"base64Content\": \"<string>\"\n  },\n  \"attachments\": \"<array,null>\",\n  \"locationId\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b9e1fe4-172f-4164-9bf6-dc81b072f243",
+          "name": "Gets a payoff order by its ID.",
+          "request": {
+            "name": "Gets a payoff order by its ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "GetPayoffOrderById",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "63ebc691-f6c3-44ad-b1a5-70e3f29b0b24",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"created\": null,\n  \"createdBy\": \"string\",\n  \"modified\": null,\n  \"modifiedBy\": \"string\",\n  \"companyId\": \"string\",\n  \"locationId\": null,\n  \"userId\": \"string\",\n  \"status\": \"SubmittedToLender\",\n  \"integrationData\": {\n    \"fileId\": \"string\",\n    \"type\": \"string\",\n    \"fileNumber\": \"string\",\n    \"integrationId\": \"string\"\n  },\n  \"createdAt\": \"string\",\n  \"accountType\": \"<string>\",\n  \"fileNumber\": \"string\",\n  \"loanNumber\": \"string\",\n  \"lender\": {\n    \"lenderId\": \"string\",\n    \"lenderName\": null\n  },\n  \"borrowerFirstName\": \"string\",\n  \"borrowerLastName\": \"string\",\n  \"secondaryBorrowerFirstName\": \"string\",\n  \"secondaryBorrowerLastName\": \"string\",\n  \"fullPropertyAddress\": \"string\",\n  \"goodThroughDate\": \"string\",\n  \"specialInstructions\": \"string\",\n  \"parentOrderId\": null,\n  \"childOrderId\": null,\n  \"borrowerAuthorizationUrl\": \"string\",\n  \"orderAttachmentUrls\": null,\n  \"payoffQuotes\": [\n    {\n      \"payoffQuoteUrl\": \"string\",\n      \"wiringInstructionsVerified\": true,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"1975-10-03T21:10:49.080Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"1978-12-12T04:01:55.453Z\"\n    },\n    {\n      \"payoffQuoteUrl\": \"string\",\n      \"wiringInstructionsVerified\": true,\n      \"totalPayoffAmount\": \"string\",\n      \"wiringRoutingNumber\": \"string\",\n      \"wiringAccountNumber\": \"string\",\n      \"wiringBank\": \"string\",\n      \"deliveredAt\": \"1987-07-05T14:57:59.717Z\",\n      \"quoteId\": \"string\",\n      \"goodThroughDate\": \"2007-04-20T11:33:29.827Z\"\n    }\n  ],\n  \"payoffOrderEvents\": [\n    {\n      \"createdAt\": \"1995-02-06T21:17:11.632Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    },\n    {\n      \"createdAt\": \"1981-02-21T07:03:55.199Z\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\"\n    }\n  ],\n  \"unstructuredOrderData\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7765e324-2bdf-484f-bee3-d07660927b0c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8074f20-6df3-4d53-870a-3b9ae74349c4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "837eddb9-e83f-4821-886c-be4a474787a5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a3102aa-f3a6-4870-bdd9-362352ccefc6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df1fcbaf-adb1-481d-b967-5544a9856009",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetPayoffOrderById",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e301231f-e760-4bb2-a4ae-c768308b24cc",
+          "name": "Fetches the details of existing lenders.",
+          "request": {
+            "name": "Fetches the details of existing lenders.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "GetAvailablePayoffOrderLenders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dea941b7-9790-448c-814d-32d77f50a975",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetAvailablePayoffOrderLenders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"lenderId\": \"string\",\n    \"lenderName\": \"string\",\n    \"lenderAliases\": [\n      \"string\",\n      \"string\"\n    ],\n    \"lenderAddress\": \"string\",\n    \"nmls\": \"string\",\n    \"lenderNotes\": \"string\"\n  },\n  {\n    \"lenderId\": \"string\",\n    \"lenderName\": \"string\",\n    \"lenderAliases\": [\n      \"string\",\n      \"string\"\n    ],\n    \"lenderAddress\": null,\n    \"nmls\": null,\n    \"lenderNotes\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53822e9b-a19b-4cad-957b-022334ed0533",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetAvailablePayoffOrderLenders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b4757fe-9b3b-4759-8499-eb631fc067bd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetAvailablePayoffOrderLenders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e3a98dc-7478-4031-af0d-fe116eb5be96",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetAvailablePayoffOrderLenders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb4c849b-af26-4c9b-90b1-c38fef5941d9",
+          "name": "Cancels an existing payoff order.",
+          "request": {
+            "name": "Cancels an existing payoff order.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "CancelPayoffOrder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e28a14e3-9005-41b1-8aaf-c51748bb8cab",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": \"string\",\n  \"status\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57fb34da-d6c0-4aca-a23d-8c934a8ea47e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "807a1ad9-8f7a-4a8c-b271-d587d2fae3b0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4661705d-b4ae-417b-abc4-18524759a725",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0cd5af12-fbbd-45bb-aa5f-1641d0c9e8a9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": null,\n  \"status\": 9740,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00da214a-ab60-40ef-946d-3071185ebf0b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "CancelPayoffOrder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"cancellationReason\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3c6fac3-8178-4abe-a6fa-427ce33c5e65",
+          "name": "Get the quote PDF associated with payoff order.",
+          "request": {
+            "name": "Get the quote PDF associated with payoff order.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "PayoffOrdering",
+                "GetCertificate",
+                ":payoffOrderId",
+                "quote",
+                ":quoteId",
+                "Certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payoffOrderId",
+                  "description": "(Required) The id of the payoff order."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quoteId",
+                  "description": "(Required) The id of the payoff order quote desired."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf636ee5-8cbd-46db-9b08-ca216864d4ce",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetCertificate",
+                    ":payoffOrderId",
+                    "quote",
+                    ":quoteId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payoffOrderId",
+                      "description": "(Required) The id of the payoff order."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The id of the payoff order quote desired."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb0a5b57-ee23-405f-bdf7-9d8d1a17a2f1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetCertificate",
+                    ":payoffOrderId",
+                    "quote",
+                    ":quoteId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payoffOrderId",
+                      "description": "(Required) The id of the payoff order."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The id of the payoff order quote desired."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "04ed0ca2-61a5-43f5-aea6-653a155099e2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetCertificate",
+                    ":payoffOrderId",
+                    "quote",
+                    ":quoteId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payoffOrderId",
+                      "description": "(Required) The id of the payoff order."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The id of the payoff order quote desired."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6977e950-7130-4cce-8786-5523f8ece299",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "PayoffOrdering",
+                    "GetCertificate",
+                    ":payoffOrderId",
+                    "quote",
+                    ":quoteId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payoffOrderId",
+                      "description": "(Required) The id of the payoff order."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) The id of the payoff order quote desired."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5a42a9dd-85c8-4774-a1b6-380beda36213",
+    "name": "CertifID V2 Payoff Ordering API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,762 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Account Verifications API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: AccountVerifications
+paths:
+  /api/v1/AccountVerifications:
+    post:
+      tags:
+      - AccountVerifications
+      summary: Create a new account verification.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.CreateAccountVerificationRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.CreateAccountVerificationRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.CreateAccountVerificationRequestModel'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/AccountVerifications/{id}:
+    get:
+      tags:
+      - AccountVerifications
+      summary: Retrieve an account verification by id.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/AccountVerifications/Search:
+    post:
+      tags:
+      - AccountVerifications
+      summary: Search account verifications for the authenticated tenant.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationsListQuery'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationsListQuery'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationsListQuery'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.PagedData_1_CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/AccountVerifications/{id}/Cancel:
+    post:
+      tags:
+      - AccountVerifications
+      summary: Cancel an account verification.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+components:
+  schemas:
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessPartyRequestModel:
+      type: object
+      properties:
+        legalName:
+          type:
+          - string
+          - 'null'
+          description: Registered legal name.
+        aliases:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Doing-business-as / trade-name aliases.
+        registrations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessRegistrationRequestModel'
+          description: 'Business registrations (NMLS, LEI, DUNS). A single business may hold multiple
+            registrations;
+
+            pass as many as are held and the verification service uses the strongest signal it can match.'
+        taxId:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessTaxIdRequestModel'
+        address:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AddressRequestModel'
+        phone:
+          type:
+          - string
+          - 'null'
+          description: Business phone.
+        email:
+          type:
+          - string
+          - 'null'
+          description: Business email.
+        website:
+          type:
+          - string
+          - 'null'
+          description: Business website.
+      additionalProperties: false
+      description: A business / commercial party.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyType:
+      enum:
+      - Individual
+      - Business
+      type: string
+      description: 'The party type. On the request side it is inferred from whether `party.individual`
+
+        or `party.business` is populated; it is also a search filter.'
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountRequestModel:
+      type: object
+      properties:
+        routingNumber:
+          type:
+          - string
+          - 'null'
+          description: ABA routing number.
+        accountNumber:
+          type:
+          - string
+          - 'null'
+          description: Bank account number.
+        accountName:
+          type:
+          - string
+          - 'null'
+          description: Name on the bank account.
+      additionalProperties: false
+      description: Bank account details on a verification request.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationsListQuery:
+      type: object
+      properties:
+        pageSize:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: The requested page size. Defaulted to 20.  If PageSize is set to a value less than
+            20, it will be set to 20.
+          format: int32
+        sortFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.Common.Models.Paging.SortField'
+          description: A list of fields to sort on.
+        query:
+          type:
+          - string
+          - 'null'
+          description: Search text.
+        zeroBasedPage:
+          minimum: 0
+          type: integer
+          description: The requested page (zero based).
+          format: int32
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationStatus'
+        useCase:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationUseCase'
+        partyType:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyType'
+        externalReferenceId:
+          type:
+          - string
+          - 'null'
+          description: Filter by the caller's external reference id.
+        createdGte:
+          type:
+          - string
+          - 'null'
+          description: 'Filter: created_at greater than or equal.'
+          format: date-time
+        createdLte:
+          type:
+          - string
+          - 'null'
+          description: 'Filter: created_at less than or equal.'
+          format: date-time
+      additionalProperties: false
+      description: 'Body for the search account verifications request. Inherits standard pagination
+
+        (page size, page index, sort fields, free-text query) from CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.SimplePagedQuery.'
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualTaxIdType:
+      enum:
+      - Ssn
+      - Itin
+      type: string
+      description: Tax id type for an individual party.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PaymentRail:
+      enum:
+      - Wire
+      - Ach
+      - Rtp
+      - FedNow
+      type: string
+      description: Payment rail the transaction under verification moves on.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyRequestModel:
+      type: object
+      properties:
+        individual:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualPartyRequestModel'
+        business:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessPartyRequestModel'
+      additionalProperties: false
+      description: 'The owning party — exactly one of CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyRequestModel.Individual
+        or CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyRequestModel.Business must be set.
+
+        The party type is inferred from which one is populated.'
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessRegistrationRequestModel:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessRegistrationType'
+        value:
+          type:
+          - string
+          - 'null'
+          description: Registration identifier.
+      additionalProperties: false
+      description: Business registration descriptor.
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Pagination.PagedData_1_CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel
+    : type: object
+      properties:
+        pageSize:
+          type: integer
+          description: Number of Items per page.
+          format: int32
+        zeroBasedCurrentPage:
+          type: integer
+          description: Zero-based current page (where 0 is the first page).
+          format: int32
+        totalItems:
+          type: integer
+          description: Total items available (the total of all results without paging).
+          format: int64
+        totalPages:
+          type: integer
+          description: The number of pages that represent results.
+          format: int32
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel'
+          description: The items that are part of the current page
+      additionalProperties: false
+      description: "This class is used to return Paged data. In addition to the list of items, Page state\
+        \ is\nmaintained. Of note: \"Passthrough\" is an arbitrary value passed from the client to the\n\
+        server. It gets returned, unaltered. This is useful for scenarios where multiple calls in\nare\
+        \ play. For example:\n            \nIf a user is applying filters to paged data, and they rapidly\
+        \ send 2 or more requests for\ndata to the server, the client can have a number that increments\
+        \ with each call. That number\nis sent with the request for paged data. When data is received,\
+        \ the client can compare the\n\"Passthrough\" number to the current number, and if they don't\
+        \ match, the client can discard\nthe results, as it is expecting newer results."
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationUseCase:
+      enum:
+      - Payoff
+      - B2bWire
+      - ConsumerWire
+      type: string
+      description: 'Use case driving the verification. Determines which transaction context block
+
+        (`transaction.payoff` or `transaction.b2bWire`) may be populated.'
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AddressRequestModel:
+      type: object
+      properties:
+        line1:
+          type:
+          - string
+          - 'null'
+          description: Street line 1.
+        line2:
+          type:
+          - string
+          - 'null'
+          description: Street line 2.
+        city:
+          type:
+          - string
+          - 'null'
+          description: City / locality.
+        state:
+          type:
+          - string
+          - 'null'
+          description: State / region.
+        postalCode:
+          type:
+          - string
+          - 'null'
+          description: Postal / ZIP code.
+        country:
+          type:
+          - string
+          - 'null'
+          description: ISO 3166-1 alpha-2 country code. Defaults to US when absent.
+      additionalProperties: false
+      description: Postal address.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.TransactionRequestModel:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Transaction amount in CertifID.V2.PublicAPI.ViewModels.AccountVerifications.TransactionRequestModel.Currency.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: ISO 4217 currency code.
+        paymentRail:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PaymentRail'
+        referenceNumber:
+          type:
+          - string
+          - 'null'
+          description: Secondary reference number (e.g. a case or file number).
+        payoff:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PayoffContextRequestModel'
+        b2bWire:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.B2BWireContextRequestModel'
+      additionalProperties: false
+      description: Optional transaction context for the verification.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessTaxIdRequestModel:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+          description: The EIN value.
+        country:
+          type:
+          - string
+          - 'null'
+          description: ISO 3166-1 alpha-2 country code of the issuing jurisdiction. Defaults to US when
+            absent.
+      additionalProperties: false
+      description: Employer Identification Number for a business party.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementPartyRequestModel:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementPartyType'
+        firstName:
+          type:
+          - string
+          - 'null'
+          description: First name; populated for a person.
+        lastName:
+          type:
+          - string
+          - 'null'
+          description: Last name; populated for a person.
+        entityName:
+          type:
+          - string
+          - 'null'
+          description: Entity name; populated for an entity.
+      additionalProperties: false
+      description: A party a disbursement is made on behalf of (a borrower or on-behalf-of party).
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PayoffContextRequestModel:
+      type: object
+      properties:
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Free-form additional instructions for the disbursement.
+        underwriter:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementUnderwriterRequestModel'
+        goodThroughDate:
+          type:
+          - string
+          - 'null'
+          description: Date through which the payoff quote is valid.
+          format: date
+        perDiemAmount:
+          type:
+          - number
+          - 'null'
+          description: Per-diem interest that accrues after the good-through date.
+          format: double
+        loanNumber:
+          type:
+          - string
+          - 'null'
+          description: Loan / account number at the payoff servicer.
+        loanType:
+          type:
+          - string
+          - 'null'
+          description: Loan type descriptor.
+        borrowers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementPartyRequestModel'
+          description: Borrowers on the loan being paid off.
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AddressRequestModel'
+      additionalProperties: false
+      description: Payoff-specific transaction context.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationResponseModel:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Verification id, format "av_...".
+        object:
+          type: string
+          description: Object discriminator.
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationStatus'
+        reasonCodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Stable, snake_case reason codes behind the status. They compose, and the list
+            is empty
+
+            while the verification is in flight.'
+        createdAt:
+          type:
+          - string
+          - 'null'
+          description: Creation timestamp.
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: Last-update timestamp.
+          format: date-time
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: Terminal timestamp. Null while the verification is in flight.
+          format: date-time
+        canceledAt:
+          type:
+          - string
+          - 'null'
+          description: Cancellation timestamp. Null unless the verification was canceled.
+          format: date-time
+      additionalProperties: false
+      description: Shared response shape for the create / retrieve / cancel account verification requests.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementPartyType:
+      enum:
+      - Person
+      - Entity
+      type: string
+      description: Kind of party a disbursement is made on behalf of.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualPartyRequestModel:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PersonNameRequestModel'
+        taxId:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualTaxIdRequestModel'
+        dateOfBirth:
+          type:
+          - string
+          - 'null'
+          description: Date of birth.
+          format: date
+        address:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AddressRequestModel'
+        phone:
+          type:
+          - string
+          - 'null'
+          description: Phone (E.164).
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email.
+      additionalProperties: false
+      description: An individual / consumer party.
+    CertifID.V2.Common.Models.Paging.SortDirection:
+      enum:
+      - Default
+      - Asc
+      - Desc
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PersonNameRequestModel:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: First / given name.
+        last:
+          type:
+          - string
+          - 'null'
+          description: Last / family name.
+      additionalProperties: false
+      description: Person name pair.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.CreateAccountVerificationRequestModel:
+      required:
+      - account
+      - externalReference
+      - party
+      - useCase
+      type: object
+      properties:
+        useCase:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationUseCase'
+        account:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountRequestModel'
+        party:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.PartyRequestModel'
+        transaction:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.TransactionRequestModel'
+        externalReference:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.ExternalReferenceRequestModel'
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          description: Free-form customer metadata (≤16 keys).
+      additionalProperties: false
+      description: Body for the create account verification request.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.B2BWireContextRequestModel:
+      type: object
+      properties:
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Free-form additional instructions for the disbursement.
+        underwriter:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementUnderwriterRequestModel'
+        onBehalfOf:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementPartyRequestModel'
+          description: Parties the wire is sent on behalf of.
+        industry:
+          type:
+          - string
+          - 'null'
+          description: Industry classification of the recipient business.
+      additionalProperties: false
+      description: Business-wire-specific transaction context.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.ExternalReferenceRequestModel:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The record id in the caller's system (e.g. a file number).
+      additionalProperties: false
+      description: Reference to the record in the caller's own system.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.DisbursementUnderwriterRequestModel:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Underwriter id.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Underwriter name.
+      additionalProperties: false
+      description: Title underwriter on a disbursement.
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.BusinessRegistrationType:
+      enum:
+      - Nmls
+      - Lei
+      - Duns
+      type: string
+      description: 'Business registration identifier type. Distinct from the tax id (EIN): a registration
+        is a
+
+        non-tax identifier issued by another regulator.'
+    CertifID.V2.Common.Models.Paging.SortField:
+      required:
+      - fieldName
+      type: object
+      properties:
+        fieldName:
+          type: string
+        direction:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Paging.SortDirection'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualTaxIdRequestModel:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.AccountVerifications.IndividualTaxIdType'
+        value:
+          type:
+          - string
+          - 'null'
+          description: The tax id value.
+      additionalProperties: false
+      description: Tax identifier for an individual party.
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationStatus:
+      enum:
+      - InReview
+      - Certifid
+      - Verified
+      - Blocked
+      - Canceled
+      - UnableToDetermine
+      type: string
+      description: 'Status of a verification — the in-flight position and the terminal verdicts in a single
+
+        discriminator. CertifID.V2.PublicAPI.ViewModels.AccountVerifications.AccountVerificationStatus.InReview
+        is non-terminal; the rest are terminal.'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

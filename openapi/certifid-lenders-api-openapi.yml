@@ -1,0 +1,252 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Lenders API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: Lenders
+paths:
+  /api/v1/Lenders/SearchLenders:
+    post:
+      tags:
+      - Lenders
+      summary: "Endpoint to search for Lenders by Name.  This is a partial search. \nFor example, \"US\"\
+        \ would return \"US Bank\", \"Bank of the US\", etc.\nOnly available to consumers with Payoff\
+        \ Protect product access."
+      parameters:
+      - name: searchTerm
+        in: query
+        description: Enter a search term to search for Lenders who's Name matches this term
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the Lenders who match the search string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel'
+        '400':
+          description: Returns details on why the request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '401':
+          description: Returns unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+  /api/v1/Lenders/GetLenderLogoById:
+    post:
+      tags:
+      - Lenders
+      summary: Retrieves a Lender Logo using the Lender Id
+      parameters:
+      - name: lenderId
+        in: query
+        description: The ID of the lender whose logo should be retrieved
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the object containing the Base64 Image and the Content Type
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Returns details on why the request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '404':
+          description: Returns that the a Lender Logo for a provided lenderId was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Returns unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - PayoffProtectProduct
+components:
+  schemas:
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type
+          readOnly: true
+        title:
+          type: string
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
+          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
+      additionalProperties: false
+      description: ''
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel:
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: City
+        id:
+          type: string
+          description: Id
+        name:
+          type: string
+          description: Name
+        propertyAddress:
+          type:
+          - string
+          - 'null'
+          description: Property Address of the lender
+        state:
+          type:
+          - string
+          - 'null'
+          description: State
+        zip:
+          type:
+          - string
+          - 'null'
+          description: Zipcode
+      additionalProperties: false
+      description: Lender response model
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

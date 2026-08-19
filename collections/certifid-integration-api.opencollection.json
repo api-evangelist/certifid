@@ -1,0 +1,388 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Integration API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed collect request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Collect/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed collect request."
+        },
+        {
+          "info": {
+            "name": "Retrieve the latest state of an initiated request within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Collect/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the request, assigned by CertifID's platform upon initiation."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the latest state of an initiated request within CertifID's platform."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed send request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Send/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed send request."
+        },
+        {
+          "info": {
+            "name": "Retrieve the latest state of an initiated send request within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Send/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the request, assigned by CertifID's platform upon initiation."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the latest state of an initiated send request within CertifID's platform."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed collect request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Confirm/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed collect request."
+        },
+        {
+          "info": {
+            "name": "Retrieve the latest state of an initiated confirm request within CertifID's platform.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Confirm/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the request, assigned by CertifID's platform upon initiation."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the latest state of an initiated confirm request within CertifID's platform."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed identity request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Identity/:requestId/Certificate",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the completed request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully completed identity request."
+        },
+        {
+          "info": {
+            "name": "Get the confirmation PDF certificate associated with a successfully validated disbursement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Disbursement/:disbursementId/Certificate",
+            "params": [
+              {
+                "name": "disbursementId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the disbursement"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the confirmation PDF certificate associated with a successfully validated disbursement."
+        },
+        {
+          "info": {
+            "name": "Gets a Disbursement (Payoff) by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Disbursement/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Disbursement (Payoff) ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a Disbursement (Payoff) by ID"
+        },
+        {
+          "info": {
+            "name": "Gets a payoff order by its ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/PayoffOrder/:id",
+            "params": [
+              {
+                "name": "payoffOrderId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a payoff order by its ID."
+        },
+        {
+          "info": {
+            "name": "Get the quote PDF associated with payoff order.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/PayoffOrder/:payoffOrderId/Quote/:quoteId/Certificate",
+            "params": [
+              {
+                "name": "payoffOrderId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the payoff order."
+              },
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the payoff order quote desired."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the quote PDF associated with payoff order."
+        },
+        {
+          "info": {
+            "name": "Retrieves the latest state of an initiated IDV request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Integration/Identity/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the submitted IDV request."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves the latest state of an initiated IDV request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

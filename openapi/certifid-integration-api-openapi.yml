@@ -1,0 +1,1373 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Integration API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: Integration
+paths:
+  /api/v1/Integration/Collect/{requestId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the confirmation PDF certificate associated with a successfully completed collect request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|CollectRequest
+  /api/v1/Integration/Collect/{requestId}:
+    get:
+      tags:
+      - Integration
+      summary: Retrieve the latest state of an initiated request within CertifID's platform.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the request, assigned by CertifID's platform upon initiation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|CollectRequest
+  /api/v1/Integration/Send/{requestId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the confirmation PDF certificate associated with a successfully completed send request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|SendRequest
+  /api/v1/Integration/Send/{requestId}:
+    get:
+      tags:
+      - Integration
+      summary: Retrieve the latest state of an initiated send request within CertifID's platform.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the request, assigned by CertifID's platform upon initiation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|SendRequest
+  /api/v1/Integration/Confirm/{requestId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the confirmation PDF certificate associated with a successfully completed collect request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|ConfirmRequest
+  /api/v1/Integration/Confirm/{requestId}:
+    get:
+      tags:
+      - Integration
+      summary: Retrieve the latest state of an initiated confirm request within CertifID's platform.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the request, assigned by CertifID's platform upon initiation.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|ConfirmRequest
+  /api/v1/Integration/Identity/{requestId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the confirmation PDF certificate associated with a successfully completed identity
+        request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the completed request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|IdentityRequest
+  /api/v1/Integration/Disbursement/{disbursementId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the confirmation PDF certificate associated with a successfully validated disbursement.
+      parameters:
+      - name: disbursementId
+        in: path
+        description: The ID of the disbursement
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|disbursementId|DisbursementVerification
+  /api/v1/Integration/Disbursement/{id}:
+    get:
+      tags:
+      - Integration
+      summary: Gets a Disbursement (Payoff) by ID
+      parameters:
+      - name: id
+        in: path
+        description: Disbursement (Payoff) ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns Payoff
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel'
+        '400':
+          description: Returns Bad Request details
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+        '404':
+          description: Returns that the Disbursement (Payoff) ID provided was not found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Returns Unauthorized
+        '403':
+          description: Returns Forbidden (consumer does not have access to this Disbursement (Payoff))
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:disbursements|id|DisbursementVerification
+  /api/v1/Integration/PayoffOrder/{id}:
+    get:
+      tags:
+      - Integration
+      summary: Gets a payoff order by its ID.
+      parameters:
+      - name: payoffOrderId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:payofforder|payoffOrderId|PayoffOrder
+  /api/v1/Integration/PayoffOrder/{payoffOrderId}/Quote/{quoteId}/Certificate:
+    get:
+      tags:
+      - Integration
+      summary: Get the quote PDF associated with payoff order.
+      parameters:
+      - name: payoffOrderId
+        in: path
+        description: The id of the payoff order.
+        required: true
+        schema:
+          type: string
+      - name: quoteId
+        in: path
+        description: The id of the payoff order quote desired.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:payofforder|payoffOrderId|PayoffOrder
+  /api/v1/Integration/Identity/{requestId}:
+    get:
+      tags:
+      - Integration
+      summary: Retrieves the latest state of an initiated IDV request.
+      parameters:
+      - name: requestId
+        in: path
+        description: The ID of the submitted IDV request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - ResourceAccessToken|read:requests|requestId|IdentityRequest
+components:
+  schemas:
+    CertifID.MortgagePayoff.Common.Models.BankInfo:
+      type: object
+      properties:
+        bankId:
+          type:
+          - string
+          - 'null'
+        bankName:
+          type:
+          - string
+          - 'null'
+        abaRoutingNumber:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus'
+        verificationDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
+        typeDisplayText:
+          type: string
+        freeText:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
+      type: object
+      properties:
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: The street address of the property being described.
+          example: 123 Some Way
+        streetAddress2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the street address.
+          example: Unit 12
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city of the property being described.
+          example: Georgetown
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state of the property being described.
+          example: OR
+        zip:
+          type:
+          - string
+          - 'null'
+          description: The ZIP code of the property being described.
+          example: '78642'
+      additionalProperties: false
+      description: A description of the property in question.
+    CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus:
+      enum:
+      - UnableToValidate
+      - HighRisk
+      - CertifID
+      - Pending
+      - Canceled
+      - NeedsAttention
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      enum:
+      - Other
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
+      type: string
+      description: The role of the party in the real estate deal.
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
+      enum:
+      - mortgage
+      - heloc
+      type: string
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        eventType:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: "Account (Enterprise) Id from which this Payoff was created.  \nCurrently with\
+            \ v2 released, this is actually Location Id"
+        bankAccountNumber:
+          type: string
+          description: The account number at the bank to wire funds to
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.BankInfo'
+        borrowers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel'
+          description: The Borrowers, as entered by the user
+        created:
+          type: string
+          description: Date/Time Record was created
+          format: date-time
+        createdBy:
+          type: string
+          description: The name of the user that created this Payoff record
+        fileNumber:
+          type: string
+          description: File number entered by the user
+        id:
+          type: string
+          description: Id of the record
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel'
+        loan:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel'
+        propertyAddress:
+          type: string
+          description: The property address
+        userId:
+          type: string
+          description: The user id of the user that created this Payoff record
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: UnderwriterId
+        underwriter:
+          type:
+          - string
+          - 'null'
+          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will
+            use this Name for things like
+
+            None, Not Listed'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationData'
+      additionalProperties: false
+      description: Response model for a Payoff
+    CertifID.V2.Common.Models.Integrations.IntegrationData:
+      type: object
+      properties:
+        externalPartyId:
+          type:
+          - string
+          - 'null'
+        fileId:
+          type:
+          - string
+          - 'null'
+        sourceTPS:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationProviderType'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The resolved Lender's ID
+        name:
+          type: string
+          description: Lender name
+        userProvidedLenderName:
+          type: string
+          description: 'This is the original lender name provided by the payoff statement
+
+            It may differ from the official lender name in the lender record.
+
+            For example, the lender record could be "Wells Fargo", while the
+
+            provided lender name could be "Wells Fargo Home Mortgage".  We
+
+            preserve this so we can display it and avoid support issues when
+
+            a user is confused that the lender name has changed on them'
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
+      type: object
+      properties:
+        payoffQuoteUrl:
+          type: string
+        wiringInstructionsVerified:
+          type: boolean
+        totalPayoffAmount:
+          type: string
+        wiringRoutingNumber:
+          type: string
+        wiringAccountNumber:
+          type: string
+        wiringBank:
+          type: string
+        deliveredAt:
+          type: string
+          format: date-time
+        quoteId:
+          type: string
+        goodThroughDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
+      enum:
+      - Pending
+      - InProgress
+      - SubmittedToLender
+      - Delivered
+      - Canceled
+      - Unorderable
+      type: string
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
+      type: object
+      properties:
+        lenderId:
+          type:
+          - string
+          - 'null'
+        lenderName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.Common.Models.Integrations.IntegrationProviderType:
+      enum:
+      - None
+      - ResWare
+      - TxM
+      - RamQuest
+      - SoftPro
+      - AimPlus
+      - StewartIndependence
+      - Proliant
+      - SMKT
+      - AtClose
+      - Settlor
+      - Endpoint
+      - PresidentialTitle
+      - TitleManagers
+      - AccuTitle
+      - DeferredInc
+      - EmailBridge
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
+      enum:
+      - CertifId
+      - Expired
+      - Failed
+      - Started
+      - Sent
+      - Rejected
+      - Canceled
+      - HighRisk
+      type: string
+      description: The various statuses of a wiring instructions related request in the CertifID platform.
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel:
+      type: object
+      properties:
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the title underwriter to associate with the request.
+        transactionAmount:
+          type:
+          - number
+          - 'null'
+          description: The monetary amount of the transaction that the wiring instructions are for.
+          format: double
+          example: 50000
+        expectedSettlementDate:
+          type:
+          - string
+          - 'null'
+          description: Expected closing date.
+          format: date-time
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus'
+        rejectFeedback:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback'
+        beneficiaryAba:
+          maxLength: 9
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The ABA routing number of the beneficiary bank being confirmed.
+          example: 091000019
+        correspondentAba:
+          maxLength: 9
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The ABA routing number of the correspondent bank being confirmed.
+          example: '011401533'
+        creditToName:
+          maxLength: 55
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account name the credit is to be addressed to.
+          example: CertifID GP
+        creditToAccountNumber:
+          maxLength: 26
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account number the credit is to be addressed to.
+          example: 867530-9
+        finalCreditToName:
+          maxLength: 55
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account name the final credit is to be addressed to.
+          example: Final
+        finalCreditToAccountNumber:
+          maxLength: 26
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The account number the final credit is to be addressed to.
+          example: 903576-8
+        createdUtc:
+          type: string
+          description: The date and time when Request was created.
+          format: date-time
+        expiresOnUtc:
+          type:
+          - string
+          - 'null'
+          description: The date and time when the request gets expired if the recipient do not act on
+            it.
+          format: date-time
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus'
+        displayName:
+          enum:
+          - Unable To Validate
+          - High Risk
+          - CertifID
+          - Pending
+          - Canceled
+          - Needs Attention
+          type: string
+          description: Gets a human-readable display name for the Status enum value
+          readOnly: true
+        description:
+          type: string
+          description: Description of the Status along with any additional notes
+          readOnly: true
+      additionalProperties: false
+      description: This will contain information about the Status of the Disbursement/Payoff
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Display name of the status of the request
+        uniqueLink:
+          type:
+          - string
+          - 'null'
+          description: Unique link if share_link was chosen as delivery method
+        descriptionTitle:
+          type: string
+          description: Description title of the status of the verification request
+        descriptionLong:
+          type: string
+          description: Verbose description of the status of the verification request
+        descriptionShort:
+          type: string
+          description: Concise description of the status of the verification request
+      additionalProperties: false
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization
+            in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
+            from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Loan Amount
+          format: double
+        number:
+          type:
+          - string
+          - 'null'
+          description: Loan Number
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Type - typical values are but can be any value: [''Residential Mortgage'', ''HELOC'',
+            ''Commercial Mortgage'' , ''Other'']'
+      additionalProperties: false
+      description: Request model for a Payoff Protect Loan
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus:
+      enum:
+      - Verified
+      - Expired
+      - Started
+      - Sent
+      - Canceled
+      - HighRisk
+      - UnableToVerify
+      - PendingRetry
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
+      enum:
+      - Other
+      - IncorrectAccountHolder
+      - IncorrectAccountNumber
+      - IncorrectAbaNumber
+      - GetCheck
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel:
+      type: object
+      properties:
+        entityName:
+          type: string
+          description: Entity Name
+        firstName:
+          type: string
+          description: First Name
+        lastName:
+          type: string
+          description: Last Name
+        type:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType'
+      additionalProperties: false
+      description: Payoff Protect Borrower
+    CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType:
+      enum:
+      - Person
+      - Entity
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's first name.
+          example: Alex
+        lastName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's last name.
+          example: Smith
+        email:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: The party's email address.
+          format: email
+          example: asmith@email.com
+        phone:
+          pattern: ^[0-9]{10}$
+          type:
+          - string
+          - 'null'
+          description: The party's phone number.
+          example: '5038675309'
+        role:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType'
+        roleOther:
+          type:
+          - string
+          - 'null'
+          description: 'If "Other" is selected for the party, allows the integrating system to send a
+            value
+
+            other than the preset list.'
+        customEmailMessage:
+          maxLength: 550
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Custom text section will be part of the recipient's invite message, in the email's
+            body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will\
+            \ be added to the invite email.\n            "
+      additionalProperties: false
+      description: A party to a file/deal.
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type
+          readOnly: true
+        title:
+          type: string
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
+          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
+      additionalProperties: false
+      description: ''
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
+      type: object
+      properties:
+        fileId:
+          type: string
+        type:
+          type: string
+        fileNumber:
+          type: string
+        integrationId:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+        modified:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedBy:
+          type:
+          - string
+          - 'null'
+        companyId:
+          type: string
+        locationId:
+          type:
+          - string
+          - 'null'
+        userId:
+          type: string
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.IntegrationData'
+        createdAt:
+          type: string
+        accountType:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
+        fileNumber:
+          type: string
+        loanNumber:
+          type: string
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo'
+        borrowerFirstName:
+          type: string
+        borrowerLastName:
+          type: string
+        secondaryBorrowerFirstName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerLastName:
+          type:
+          - string
+          - 'null'
+        fullPropertyAddress:
+          type: string
+        goodThroughDate:
+          type: string
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+        parentOrderId:
+          type:
+          - string
+          - 'null'
+        childOrderId:
+          type:
+          - string
+          - 'null'
+        borrowerAuthorizationUrl:
+          type:
+          - string
+          - 'null'
+        orderAttachmentUrls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        payoffQuotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote'
+        payoffOrderEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent'
+        unstructuredOrderData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

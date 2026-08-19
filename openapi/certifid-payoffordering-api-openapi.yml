@@ -1,0 +1,912 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Payoff Ordering API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: PayoffOrdering
+paths:
+  /api/v1/PayoffOrdering/CreatePayoffOrder:
+    post:
+      tags:
+      - PayoffOrdering
+      summary: Creates a new payoff order.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CreatePayoffOrderRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CreatePayoffOrderRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CreatePayoffOrderRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/PayoffOrdering/UpdatePayoffOrder:
+    post:
+      tags:
+      - PayoffOrdering
+      summary: Updates an existing payoff order.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.UpdatePayoffOrderRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.UpdatePayoffOrderRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.UpdatePayoffOrderRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/PayoffOrdering/GetPayoffOrderById/{id}:
+    get:
+      tags:
+      - PayoffOrdering
+      summary: Gets a payoff order by its ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/PayoffOrdering/GetAvailablePayoffOrderLenders:
+    get:
+      tags:
+      - PayoffOrdering
+      summary: Fetches the details of existing lenders.
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.LenderSummary'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.LenderSummary'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.LenderSummary'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/PayoffOrdering/CancelPayoffOrder:
+    post:
+      tags:
+      - PayoffOrdering
+      summary: Cancels an existing payoff order.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CancelPayoffOrderRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CancelPayoffOrderRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CancelPayoffOrderRequestModel'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+  /api/v1/PayoffOrdering/GetCertificate/{payoffOrderId}/quote/{quoteId}/Certificate:
+    get:
+      tags:
+      - PayoffOrdering
+      summary: Get the quote PDF associated with payoff order.
+      parameters:
+      - name: payoffOrderId
+        in: path
+        description: The id of the payoff order.
+        required: true
+        schema:
+          type: string
+      - name: quoteId
+        in: path
+        description: The id of the payoff order quote desired.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+components:
+  schemas:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: The IPO system identifier of the canceled order
+        status:
+          type: string
+          description: The status of the order after cancellation
+        message:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
+      enum:
+      - Pending
+      - InProgress
+      - SubmittedToLender
+      - Delivered
+      - Canceled
+      - Unorderable
+      type: string
+    CertifID.V2.PayoffOrdering.Common.Models.LenderSummary:
+      type: object
+      properties:
+        lenderId:
+          type: string
+        lenderName:
+          type: string
+        lenderAliases:
+          type: array
+          items:
+            type: string
+        lenderAddress:
+          type:
+          - string
+          - 'null'
+        nmls:
+          type:
+          - string
+          - 'null'
+        lenderNotes:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.FileAttachment:
+      type: object
+      properties:
+        fileName:
+          type: string
+        contentType:
+          type: string
+        base64Content:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CancelPayoffOrderRequestModel:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+        cancellationReason:
+          type:
+          - string
+          - 'null'
+          description: Optional reason for canceling the order
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
+      type: object
+      properties:
+        lenderId:
+          type:
+          - string
+          - 'null'
+        lenderName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.UpdatePayoffOrderRequestModel:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+        accountType:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
+        borrowerFirstName:
+          type:
+          - string
+          - 'null'
+        borrowerLastName:
+          type:
+          - string
+          - 'null'
+        borrowerSsn:
+          type:
+          - string
+          - 'null'
+        fileNumber:
+          type:
+          - string
+          - 'null'
+        transactionId:
+          type:
+          - string
+          - 'null'
+        fullPropertyAddress:
+          type:
+          - string
+          - 'null'
+        goodThroughDate:
+          type:
+          - string
+          - 'null'
+        integrationOrderChannel:
+          type:
+          - string
+          - 'null'
+        loanNumber:
+          type:
+          - string
+          - 'null'
+        fileUnderwriterId:
+          type:
+          - string
+          - 'null'
+        integrationChannelUserId:
+          type:
+          - string
+          - 'null'
+        lenderId:
+          type:
+          - string
+          - 'null'
+        rawLenderName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerFirstName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerLastName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerSsn:
+          type:
+          - string
+          - 'null'
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+        unstructuredOrderData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        borrowerAuth:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.FileAttachment'
+        attachments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.FileAttachment'
+        locationId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
+      enum:
+      - mortgage
+      - heloc
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        createdUtc:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedUtc:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: This is the location id. Integrations have historically called this accountId
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus'
+        accountType:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
+        fileNumber:
+          type: string
+        transactionId:
+          type:
+          - string
+          - 'null'
+        loanNumber:
+          type: string
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo'
+        borrowerFirstName:
+          type: string
+        borrowerLastName:
+          type: string
+        secondaryBorrowerFirstName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerLastName:
+          type:
+          - string
+          - 'null'
+        fullPropertyAddress:
+          type: string
+        goodThroughDate:
+          type: string
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+        parentOrderId:
+          type:
+          - string
+          - 'null'
+        childOrderId:
+          type:
+          - string
+          - 'null'
+        borrowerAuthorizationUrl:
+          type:
+          - string
+          - 'null'
+        orderAttachmentUrls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        payoffOrderEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel'
+        payoffQuotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffQuoteModel'
+        unstructuredOrderData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CreatePayoffOrderRequestModel:
+      required:
+      - borrowerFirstName
+      - borrowerLastName
+      - borrowerSsn
+      - fileNumber
+      - fullPropertyAddress
+      - goodThroughDate
+      - loanNumber
+      - locationId
+      type: object
+      properties:
+        accountType:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
+        borrowerFirstName:
+          minLength: 1
+          type: string
+        borrowerLastName:
+          minLength: 1
+          type: string
+        borrowerSsn:
+          minLength: 1
+          pattern: ^\d{4}$
+          type: string
+        fileNumber:
+          minLength: 1
+          type: string
+        transactionId:
+          type:
+          - string
+          - 'null'
+        fullPropertyAddress:
+          minLength: 1
+          type: string
+        goodThroughDate:
+          type: string
+          format: date
+        loanNumber:
+          minLength: 1
+          type: string
+        integrationOrderChannel:
+          type:
+          - string
+          - 'null'
+        locationId:
+          minLength: 1
+          type: string
+        fileUnderwriterId:
+          type:
+          - string
+          - 'null'
+        integrationChannelUserId:
+          type:
+          - string
+          - 'null'
+        lenderId:
+          type:
+          - string
+          - 'null'
+        rawLenderName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerFirstName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerLastName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerSsn:
+          pattern: ^\d{4}$
+          type:
+          - string
+          - 'null'
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+        unstructuredOrderData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        borrowerAuth:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation'
+        attachments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation:
+      required:
+      - base64Content
+      - contentType
+      - fileName
+      type: object
+      properties:
+        fileName:
+          minLength: 1
+          pattern: ^.+\.pdf$
+          type: string
+        contentType:
+          minLength: 1
+          pattern: ^application/pdf$
+          type: string
+        base64Content:
+          minLength: 1
+          type: string
+          format: byte
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        eventType:
+          type: string
+      additionalProperties: false
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        eventType:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
+      type: object
+      properties:
+        fileId:
+          type: string
+        type:
+          type: string
+        fileNumber:
+          type: string
+        integrationId:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffQuoteModel:
+      type: object
+      properties:
+        wiringInstructionsVerified:
+          type: boolean
+          description: Indicates whether the wiring instructions have been verified
+        totalPayoffAmount:
+          type: string
+          description: The total payoff amount
+        wiringRoutingNumber:
+          type: string
+          description: The ABA routing number for wiring funds
+        wiringAccountNumber:
+          type: string
+          description: The account number for wiring funds
+        wiringBank:
+          type: string
+          description: The bank name for wiring funds
+        deliveredAt:
+          type: string
+          format: date-time
+        quoteId:
+          type: string
+        goodThroughDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        created:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        createdBy:
+          type:
+          - string
+          - 'null'
+        modified:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedBy:
+          type:
+          - string
+          - 'null'
+        companyId:
+          type: string
+        locationId:
+          type:
+          - string
+          - 'null'
+        userId:
+          type: string
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.IntegrationData'
+        createdAt:
+          type: string
+        accountType:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
+        fileNumber:
+          type: string
+        loanNumber:
+          type: string
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo'
+        borrowerFirstName:
+          type: string
+        borrowerLastName:
+          type: string
+        secondaryBorrowerFirstName:
+          type:
+          - string
+          - 'null'
+        secondaryBorrowerLastName:
+          type:
+          - string
+          - 'null'
+        fullPropertyAddress:
+          type: string
+        goodThroughDate:
+          type: string
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+        parentOrderId:
+          type:
+          - string
+          - 'null'
+        childOrderId:
+          type:
+          - string
+          - 'null'
+        borrowerAuthorizationUrl:
+          type:
+          - string
+          - 'null'
+        orderAttachmentUrls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        payoffQuotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote'
+        payoffOrderEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent'
+        unstructuredOrderData:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
+      type: object
+      properties:
+        payoffQuoteUrl:
+          type: string
+        wiringInstructionsVerified:
+          type: boolean
+        totalPayoffAmount:
+          type: string
+        wiringRoutingNumber:
+          type: string
+        wiringAccountNumber:
+          type: string
+        wiringBank:
+          type: string
+        deliveredAt:
+          type: string
+          format: date-time
+        quoteId:
+          type: string
+        goodThroughDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

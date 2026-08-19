@@ -1,0 +1,1077 @@
+{
+  "item": [
+    {
+      "id": "413ee62b-e62c-470a-ac39-abb7ea80e87d",
+      "name": "IdentityRequest",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c53198e-17d0-482c-88a6-f155210f571a",
+          "name": "Initiates a new identity verification request for a recipient.",
+          "request": {
+            "name": "Initiates a new identity verification request for a recipient.",
+            "description": {
+              "content": "This endpoint creates an identity verification request that will be sent to the specified recipient\nvia their preferred delivery method (email, text, or share link). The recipient will be prompted to\ncomplete the identity verification process through a secure link.\n            \nThe verification process validates the recipient's identity using multi-factor authentication\nand returns a verification result that can be used to confirm the identity of parties involved\nin real estate transactions.\n            \n**Delivery Methods:**\n- `email_or_text`: Sends verification link via email or SMS to the recipient\n- `share_link`: Generates a unique shareable link returned in the response's VerificationDetails.UniqueLink\n            \n**Request Flow:**\n1. Submit identity verification request with recipient details\n2. System creates request and sends invitation (if email_or_text) or returns share link\n3. Recipient receives invitation and completes verification\n4. System processes verification result and updates request status\n5. Webhook notification sent to results_url (if configured)\n            \n**Authentication:**\nRequires API key authentication. The caller's company must have identity verification enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "identity",
+                "IdentityVerification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipient\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string,null-email>\",\n    \"phone\": \"<string,null>\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"<string,null>\"\n  },\n  \"accountId\": \"<string,null>\",\n  \"fileNumber\": \"<string,null>\",\n  \"transactionId\": \"<string,null>\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"<string>\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"<string,null>\",\n      \"streetAddress2\": \"<string,null>\",\n      \"city\": \"<string,null>\",\n      \"state\": \"<string,null>\",\n      \"zip\": \"<string,null>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9771bfc-6c43-45c5-ac6f-ef2692fb9992",
+              "name": "Successfully created the identity verification request. Returns the request details including the unique request ID, status, and verification details (including share link if applicable).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"email_or_text\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"status\": \"Started\",\n    \"verificationDetails\": {\n      \"displayName\": \"string\",\n      \"uniqueLink\": null,\n      \"descriptionTitle\": \"string\",\n      \"descriptionLong\": \"string\",\n      \"descriptionShort\": \"string\"\n    }\n  },\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5b07f6c-2275-40d2-9f93-4e0332b72f29",
+              "name": "Bad request. Validation errors occurred with the provided data. Common issues include:\n             - Missing required fields (Recipient.FirstName, Recipient.LastName, RequestDetails.DeliveryMethod)\n             - Invalid data format (email format, phone number must be 10 digits, invalid delivery method)\n             - Invalid routing number (if applicable)\n             - Invalid phone number format\n             Returns Response object with Errors array containing detailed error information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"email_or_text\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"code\": 1744,\n    \"details\": \"string\"\n  },\n  \"errors\": null,\n  \"serverInfo\": {\n    \"utcTime\": \"1963-12-16T03:09:18.512Z\",\n    \"version\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9fdc356-f5e3-4665-bf88-c2a70bc28f0f",
+              "name": "Unauthorized. API key is missing, invalid, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"email_or_text\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e222b1b4-b847-4f9d-a059-ec86eda06480",
+              "name": "Forbidden. The authenticated account's company does not have identity verification enabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"email_or_text\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0591e270-46f7-4e06-8a04-24539cd04cc9",
+              "name": "Internal server error. An unexpected error occurred while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"deliveryMethod\": \"email_or_text\",\n    \"underwriterId\": \"<string,null>\",\n    \"propertyAddress\": {\n      \"streetAddress\": \"123 Some Way\",\n      \"streetAddress2\": \"Unit 12\",\n      \"city\": \"Georgetown\",\n      \"state\": \"OR\",\n      \"zip\": \"78642\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fa474cb-4def-42c0-8751-9c38e40d31ad",
+          "name": "Webhook that is called with id verification results - results_url",
+          "request": {
+            "name": "Webhook that is called with id verification results - results_url",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "identity",
+                "IdVerificationResultUrlWebhook",
+                ":requestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aca32802-1122-4b81-852d-af874f24a548",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdVerificationResultUrlWebhook",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"statusCode\": \"Requests_Validation_MissingRoutingNumber\",\n  \"status\": {\n    \"code\": 9425,\n    \"description\": \"string\",\n    \"httpStatus\": \"ServiceUnavailable\"\n  },\n  \"exception\": {\n    \"type\": null,\n    \"message\": \"string\",\n    \"stackTrace\": \"string\",\n    \"source\": null,\n    \"innerException\": {\n      \"value\": \"<Circular reference to #/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo detected>\"\n    }\n  },\n  \"serviceData\": {\n    \"serviceName\": \"string\",\n    \"instanceId\": \"9ec69233-288b-7cb2-7718-4cb5f29c0548\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f20f28c-ca63-4427-b2d3-640efeb09ea1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdVerificationResultUrlWebhook",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 1679,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bd1fc83-c75c-40b9-b845-12e000236d31",
+          "name": "Retrieves the latest state of an initiated IDV request.",
+          "request": {
+            "name": "Retrieves the latest state of an initiated IDV request.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "identity",
+                "IdentityVerification",
+                ":requestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) The ID of the submitted IDV request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68215c33-c897-473d-a16f-057a73d0dddf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the submitted IDV request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recipient\": {\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Smith\",\n    \"email\": \"asmith@email.com\",\n    \"phone\": \"5038675309\",\n    \"role\": \"<string>\",\n    \"roleOther\": \"<string,null>\",\n    \"customEmailMessage\": \"\\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\\n            \"\n  },\n  \"accountId\": \"00000000-0000-0000-0000-000000000001\",\n  \"fileNumber\": \"A4242\",\n  \"transactionId\": \"20336491\",\n  \"requestDetails\": {\n    \"status\": \"Started\",\n    \"verificationDetails\": {\n      \"displayName\": \"string\",\n      \"uniqueLink\": null,\n      \"descriptionTitle\": \"string\",\n      \"descriptionLong\": \"string\",\n      \"descriptionShort\": \"string\"\n    }\n  },\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6edeaf77-fd43-475a-b3e8-339aba730392",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the submitted IDV request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "265262be-a28a-4285-a877-e2e95b862b9e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the submitted IDV request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d72ee81-e285-4ef0-9988-2f6252db2bc4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "IdentityVerification",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the submitted IDV request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": null,\n  \"status\": 1679,\n  \"detail\": null,\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30f6cae8-ffbc-4ff7-a89d-899795243855",
+          "name": "Get the confirmation PDF certificate associated with a successfully completed IDV request.",
+          "request": {
+            "name": "Get the confirmation PDF certificate associated with a successfully completed IDV request.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "identity",
+                "GetIdentityRequestCertificate",
+                ":requestId",
+                "Certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) The ID of the completed request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1cbca764-c403-4348-9751-a8cf5167ec8d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "GetIdentityRequestCertificate",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b87c5211-cf8f-4e45-ac85-4029cd034d8e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "GetIdentityRequestCertificate",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd819557-457d-489a-96ee-869623bd7864",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "GetIdentityRequestCertificate",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e68bc75-6a38-41f8-a7fb-fbf4cafb12e6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "identity",
+                    "GetIdentityRequestCertificate",
+                    ":requestId",
+                    "Certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The ID of the completed request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "56b8a835-a49c-41f5-86ec-8e795535f2d8",
+    "name": "CertifID V2 Identity Request API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

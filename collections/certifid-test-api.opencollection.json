@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Test API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /api/Test/{resourceId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/Test/:resourceId",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "GET /api/Test/{resourceId}/NoAuth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/Test/:resourceId/NoAuth",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "GET /api/Test/{resourceId}/JustAuth0",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/Test/:resourceId/JustAuth0",
+            "params": [
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

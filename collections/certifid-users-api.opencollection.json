@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Users API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a list of Products for current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/Users/GetUsersProducts"
+          },
+          "docs": "Retrieves a list of Products for current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

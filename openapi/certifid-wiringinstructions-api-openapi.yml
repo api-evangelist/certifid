@@ -1,0 +1,175 @@
+openapi: 3.2.0
+info:
+  title: CertifID V2 Wiring Instructions API
+  description: Access to CertifID data and functions for 3rd Party Integrations
+  version: v1
+security:
+- oauth2: []
+tags:
+- name: WiringInstructions
+paths:
+  /api/v1/Account/{locationId}/BankInformation:
+    get:
+      tags:
+      - WiringInstructions
+      summary: Retrieve a the wiring instructions available to the specified location/account.
+      parameters:
+      - name: locationId
+        in: path
+        description: The ID of the specific location/account to retrieve the wiring instructions for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - oauth2:
+        - CertifIDUser
+components:
+  schemas:
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
+      required:
+      - abaRoutingNumber
+      type: object
+      properties:
+        abaRoutingNumber:
+          minLength: 1
+          type: string
+          description: The bank's ABA/routing number.
+          example: '111904943'
+        institutionFullName:
+          type: string
+          description: The bank's full name.
+          example: Texas Bank
+        streetAddress:
+          maxLength: 150
+          minLength: 0
+          type: string
+          description: The bank's street address.
+          example: 1120 US Hwy 79 N
+        city:
+          maxLength: 27
+          minLength: 0
+          type: string
+          description: The bank's city.
+          example: Henderson
+        state:
+          type: string
+          description: The bank's state.
+          example: TX
+        zipCode:
+          type: string
+          description: The bank's ZIP code.
+          example: '75652'
+        phoneNumber:
+          type: string
+          description: The bank's phone number.
+          example: '9036571466'
+        bankWireStatus:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
+      additionalProperties: false
+      description: Details about a bank.
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
+      enum:
+      - Unknown
+      - Valid
+      - CannotTransactWiresElectronically
+      - CannotTransactWires
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this specific set of wiring instructions.
+        name:
+          type: string
+          description: A name given to the instructions by the customer in the CertifID platform.
+          example: Main Central Account
+        creditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        finalCreditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+        correspondentBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+      additionalProperties: false
+      description: View Model For Wiring Information
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
+      type: object
+      properties:
+        accountName:
+          type: string
+          description: The name associated to the account.
+        accountNumber:
+          type: string
+          description: The mask representation of the account number.
+      additionalProperties: false
+      description: Credit to
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB
+          tokenUrl: https://auth.certifid.com/oauth/token
+          scopes: {}

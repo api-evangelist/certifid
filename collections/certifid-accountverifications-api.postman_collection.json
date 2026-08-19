@@ -1,0 +1,1182 @@
+{
+  "item": [
+    {
+      "id": "c28adfae-1f24-478f-8524-d705514a4394",
+      "name": "AccountVerifications",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27e3318f-5c63-4ba0-aac5-6c537b74fcc9",
+          "name": "Create a new account verification.",
+          "request": {
+            "name": "Create a new account verification.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "AccountVerifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": {\n    \"routingNumber\": \"<string,null>\",\n    \"accountNumber\": \"<string,null>\",\n    \"accountName\": \"<string,null>\"\n  },\n  \"externalReference\": {\n    \"id\": \"<string,null>\"\n  },\n  \"party\": {\n    \"individual\": {\n      \"name\": {\n        \"first\": \"<string,null>\",\n        \"last\": \"<string,null>\"\n      },\n      \"taxId\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string,null>\"\n      },\n      \"dateOfBirth\": \"<string,null-date>\",\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\"\n    },\n    \"business\": {\n      \"legalName\": \"<string,null>\",\n      \"aliases\": \"<array,null>\",\n      \"registrations\": \"<array,null>\",\n      \"taxId\": {\n        \"value\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"website\": \"<string,null>\"\n    }\n  },\n  \"useCase\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<number,null-double>\",\n    \"currency\": \"<string,null>\",\n    \"paymentRail\": \"<string>\",\n    \"referenceNumber\": \"<string,null>\",\n    \"payoff\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"goodThroughDate\": \"<string,null-date>\",\n      \"perDiemAmount\": \"<number,null-double>\",\n      \"loanNumber\": \"<string,null>\",\n      \"loanType\": \"<string,null>\",\n      \"borrowers\": \"<array,null>\",\n      \"propertyAddress\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      }\n    },\n    \"b2bWire\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"onBehalfOf\": \"<array,null>\",\n      \"industry\": \"<string,null>\"\n    }\n  },\n  \"metadata\": \"<object,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fae6c702-e28c-4206-82f0-2d1f66bd8da5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"routingNumber\": \"<string,null>\",\n    \"accountNumber\": \"<string,null>\",\n    \"accountName\": \"<string,null>\"\n  },\n  \"externalReference\": {\n    \"id\": \"<string,null>\"\n  },\n  \"party\": {\n    \"individual\": {\n      \"name\": {\n        \"first\": \"<string,null>\",\n        \"last\": \"<string,null>\"\n      },\n      \"taxId\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string,null>\"\n      },\n      \"dateOfBirth\": \"<string,null-date>\",\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\"\n    },\n    \"business\": {\n      \"legalName\": \"<string,null>\",\n      \"aliases\": \"<array,null>\",\n      \"registrations\": \"<array,null>\",\n      \"taxId\": {\n        \"value\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"website\": \"<string,null>\"\n    }\n  },\n  \"useCase\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<number,null-double>\",\n    \"currency\": \"<string,null>\",\n    \"paymentRail\": \"<string>\",\n    \"referenceNumber\": \"<string,null>\",\n    \"payoff\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"goodThroughDate\": \"<string,null-date>\",\n      \"perDiemAmount\": \"<number,null-double>\",\n      \"loanNumber\": \"<string,null>\",\n      \"loanType\": \"<string,null>\",\n      \"borrowers\": \"<array,null>\",\n      \"propertyAddress\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      }\n    },\n    \"b2bWire\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"onBehalfOf\": \"<array,null>\",\n      \"industry\": \"<string,null>\"\n    }\n  },\n  \"metadata\": \"<object,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"object\": \"string\",\n  \"status\": \"Canceled\",\n  \"reasonCodes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"createdAt\": null,\n  \"updatedAt\": \"1965-09-21T15:20:30.772Z\",\n  \"completedAt\": \"1971-08-02T00:04:52.395Z\",\n  \"canceledAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8a6be9d-e5a4-4b5c-bd69-c4341d57f860",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"routingNumber\": \"<string,null>\",\n    \"accountNumber\": \"<string,null>\",\n    \"accountName\": \"<string,null>\"\n  },\n  \"externalReference\": {\n    \"id\": \"<string,null>\"\n  },\n  \"party\": {\n    \"individual\": {\n      \"name\": {\n        \"first\": \"<string,null>\",\n        \"last\": \"<string,null>\"\n      },\n      \"taxId\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string,null>\"\n      },\n      \"dateOfBirth\": \"<string,null-date>\",\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\"\n    },\n    \"business\": {\n      \"legalName\": \"<string,null>\",\n      \"aliases\": \"<array,null>\",\n      \"registrations\": \"<array,null>\",\n      \"taxId\": {\n        \"value\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"website\": \"<string,null>\"\n    }\n  },\n  \"useCase\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<number,null-double>\",\n    \"currency\": \"<string,null>\",\n    \"paymentRail\": \"<string>\",\n    \"referenceNumber\": \"<string,null>\",\n    \"payoff\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"goodThroughDate\": \"<string,null-date>\",\n      \"perDiemAmount\": \"<number,null-double>\",\n      \"loanNumber\": \"<string,null>\",\n      \"loanType\": \"<string,null>\",\n      \"borrowers\": \"<array,null>\",\n      \"propertyAddress\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      }\n    },\n    \"b2bWire\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"onBehalfOf\": \"<array,null>\",\n      \"industry\": \"<string,null>\"\n    }\n  },\n  \"metadata\": \"<object,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55c78af8-44bf-4ac2-b8fc-c3c0bec708ce",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"routingNumber\": \"<string,null>\",\n    \"accountNumber\": \"<string,null>\",\n    \"accountName\": \"<string,null>\"\n  },\n  \"externalReference\": {\n    \"id\": \"<string,null>\"\n  },\n  \"party\": {\n    \"individual\": {\n      \"name\": {\n        \"first\": \"<string,null>\",\n        \"last\": \"<string,null>\"\n      },\n      \"taxId\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string,null>\"\n      },\n      \"dateOfBirth\": \"<string,null-date>\",\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\"\n    },\n    \"business\": {\n      \"legalName\": \"<string,null>\",\n      \"aliases\": \"<array,null>\",\n      \"registrations\": \"<array,null>\",\n      \"taxId\": {\n        \"value\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"website\": \"<string,null>\"\n    }\n  },\n  \"useCase\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<number,null-double>\",\n    \"currency\": \"<string,null>\",\n    \"paymentRail\": \"<string>\",\n    \"referenceNumber\": \"<string,null>\",\n    \"payoff\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"goodThroughDate\": \"<string,null-date>\",\n      \"perDiemAmount\": \"<number,null-double>\",\n      \"loanNumber\": \"<string,null>\",\n      \"loanType\": \"<string,null>\",\n      \"borrowers\": \"<array,null>\",\n      \"propertyAddress\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      }\n    },\n    \"b2bWire\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"onBehalfOf\": \"<array,null>\",\n      \"industry\": \"<string,null>\"\n    }\n  },\n  \"metadata\": \"<object,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8dfcd19a-e928-4a62-a526-90b93dc64877",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"routingNumber\": \"<string,null>\",\n    \"accountNumber\": \"<string,null>\",\n    \"accountName\": \"<string,null>\"\n  },\n  \"externalReference\": {\n    \"id\": \"<string,null>\"\n  },\n  \"party\": {\n    \"individual\": {\n      \"name\": {\n        \"first\": \"<string,null>\",\n        \"last\": \"<string,null>\"\n      },\n      \"taxId\": {\n        \"type\": \"<string>\",\n        \"value\": \"<string,null>\"\n      },\n      \"dateOfBirth\": \"<string,null-date>\",\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\"\n    },\n    \"business\": {\n      \"legalName\": \"<string,null>\",\n      \"aliases\": \"<array,null>\",\n      \"registrations\": \"<array,null>\",\n      \"taxId\": {\n        \"value\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"address\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      },\n      \"phone\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"website\": \"<string,null>\"\n    }\n  },\n  \"useCase\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<number,null-double>\",\n    \"currency\": \"<string,null>\",\n    \"paymentRail\": \"<string>\",\n    \"referenceNumber\": \"<string,null>\",\n    \"payoff\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"goodThroughDate\": \"<string,null-date>\",\n      \"perDiemAmount\": \"<number,null-double>\",\n      \"loanNumber\": \"<string,null>\",\n      \"loanType\": \"<string,null>\",\n      \"borrowers\": \"<array,null>\",\n      \"propertyAddress\": {\n        \"line1\": \"<string,null>\",\n        \"line2\": \"<string,null>\",\n        \"city\": \"<string,null>\",\n        \"state\": \"<string,null>\",\n        \"postalCode\": \"<string,null>\",\n        \"country\": \"<string,null>\"\n      }\n    },\n    \"b2bWire\": {\n      \"notes\": \"<string,null>\",\n      \"underwriter\": {\n        \"id\": \"<string,null>\",\n        \"name\": \"<string,null>\"\n      },\n      \"onBehalfOf\": \"<array,null>\",\n      \"industry\": \"<string,null>\"\n    }\n  },\n  \"metadata\": \"<object,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0f1701d-0c35-4e12-975a-b06852b7d088",
+          "name": "Retrieve an account verification by id.",
+          "request": {
+            "name": "Retrieve an account verification by id.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "AccountVerifications",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7b05c2e2-43d9-42de-8f2d-4f94eaf8da93",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"object\": \"string\",\n  \"status\": \"Canceled\",\n  \"reasonCodes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"createdAt\": null,\n  \"updatedAt\": \"1965-09-21T15:20:30.772Z\",\n  \"completedAt\": \"1971-08-02T00:04:52.395Z\",\n  \"canceledAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e676412-9801-4ecc-ba32-704daa758b09",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1161feeb-9427-43fe-9831-fd3403ae9120",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a1b4f3fe-5897-46f2-ae55-c31bc0dfb73d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "110efd8a-d63d-4b5a-96b8-55d0a8b6b43d",
+          "name": "Search account verifications for the authenticated tenant.",
+          "request": {
+            "name": "Search account verifications for the authenticated tenant.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "AccountVerifications",
+                "Search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"sortFields\": \"<array,null>\",\n  \"query\": \"<string,null>\",\n  \"zeroBasedPage\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"partyType\": \"<string>\",\n  \"externalReferenceId\": \"<string,null>\",\n  \"createdGte\": \"<string,null-date-time>\",\n  \"createdLte\": \"<string,null-date-time>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86951e54-a3d4-47bc-b5f7-dc8100406443",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    "Search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"sortFields\": \"<array,null>\",\n  \"query\": \"<string,null>\",\n  \"zeroBasedPage\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"partyType\": \"<string>\",\n  \"externalReferenceId\": \"<string,null>\",\n  \"createdGte\": \"<string,null-date-time>\",\n  \"createdLte\": \"<string,null-date-time>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pageSize\": 7004,\n  \"zeroBasedCurrentPage\": 5301,\n  \"totalItems\": 961,\n  \"totalPages\": 6817,\n  \"items\": [\n    {\n      \"id\": null,\n      \"object\": \"string\",\n      \"status\": \"<string>\",\n      \"reasonCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"createdAt\": \"1984-08-24T16:43:33.656Z\",\n      \"updatedAt\": null,\n      \"completedAt\": \"1956-12-31T13:05:28.909Z\",\n      \"canceledAt\": \"2018-04-24T16:39:32.666Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"status\": \"<string>\",\n      \"reasonCodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"createdAt\": \"1957-11-07T09:08:21.329Z\",\n      \"updatedAt\": \"2020-05-22T22:55:54.563Z\",\n      \"completedAt\": null,\n      \"canceledAt\": \"1967-11-05T11:05:10.011Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f9583a5-c4eb-44c9-9728-1e257ef3f894",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    "Search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"sortFields\": \"<array,null>\",\n  \"query\": \"<string,null>\",\n  \"zeroBasedPage\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"partyType\": \"<string>\",\n  \"externalReferenceId\": \"<string,null>\",\n  \"createdGte\": \"<string,null-date-time>\",\n  \"createdLte\": \"<string,null-date-time>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a038ba2a-76f6-4cc9-8612-f906a67df54f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    "Search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"sortFields\": \"<array,null>\",\n  \"query\": \"<string,null>\",\n  \"zeroBasedPage\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"partyType\": \"<string>\",\n  \"externalReferenceId\": \"<string,null>\",\n  \"createdGte\": \"<string,null-date-time>\",\n  \"createdLte\": \"<string,null-date-time>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cfa921b1-9624-4452-a7b4-29ab6c5d30f7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    "Search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"sortFields\": \"<array,null>\",\n  \"query\": \"<string,null>\",\n  \"zeroBasedPage\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"useCase\": \"<string>\",\n  \"partyType\": \"<string>\",\n  \"externalReferenceId\": \"<string,null>\",\n  \"createdGte\": \"<string,null-date-time>\",\n  \"createdLte\": \"<string,null-date-time>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "131e4bda-263a-4685-b167-4950b1c30b32",
+          "name": "Cancel an account verification.",
+          "request": {
+            "name": "Cancel an account verification.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "AccountVerifications",
+                ":id",
+                "Cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.certifid.com/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f27609f-8f4d-4012-a4ab-ff1f02c63c88",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id",
+                    "Cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"status\": \"<string>\",\n  \"reasonCodes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"createdAt\": \"2005-03-24T15:27:06.351Z\",\n  \"updatedAt\": null,\n  \"completedAt\": \"1971-02-10T01:35:03.836Z\",\n  \"canceledAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2deb5eec-da30-4e36-8adc-8c8f21ba9f45",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id",
+                    "Cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1d7c4eb-508a-481e-8452-eb874ad8007d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id",
+                    "Cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3fa06fa1-c584-48c0-a4da-31a67be393bd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id",
+                    "Cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36f101cd-beba-4611-b5a4-ada66435cd3c",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "AccountVerifications",
+                    ":id",
+                    "Cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": null,\n  \"title\": \"string\",\n  \"status\": null,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.certifid.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "35d9e88e-e344-41d1-a5be-d9c5a4d800fd",
+    "name": "CertifID V2 Account Verifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access to CertifID data and functions for 3rd Party Integrations",
+      "type": "text/plain"
+    }
+  }
+}

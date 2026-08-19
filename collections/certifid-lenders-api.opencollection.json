@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CertifID V2 Lenders API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+      "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lenders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Endpoint to search for Lenders by Name.  This is a partial search. \nFor example, \"US\" would return \"US Bank\", \"Bank of the US\", etc.\nOnly available to consumers with Payoff Protect product access.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/Lenders/SearchLenders",
+            "params": [
+              {
+                "name": "searchTerm",
+                "value": "",
+                "type": "query",
+                "description": "Enter a search term to search for Lenders who's Name matches this term"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Endpoint to search for Lenders by Name.  This is a partial search. \nFor example, \"US\" would return \"US Bank\", \"Bank of the US\", etc.\nOnly available to consumers with Payoff Protect product access."
+        },
+        {
+          "info": {
+            "name": "Retrieves a Lender Logo using the Lender Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/Lenders/GetLenderLogoById",
+            "params": [
+              {
+                "name": "lenderId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the lender whose logo should be retrieved"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.certifid.com/authorize?audience=https://api.certifid.com&connection=CertifID-Users-DB",
+              "accessTokenUrl": "https://auth.certifid.com/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a Lender Logo using the Lender Id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
