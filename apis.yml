@@ -19,6 +19,18 @@ modified: '2026-08-09'
 tags:
 - Company
 - Wire Fraud Prevention
+- Real-Estate
+- Title Insurance
+- Identity Verification
+- Business Verification
+- Payments
+- Fraud Prevention
+- Escrow and Settlement
+- Financial-Services
+- Security
+tags_raw:
+- Company
+- Wire Fraud Prevention
 - Real Estate
 - Title Insurance
 - Identity Verification
@@ -57,6 +69,8 @@ apis:
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
   tags:
+  - Bank Lookup
+  tags_raw:
   - BankLookup
   properties:
   - type: OpenAPI
@@ -276,7 +290,8 @@ apis:
   description: The Test API from CertifID — 3 operation(s) for test.
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
-  tags:
+  tags: []
+  tags_raw:
   - Test
   properties:
   - type: OpenAPI
@@ -321,6 +336,8 @@ apis:
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
