@@ -9,6 +9,18 @@ description: CertifID is a wire fraud prevention, identity verification and fund
   wires against fraud loss. CertifID exposes a public "CertifID V2 APIs" REST surface
   at api.certifid.com for third-party integrations, documented with a live OpenAPI
   3.0.1 definition served from Swagger UI and secured with Auth0-backed OAuth 2.0.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/60a41ae959fbb36bd6808d6e/688ce259fd22b6b6905c812d_thumbnail-homepage.png
 url: https://raw.githubusercontent.com/api-evangelist/certifid/refs/heads/main/apis.yml
 x-type: company
