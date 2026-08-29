@@ -1,0 +1,47 @@
+slug: certifid
+provider: CertifID
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Real Estate
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: CollectRequest
+  spec_file: certifid-collectrequest-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.72
+  evidence: POST /api/v1/WiringInstructions/Collect — "Initiate a new request to request a seller's wiring
+    instructions."; schema RequestParts.PropertyAddress
+  reason: Secure collection of a seller's wiring instructions for a real-estate closing is part of managing
+    settlement funding at closing, which BC-4930.50 covers ("escrow, closing conditions, settlement funding").
+    The property-address and party schemas confirm the real-estate transaction context rather than generic
+    payments.
+- tag: ConfirmRequest
+  spec_file: certifid-confirmrequest-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.72
+  evidence: POST /api/v1/WiringInstructions/Confirm — "Initiate a new request to Confirm a seller's wiring
+    instructions."
+  reason: Confirming wiring instructions for the seller and issuing a confirmation certificate is a settlement-funding
+    control step in the closing process, matching Closing & Settlement Management.
+- tag: SendRequest
+  spec_file: certifid-sendrequest-api-openapi.yml
+  capability_id: BC-4930.50
+  capability_id_l1: BC-4930
+  capability_name: Closing & Settlement Management
+  confidence: 0.72
+  evidence: POST /api/v1/WiringInstructions/Send — "Initiate a new request to send wiring instructions
+    to a buyer."
+  reason: Securely transmitting wiring instructions to the buyer and evidencing completion with a certificate
+    is settlement-funding execution within the closing process.
