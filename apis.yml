@@ -81,7 +81,7 @@ apis:
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
   tags:
-  - Bank Lookup
+  - BankLookup
   tags_raw:
   - BankLookup
   properties:
