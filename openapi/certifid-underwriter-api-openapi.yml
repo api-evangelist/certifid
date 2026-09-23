@@ -58,6 +58,8 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1AccountByIdUnderwriter
+      x-operation-id-source: derived
 components:
   schemas:
     CertifID.V2.PublicAPI.ViewModels.Underwriters.UnderwriterViewModel:

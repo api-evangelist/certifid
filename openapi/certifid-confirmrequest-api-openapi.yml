@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - ConfirmRequest
-      summary: Retrieve the latest state of an initiated confirm request within CertifID's platform.
+      summary: Retrieve the latest state of an initiated confirm request within CertifID's…
       parameters:
       - name: requestId
         in: path
@@ -52,11 +52,13 @@ paths:
       security:
       - oauth2:
         - RequestProduct
+      operationId: getApiV1WiringInstructionsConfirmByRequestId
+      x-operation-id-source: derived
   /api/v1/WiringInstructions/Confirm/{requestId}/Certificate:
     get:
       tags:
       - ConfirmRequest
-      summary: Get the confirmation PDF certificate associated with a successfully completed confirm request.
+      summary: Get the confirmation PDF certificate associated with a successfully completed…
       parameters:
       - name: requestId
         in: path
@@ -85,14 +87,15 @@ paths:
       security:
       - oauth2:
         - RequestProduct
+      operationId: getApiV1WiringInstructionsConfirmByRequestIdCertificate
+      x-operation-id-source: derived
   /api/v1/WiringInstructions/Confirm:
     post:
       tags:
       - ConfirmRequest
-      summary: Initiate a new request to Confirm a seller's wiring instructions.
+      summary: Initiate a new request to Confirm a seller's wiring instructions
       requestBody:
-        description: 'The details of the file for which a new confirm request is being initiated, and
-          the
+        description: 'The details of the file for which a new confirm request is being initiated, and the
 
           default values to select in the form within CertifID''s platform.'
         content:
@@ -150,16 +153,108 @@ paths:
       - oauth2:
         - RequestProduct
         - RequestCreator
+      operationId: postApiV1WiringInstructionsConfirm
+      x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
+      type: object
+      properties:
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: The street address of the property being described.
+          example: 123 Some Way
+        streetAddress2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the street address.
+          example: Unit 12
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city of the property being described.
+          example: Georgetown
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state of the property being described.
+          example: OR
+        zip:
+          type:
+          - string
+          - 'null'
+          description: The ZIP code of the property being described.
+          example: '78642'
+      additionalProperties: false
+      description: A description of the property in question.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
+        typeDisplayText:
+          type: string
+        freeText:
+          type: string
+      additionalProperties: false
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
       enum:
       - Other
-      - IncorrectAccountHolder
-      - IncorrectAccountNumber
-      - IncorrectAbaNumber
-      - GetCheck
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
       type: string
+      description: The role of the party in the real estate deal.
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.ConfirmRequestDetailsViewModel:
       type: object
       properties:
@@ -231,118 +326,6 @@ components:
           example: '903528434'
       additionalProperties: false
       description: A request to collect wiring instructions from a recipient (seller or real estate deal).
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
-        typeDisplayText:
-          type: string
-        freeText:
-          type: string
-      additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
-      type: object
-      properties:
-        streetAddress:
-          type:
-          - string
-          - 'null'
-          description: The street address of the property being described.
-          example: 123 Some Way
-        streetAddress2:
-          type:
-          - string
-          - 'null'
-          description: The second line of the street address.
-          example: Unit 12
-        city:
-          type:
-          - string
-          - 'null'
-          description: The city of the property being described.
-          example: Georgetown
-        state:
-          type:
-          - string
-          - 'null'
-          description: The state of the property being described.
-          example: OR
-        zip:
-          type:
-          - string
-          - 'null'
-          description: The ZIP code of the property being described.
-          example: '78642'
-      additionalProperties: false
-      description: A description of the property in question.
-    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
-    : required:
-      - recipient
-      type: object
-      properties:
-        accountId:
-          type:
-          - string
-          - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization
-            in CertifID''s platform from which the
-
-            request is being sent.
-
-            If not specified, the customer''s default or current account will be selected initially.'
-          example: 00000000-0000-0000-0000-000000000001
-        fileNumber:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
-
-            origination system.'
-          example: A4242
-        transactionId:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
-            from the 3rd party origination system.
-          example: '20336491'
-        recipient:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
-        requestDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel'
-        id:
-          type: string
-          description: A unique identifier for this request, provided by the CertifID platform.
-      additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
-      enum:
-      - Other
-      - Buyer
-      - Seller
-      - Lender
-      - RealEstateAgent
-      - Attorney
-      - TitleCompany
-      - LawFirm
-      - Builder
-      - GeneralContractor
-      type: string
-      description: The role of the party in the real estate deal.
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
-      enum:
-      - CertifId
-      - Expired
-      - Failed
-      - Started
-      - Sent
-      - Rejected
-      - Canceled
-      - HighRisk
-      type: string
-      description: The various statuses of a wiring instructions related request in the CertifID platform.
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
       required:
       - firstName
@@ -382,8 +365,7 @@ components:
           type:
           - string
           - 'null'
-          description: 'If "Other" is selected for the party, allows the integrating system to send a
-            value
+          description: 'If "Other" is selected for the party, allows the integrating system to send a value
 
             other than the preset list.'
         customEmailMessage:
@@ -392,75 +374,10 @@ components:
           type:
           - string
           - 'null'
-          description: Custom text section will be part of the recipient's invite message, in the email's
-            body.
-          example: "\n            This is a demo message from the title agent to the buyer, which will\
-            \ be added to the invite email.\n            "
+          description: Custom text section will be part of the recipient's invite message, in the email's body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\n            "
       additionalProperties: false
       description: A party to a file/deal.
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
-    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.ConfirmRequestDetailsViewModel
-    : required:
-      - recipient
-      type: object
-      properties:
-        accountId:
-          type:
-          - string
-          - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization
-            in CertifID''s platform from which the
-
-            request is being sent.
-
-            If not specified, the customer''s default or current account will be selected initially.'
-          example: 00000000-0000-0000-0000-000000000001
-        fileNumber:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
-
-            origination system.'
-          example: A4242
-        transactionId:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
-            from the 3rd party origination system.
-          example: '20336491'
-        recipient:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
-        requestDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.ConfirmRequestDetailsViewModel'
-      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel:
       type: object
       properties:
@@ -544,10 +461,90 @@ components:
           type:
           - string
           - 'null'
-          description: The date and time when the request gets expired if the recipient do not act on
-            it.
+          description: The date and time when the request gets expired if the recipient do not act on it.
           format: date-time
       additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
+      enum:
+      - CertifId
+      - Expired
+      - Failed
+      - Started
+      - Sent
+      - Rejected
+      - Canceled
+      - HighRisk
+      type: string
+      description: The various statuses of a wiring instructions related request in the CertifID platform.
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.ConfirmRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.ConfirmRequestDetailsViewModel'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
+      enum:
+      - Other
+      - IncorrectAccountHolder
+      - IncorrectAccountNumber
+      - IncorrectAbaNumber
+      - GetCheck
+      type: string
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
   securitySchemes:
     oauth2:
       type: oauth2

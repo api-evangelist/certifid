@@ -12,9 +12,7 @@ paths:
     post:
       tags:
       - Lenders
-      summary: "Endpoint to search for Lenders by Name.  This is a partial search. \nFor example, \"US\"\
-        \ would return \"US Bank\", \"Bank of the US\", etc.\nOnly available to consumers with Payoff\
-        \ Protect product access."
+      summary: Endpoint to search for Lenders by Name.
       parameters:
       - name: searchTerm
         in: query
@@ -44,6 +42,8 @@ paths:
       security:
       - oauth2:
         - PayoffProtectProduct
+      operationId: postApiV1LendersSearchLenders
+      x-operation-id-source: derived
   /api/v1/Lenders/GetLenderLogoById:
     post:
       tags:
@@ -83,8 +83,41 @@ paths:
       security:
       - oauth2:
         - PayoffProtectProduct
+      operationId: postApiV1LendersGetLenderLogoById
+      x-operation-id-source: derived
 components:
   schemas:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel:
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: City
+        id:
+          type: string
+          description: Id
+        name:
+          type: string
+          description: Name
+        propertyAddress:
+          type:
+          - string
+          - 'null'
+          description: Property Address of the lender
+        state:
+          type:
+          - string
+          - 'null'
+          description: State
+        zip:
+          type:
+          - string
+          - 'null'
+          description: Zipcode
+      additionalProperties: false
+      description: Lender response model
     System.Net.HttpStatusCode:
       enum:
       - Continue
@@ -186,37 +219,6 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
       additionalProperties: false
       description: ''
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel:
-      type: object
-      properties:
-        city:
-          type:
-          - string
-          - 'null'
-          description: City
-        id:
-          type: string
-          description: Id
-        name:
-          type: string
-          description: Name
-        propertyAddress:
-          type:
-          - string
-          - 'null'
-          description: Property Address of the lender
-        state:
-          type:
-          - string
-          - 'null'
-          description: State
-        zip:
-          type:
-          - string
-          - 'null'
-          description: Zipcode
-      additionalProperties: false
-      description: Lender response model
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:

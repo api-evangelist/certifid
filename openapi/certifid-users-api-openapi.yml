@@ -34,6 +34,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation'
+      operationId: postApiV1UsersGetUsersProducts
+      x-operation-id-source: derived
 components:
   schemas:
     CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:

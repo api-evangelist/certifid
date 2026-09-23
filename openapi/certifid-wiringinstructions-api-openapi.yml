@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - WiringInstructions
-      summary: Retrieve a the wiring instructions available to the specified location/account.
+      summary: Retrieve a the wiring instructions available to the specified location/account
       parameters:
       - name: locationId
         in: path
@@ -58,8 +58,21 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1AccountByLocationIdBankInformation
+      x-operation-id-source: derived
 components:
   schemas:
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
+      type: object
+      properties:
+        accountName:
+          type: string
+          description: The name associated to the account.
+        accountNumber:
+          type: string
+          description: The mask representation of the account number.
+      additionalProperties: false
+      description: Credit to
     CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
       required:
       - abaRoutingNumber
@@ -102,13 +115,6 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
       additionalProperties: false
       description: Details about a bank.
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
-      enum:
-      - Unknown
-      - Valid
-      - CannotTransactWiresElectronically
-      - CannotTransactWires
-      type: string
     CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
       type: object
       properties:
@@ -129,6 +135,13 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
       additionalProperties: false
       description: View Model For Wiring Information
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
+      enum:
+      - Unknown
+      - Valid
+      - CannotTransactWiresElectronically
+      - CannotTransactWires
+      type: string
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -154,17 +167,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
-      type: object
-      properties:
-        accountName:
-          type: string
-          description: The name associated to the account.
-        accountNumber:
-          type: string
-          description: The mask representation of the account number.
-      additionalProperties: false
-      description: Credit to
   securitySchemes:
     oauth2:
       type: oauth2

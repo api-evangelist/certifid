@@ -28,6 +28,10 @@ paths:
       security:
       - oauth2:
         - ResourceAccessToken|read:requests|resourceId|CompanyWiringInfo
+      summary: Get api test by resource id
+      x-summary-source: derived
+      operationId: getApiTestByResourceId
+      x-operation-id-source: derived
   /api/Test/{resourceId}/NoAuth:
     get:
       tags:
@@ -41,6 +45,10 @@ paths:
       responses:
         '200':
           description: OK
+      summary: Get api test by resource id no auth
+      x-summary-source: derived
+      operationId: getApiTestByResourceIdNoAuth
+      x-operation-id-source: derived
   /api/Test/{resourceId}/JustAuth0:
     get:
       tags:
@@ -61,6 +69,10 @@ paths:
       security:
       - oauth2:
         - null
+      summary: Get api test by resource id just auth0
+      x-summary-source: derived
+      operationId: getApiTestByResourceIdJustAuth0
+      x-operation-id-source: derived
 components:
   securitySchemes:
     oauth2:

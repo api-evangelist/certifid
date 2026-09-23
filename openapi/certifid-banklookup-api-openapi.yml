@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - BankLookup
-      summary: Lookup a bank's wiring details based on their ABA/routing number.
+      summary: Lookup a bank's wiring details based on their ABA/routing number
       parameters:
       - name: abaRoutingNumber
         in: path
@@ -64,11 +64,13 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1BankByAbaRoutingNumberWiringDetails
+      x-operation-id-source: derived
   /api/v1/Bank/{abaRoutingNumber}:
     get:
       tags:
       - BankLookup
-      summary: Lookup a correspondent bank's details based on their ABA/routing number.
+      summary: Lookup a correspondent bank's details based on their ABA/routing number
       parameters:
       - name: abaRoutingNumber
         in: path
@@ -120,57 +122,10 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1BankByAbaRoutingNumber
+      x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
-      required:
-      - abaRoutingNumber
-      type: object
-      properties:
-        abaRoutingNumber:
-          minLength: 1
-          type: string
-          description: The bank's ABA/routing number.
-          example: '111904943'
-        institutionFullName:
-          type: string
-          description: The bank's full name.
-          example: Texas Bank
-        streetAddress:
-          maxLength: 150
-          minLength: 0
-          type: string
-          description: The bank's street address.
-          example: 1120 US Hwy 79 N
-        city:
-          maxLength: 27
-          minLength: 0
-          type: string
-          description: The bank's city.
-          example: Henderson
-        state:
-          type: string
-          description: The bank's state.
-          example: TX
-        zipCode:
-          type: string
-          description: The bank's ZIP code.
-          example: '75652'
-        phoneNumber:
-          type: string
-          description: The bank's phone number.
-          example: '9036571466'
-        bankWireStatus:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
-      additionalProperties: false
-      description: Details about a bank.
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
-      enum:
-      - Unknown
-      - Valid
-      - CannotTransactWiresElectronically
-      - CannotTransactWires
-      type: string
     CertifID.V2.PublicAPI.ViewModels.Banks.CorrespondentBankDetails:
       required:
       - abaRoutingNumber
@@ -218,6 +173,48 @@ components:
             a Fedwire ABA Routing Number as a beneficiary.'
       additionalProperties: false
       description: Correspondent bank details related to a beneficiary ABA Routing Number.
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
+      required:
+      - abaRoutingNumber
+      type: object
+      properties:
+        abaRoutingNumber:
+          minLength: 1
+          type: string
+          description: The bank's ABA/routing number.
+          example: '111904943'
+        institutionFullName:
+          type: string
+          description: The bank's full name.
+          example: Texas Bank
+        streetAddress:
+          maxLength: 150
+          minLength: 0
+          type: string
+          description: The bank's street address.
+          example: 1120 US Hwy 79 N
+        city:
+          maxLength: 27
+          minLength: 0
+          type: string
+          description: The bank's city.
+          example: Henderson
+        state:
+          type: string
+          description: The bank's state.
+          example: TX
+        zipCode:
+          type: string
+          description: The bank's ZIP code.
+          example: '75652'
+        phoneNumber:
+          type: string
+          description: The bank's phone number.
+          example: '9036571466'
+        bankWireStatus:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
+      additionalProperties: false
+      description: Details about a bank.
     CertifID.V2.PublicAPI.ViewModels.Banks.BankWiringDetailsViewModel:
       type: object
       properties:
@@ -227,6 +224,13 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.CorrespondentBankDetails'
       additionalProperties: false
       description: Wiring details for a bank.
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
+      enum:
+      - Unknown
+      - Valid
+      - CannotTransactWiresElectronically
+      - CannotTransactWires
+      type: string
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:

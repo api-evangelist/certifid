@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - CollectRequest
-      summary: Retrieve the latest state of an initiated request within CertifID's platform.
+      summary: Retrieve the latest state of an initiated request within CertifID's platform
       parameters:
       - name: requestId
         in: path
@@ -52,11 +52,13 @@ paths:
       security:
       - oauth2:
         - RequestProduct
+      operationId: getApiV1WiringInstructionsCollectByRequestId
+      x-operation-id-source: derived
   /api/v1/WiringInstructions/Collect/{requestId}/Certificate:
     get:
       tags:
       - CollectRequest
-      summary: Get the confirmation PDF certificate associated with a successfully completed request.
+      summary: Get the confirmation PDF certificate associated with a successfully completed…
       parameters:
       - name: requestId
         in: path
@@ -85,11 +87,13 @@ paths:
       security:
       - oauth2:
         - RequestProduct
+      operationId: getApiV1WiringInstructionsCollectByRequestIdCertificate
+      x-operation-id-source: derived
   /api/v1/WiringInstructions/Collect:
     post:
       tags:
       - CollectRequest
-      summary: Initiate a new request to request a seller's wiring instructions.
+      summary: Initiate a new request to request a seller's wiring instructions
       requestBody:
         description: 'The details of the file for which a new request is being initiated, and the
 
@@ -149,51 +153,10 @@ paths:
       - oauth2:
         - RequestProduct
         - RequestCreator
+      operationId: postApiV1WiringInstructionsCollect
+      x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
-      enum:
-      - Other
-      - IncorrectAccountHolder
-      - IncorrectAccountNumber
-      - IncorrectAbaNumber
-      - GetCheck
-      type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel:
-      type: object
-      properties:
-        underwriterId:
-          type:
-          - string
-          - 'null'
-          description: The ID of the title underwriter to associate with the request.
-        transactionAmount:
-          type:
-          - number
-          - 'null'
-          description: The monetary amount of the transaction that the wiring instructions are for.
-          format: double
-          example: 50000
-        expectedSettlementDate:
-          type:
-          - string
-          - 'null'
-          description: Expected closing date.
-          format: date-time
-        propertyAddress:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
-      additionalProperties: false
-      description: A request to collect wiring instructions from a recipient (seller or real estate deal).
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
-        typeDisplayText:
-          type: string
-        freeText:
-          type: string
-      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
       type: object
       properties:
@@ -238,8 +201,7 @@ components:
           type:
           - string
           - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization
-            in CertifID''s platform from which the
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
 
             request is being sent.
 
@@ -259,8 +221,7 @@ components:
           type:
           - string
           - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
-            from the 3rd party origination system.
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
           example: '20336491'
         recipient:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
@@ -270,6 +231,41 @@ components:
           type: string
           description: A unique identifier for this request, provided by the CertifID platform.
       additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
+        typeDisplayText:
+          type: string
+        freeText:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel:
+      type: object
+      properties:
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: The ID of the title underwriter to associate with the request.
+        transactionAmount:
+          type:
+          - number
+          - 'null'
+          description: The monetary amount of the transaction that the wiring instructions are for.
+          format: double
+          example: 50000
+        expectedSettlementDate:
+          type:
+          - string
+          - 'null'
+          description: Expected closing date.
+          format: date-time
+        propertyAddress:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress'
+      additionalProperties: false
+      description: A request to collect wiring instructions from a recipient (seller or real estate deal).
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
       enum:
       - Other
@@ -284,18 +280,6 @@ components:
       - GeneralContractor
       type: string
       description: The role of the party in the real estate deal.
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
-      enum:
-      - CertifId
-      - Expired
-      - Failed
-      - Started
-      - Sent
-      - Rejected
-      - Canceled
-      - HighRisk
-      type: string
-      description: The various statuses of a wiring instructions related request in the CertifID platform.
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
       required:
       - firstName
@@ -335,8 +319,7 @@ components:
           type:
           - string
           - 'null'
-          description: 'If "Other" is selected for the party, allows the integrating system to send a
-            value
+          description: 'If "Other" is selected for the party, allows the integrating system to send a value
 
             other than the preset list.'
         customEmailMessage:
@@ -345,75 +328,10 @@ components:
           type:
           - string
           - 'null'
-          description: Custom text section will be part of the recipient's invite message, in the email's
-            body.
-          example: "\n            This is a demo message from the title agent to the buyer, which will\
-            \ be added to the invite email.\n            "
+          description: Custom text section will be part of the recipient's invite message, in the email's body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\n            "
       additionalProperties: false
       description: A party to a file/deal.
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
-    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel
-    : required:
-      - recipient
-      type: object
-      properties:
-        accountId:
-          type:
-          - string
-          - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization
-            in CertifID''s platform from which the
-
-            request is being sent.
-
-            If not specified, the customer''s default or current account will be selected initially.'
-          example: 00000000-0000-0000-0000-000000000001
-        fileNumber:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
-
-            origination system.'
-          example: A4242
-        transactionId:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber
-            from the 3rd party origination system.
-          example: '20336491'
-        recipient:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
-        requestDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
-      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel:
       type: object
       properties:
@@ -497,10 +415,90 @@ components:
           type:
           - string
           - 'null'
-          description: The date and time when the request gets expired if the recipient do not act on
-            it.
+          description: The date and time when the request gets expired if the recipient do not act on it.
           format: date-time
       additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
+      enum:
+      - CertifId
+      - Expired
+      - Failed
+      - Started
+      - Sent
+      - Rejected
+      - Canceled
+      - HighRisk
+      type: string
+      description: The various statuses of a wiring instructions related request in the CertifID platform.
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.CollectRequestDetailsViewModel'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
+      enum:
+      - Other
+      - IncorrectAccountHolder
+      - IncorrectAccountNumber
+      - IncorrectAbaNumber
+      - GetCheck
+      type: string
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
   securitySchemes:
     oauth2:
       type: oauth2

@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - Location
-      summary: Retrieve the list of accounts that the customer has access to within CertifID's platform.
+      summary: Retrieve the list of accounts that the customer has access to within CertifID's…
       responses:
         '200':
           description: OK
@@ -39,11 +39,13 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1Account
+      x-operation-id-source: derived
   /api/v1/Account/{id}:
     get:
       tags:
       - Location
-      summary: Retrieve a specific account belonging to the customer within CertifID's platform.
+      summary: Retrieve a specific account belonging to the customer within CertifID's platform
       parameters:
       - name: id
         in: path
@@ -83,32 +85,10 @@ paths:
       security:
       - oauth2:
         - CertifIDUser
+      operationId: getApiV1AccountById
+      x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.ViewModels.Locations.LocationViewModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the account.
-        name:
-          type: string
-          description: The name given to identify the account/office by the customer within their organization.
-          example: South Bank - Central Office
-        companyId:
-          type:
-          - string
-          - 'null'
-          description: The ID of parent account that this child account is organized under within the
-            customer's organization.
-        isDefault:
-          type: boolean
-          description: A flag indicating whether the account is selected as the user's default.
-      additionalProperties: false
-      description: 'An account/location within the CertifID platform, often representing a single agency
-        or office
-
-        location within a customer''s organization.'
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -134,6 +114,28 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.Locations.LocationViewModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the account.
+        name:
+          type: string
+          description: The name given to identify the account/office by the customer within their organization.
+          example: South Bank - Central Office
+        companyId:
+          type:
+          - string
+          - 'null'
+          description: The ID of parent account that this child account is organized under within the customer's organization.
+        isDefault:
+          type: boolean
+          description: A flag indicating whether the account is selected as the user's default.
+      additionalProperties: false
+      description: 'An account/location within the CertifID platform, often representing a single agency or office
+
+        location within a customer''s organization.'
   securitySchemes:
     oauth2:
       type: oauth2
