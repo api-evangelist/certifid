@@ -38,22 +38,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
-      type: object
-      properties:
-        '[fieldName1]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
-        '[fieldName2]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
-      additionalProperties: false
     CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
       type: object
       properties:
@@ -139,6 +123,22 @@ components:
       - NotExtended
       - NetworkAuthenticationRequired
       type: string
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
   securitySchemes:
     oauth2:
       type: oauth2

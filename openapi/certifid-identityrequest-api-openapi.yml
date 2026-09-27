@@ -218,6 +218,59 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ? CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails
+    : type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError'
+        serverInfo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo'
+      additionalProperties: false
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
+    : required:
+      - recipient
+      type: object
+      properties:
+        accountId:
+          type:
+          - string
+          - 'null'
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
+        id:
+          type: string
+          description: A unique identifier for this request, provided by the CertifID platform.
+      additionalProperties: false
     CertifID.V2.Common.Models.Results.ExceptionInfo:
       type: object
       properties:
@@ -240,127 +293,77 @@ components:
         innerException:
           $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo'
       additionalProperties: false
-    System.Net.HttpStatusCode:
-      enum:
-      - Continue
-      - SwitchingProtocols
-      - Processing
-      - EarlyHints
-      - OK
-      - Created
-      - Accepted
-      - NonAuthoritativeInformation
-      - NoContent
-      - ResetContent
-      - PartialContent
-      - MultiStatus
-      - AlreadyReported
-      - IMUsed
-      - MultipleChoices
-      - MovedPermanently
-      - Found
-      - SeeOther
-      - NotModified
-      - UseProxy
-      - Unused
-      - TemporaryRedirect
-      - PermanentRedirect
-      - BadRequest
-      - Unauthorized
-      - PaymentRequired
-      - Forbidden
-      - NotFound
-      - MethodNotAllowed
-      - NotAcceptable
-      - ProxyAuthenticationRequired
-      - RequestTimeout
-      - Conflict
-      - Gone
-      - LengthRequired
-      - PreconditionFailed
-      - RequestEntityTooLarge
-      - RequestUriTooLong
-      - UnsupportedMediaType
-      - RequestedRangeNotSatisfiable
-      - ExpectationFailed
-      - MisdirectedRequest
-      - UnprocessableEntity
-      - Locked
-      - FailedDependency
-      - UpgradeRequired
-      - PreconditionRequired
-      - TooManyRequests
-      - RequestHeaderFieldsTooLarge
-      - UnavailableForLegalReasons
-      - InternalServerError
-      - NotImplemented
-      - BadGateway
-      - ServiceUnavailable
-      - GatewayTimeout
-      - HttpVersionNotSupported
-      - VariantAlsoNegotiates
-      - InsufficientStorage
-      - LoopDetected
-      - NotExtended
-      - NetworkAuthenticationRequired
-      type: string
-    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo:
+    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel
+    : required:
+      - recipient
       type: object
       properties:
-        utcTime:
-          type: string
-          format: date-time
-          readOnly: true
-        version:
-          type: string
-          readOnly: true
-      additionalProperties: false
-    CertifID.V2.Common.Models.Results.ApiResult:
-      type: object
-      properties:
-        success:
-          type: boolean
-        statusCode:
-          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.StatusCode'
-        status:
-          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.Status'
-        exception:
-          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo'
-        serviceData:
-          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ServiceData'
-      additionalProperties: false
-    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        details:
-          type: string
-      additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
-      type: object
-      properties:
-        displayName:
-          type: string
-          description: Display name of the status of the request
-        uniqueLink:
+        accountId:
           type:
           - string
           - 'null'
-          description: Unique link if share_link was chosen as delivery method
-        descriptionTitle:
-          type: string
-          description: Description title of the status of the verification request
-        descriptionLong:
-          type: string
-          description: Verbose description of the status of the verification request
-        descriptionShort:
-          type: string
-          description: Concise description of the status of the verification request
+          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
+
+            request is being sent.
+
+            If not specified, the customer''s default or current account will be selected initially.'
+          example: 00000000-0000-0000-0000-000000000001
+        fileNumber:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
+
+            origination system.'
+          example: A4242
+        transactionId:
+          maxLength: 254
+          type:
+          - string
+          - 'null'
+          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
+          example: '20336491'
+        recipient:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
+        requestDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
       additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
+      type: object
+      properties:
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: The street address of the property being described.
+          example: 123 Some Way
+        streetAddress2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the street address.
+          example: Unit 12
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city of the property being described.
+          example: Georgetown
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state of the property being described.
+          example: OR
+        zip:
+          type:
+          - string
+          - 'null'
+          description: The ZIP code of the property being described.
+          example: '78642'
+      additionalProperties: false
+      description: A description of the property in question.
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel:
       type: object
       properties:
@@ -369,20 +372,31 @@ components:
         verificationDetails:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails'
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
-      enum:
-      - Other
-      - Buyer
-      - Seller
-      - Lender
-      - RealEstateAgent
-      - Attorney
-      - TitleCompany
-      - LawFirm
-      - Builder
-      - GeneralContractor
-      type: string
-      description: The role of the party in the real estate deal.
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
       required:
       - firstName
@@ -435,61 +449,19 @@ components:
           example: "\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\n            "
       additionalProperties: false
       description: A party to a file/deal.
-    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails:
+    CertifID.V2.Common.Models.Results.ApiResult:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        details:
-          type: string
-      additionalProperties: false
-    CertifID.V2.Common.Models.Results.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        description:
-          type: string
-        httpStatus:
-          $ref: '#/components/schemas/System.Net.HttpStatusCode'
-      additionalProperties: false
-    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel
-    : required:
-      - recipient
-      type: object
-      properties:
-        accountId:
-          type:
-          - string
-          - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
-
-            request is being sent.
-
-            If not specified, the customer''s default or current account will be selected initially.'
-          example: 00000000-0000-0000-0000-000000000001
-        fileNumber:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
-
-            origination system.'
-          example: A4242
-        transactionId:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
-          example: '20336491'
-        recipient:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
-        requestDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel'
+        success:
+          type: boolean
+        statusCode:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.StatusCode'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.Status'
+        exception:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ExceptionInfo'
+        serviceData:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Results.ServiceData'
       additionalProperties: false
     CertifID.V2.Common.Models.Results.StatusCode:
       enum:
@@ -701,105 +673,6 @@ components:
       - PaymentAccountsService_PaymentWalletNotValid
       - UnknownError
       type: string
-    ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
-    : required:
-      - recipient
-      type: object
-      properties:
-        accountId:
-          type:
-          - string
-          - 'null'
-          description: 'The unique identifier for the account/location within the customer''s organization in CertifID''s platform from which the
-
-            request is being sent.
-
-            If not specified, the customer''s default or current account will be selected initially.'
-          example: 00000000-0000-0000-0000-000000000001
-        fileNumber:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: 'A file number identifying a deal/file in the 3rd party system, such as a mortgage
-
-            origination system.'
-          example: A4242
-        transactionId:
-          maxLength: 254
-          type:
-          - string
-          - 'null'
-          description: A given transaction id for a CertifID.V2.PublicAPI.ViewModels.Requests.Api.ApiRequestViewModel`1.FileNumber from the 3rd party origination system.
-          example: '20336491'
-        recipient:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party'
-        requestDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel'
-        id:
-          type: string
-          description: A unique identifier for this request, provided by the CertifID platform.
-      additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
-      type: object
-      properties:
-        streetAddress:
-          type:
-          - string
-          - 'null'
-          description: The street address of the property being described.
-          example: 123 Some Way
-        streetAddress2:
-          type:
-          - string
-          - 'null'
-          description: The second line of the street address.
-          example: Unit 12
-        city:
-          type:
-          - string
-          - 'null'
-          description: The city of the property being described.
-          example: Georgetown
-        state:
-          type:
-          - string
-          - 'null'
-          description: The state of the property being described.
-          example: OR
-        zip:
-          type:
-          - string
-          - 'null'
-          description: The ZIP code of the property being described.
-          example: '78642'
-      additionalProperties: false
-      description: A description of the property in question.
-    CertifID.V2.Common.Models.Results.ServiceData:
-      required:
-      - serviceName
-      type: object
-      properties:
-        serviceName:
-          type: string
-        instanceId:
-          type: string
-          format: uuid
-      additionalProperties: false
-    ? CertifID.V2.PublicAPI.BusinessLogic.Models.Response.Response_1_CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails
-    : type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError'
-        serverInfo:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo'
-      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus:
       enum:
       - Verified
@@ -811,6 +684,17 @@ components:
       - UnableToVerify
       - PendingRetry
       type: string
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: string
+      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.IdentityRequestDetailsViewModel:
       required:
       - deliveryMethod
@@ -829,31 +713,147 @@ components:
           description: The method by which identity is to be verified.
           example: email_or_text
       additionalProperties: false
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
       type: object
       properties:
-        type:
+        displayName:
+          type: string
+          description: Display name of the status of the request
+        uniqueLink:
           type:
           - string
           - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
+          description: Unique link if share_link was chosen as delivery method
+        descriptionTitle:
+          type: string
+          description: Description title of the status of the verification request
+        descriptionLong:
+          type: string
+          description: Verbose description of the status of the verification request
+        descriptionShort:
+          type: string
+          description: Concise description of the status of the verification request
+      additionalProperties: false
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseServerInfo:
+      type: object
+      properties:
+        utcTime:
+          type: string
+          format: date-time
+          readOnly: true
+        version:
+          type: string
+          readOnly: true
+      additionalProperties: false
+    CertifID.V2.Common.Models.Results.ServiceData:
+      required:
+      - serviceName
+      type: object
+      properties:
+        serviceName:
+          type: string
+        instanceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CertifID.V2.Common.Models.Results.Status:
+      type: object
+      properties:
+        code:
+          type: integer
           format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
+        description:
+          type: string
+        httpStatus:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.BusinessLogic.Models.Response.ResponseErrorCodes_CodeAndDetails:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        details:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      enum:
+      - Other
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
+      type: string
+      description: The role of the party in the real estate deal.
+    System.Net.HttpStatusCode:
+      enum:
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
+      type: string
   securitySchemes:
     oauth2:
       type: oauth2

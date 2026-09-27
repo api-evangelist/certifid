@@ -62,6 +62,38 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
+      enum:
+      - Unknown
+      - Valid
+      - CannotTransactWiresElectronically
+      - CannotTransactWires
+      type: string
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
       type: object
       properties:
@@ -73,6 +105,26 @@ components:
           description: The mask representation of the account number.
       additionalProperties: false
       description: Credit to
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this specific set of wiring instructions.
+        name:
+          type: string
+          description: A name given to the instructions by the customer in the CertifID platform.
+          example: Main Central Account
+        creditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        finalCreditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+        correspondentBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+      additionalProperties: false
+      description: View Model For Wiring Information
     CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
       required:
       - abaRoutingNumber
@@ -115,58 +167,6 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
       additionalProperties: false
       description: Details about a bank.
-    CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this specific set of wiring instructions.
-        name:
-          type: string
-          description: A name given to the instructions by the customer in the CertifID platform.
-          example: Main Central Account
-        creditTo:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
-        finalCreditTo:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
-        beneficiaryBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
-        correspondentBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
-      additionalProperties: false
-      description: View Model For Wiring Information
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
-      enum:
-      - Unknown
-      - Valid
-      - CannotTransactWiresElectronically
-      - CannotTransactWires
-      type: string
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
   securitySchemes:
     oauth2:
       type: oauth2

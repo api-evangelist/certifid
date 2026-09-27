@@ -44,14 +44,14 @@ modified: '2026-08-09'
 tags:
 - Company
 - Wire Fraud Prevention
-- Real-Estate
+- Real Estate
 - Title Insurance
 - Identity Verification
 - Business Verification
 - Payments
 - Fraud Prevention
 - Escrow and Settlement
-- Financial-Services
+- Financial Services
 - Security
 tags_raw:
 - Company
@@ -65,6 +65,8 @@ tags_raw:
 - Escrow and Settlement
 - Financial Services
 - Security
+- Real-Estate
+- Financial-Services
 apis:
 - aid: certifid:certifid-accountverifications-api
   name: CertifID Account Verifications API

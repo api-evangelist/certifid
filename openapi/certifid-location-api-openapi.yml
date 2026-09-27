@@ -89,6 +89,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CertifID.V2.PublicAPI.ViewModels.Locations.LocationViewModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the account.
+        name:
+          type: string
+          description: The name given to identify the account/office by the customer within their organization.
+          example: South Bank - Central Office
+        companyId:
+          type:
+          - string
+          - 'null'
+          description: The ID of parent account that this child account is organized under within the customer's organization.
+        isDefault:
+          type: boolean
+          description: A flag indicating whether the account is selected as the user's default.
+      additionalProperties: false
+      description: 'An account/location within the CertifID platform, often representing a single agency or office
+
+        location within a customer''s organization.'
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -114,28 +136,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    CertifID.V2.PublicAPI.ViewModels.Locations.LocationViewModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier of the account.
-        name:
-          type: string
-          description: The name given to identify the account/office by the customer within their organization.
-          example: South Bank - Central Office
-        companyId:
-          type:
-          - string
-          - 'null'
-          description: The ID of parent account that this child account is organized under within the customer's organization.
-        isDefault:
-          type: boolean
-          description: A flag indicating whether the account is selected as the user's default.
-      additionalProperties: false
-      description: 'An account/location within the CertifID platform, often representing a single agency or office
-
-        location within a customer''s organization.'
   securitySchemes:
     oauth2:
       type: oauth2

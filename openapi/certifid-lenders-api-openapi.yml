@@ -118,6 +118,68 @@ components:
           description: Zipcode
       additionalProperties: false
       description: Lender response model
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type
+          readOnly: true
+        title:
+          type: string
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
+          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
+      additionalProperties: false
+      description: ''
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
     System.Net.HttpStatusCode:
       enum:
       - Continue
@@ -182,68 +244,6 @@ components:
       - NotExtended
       - NetworkAuthenticationRequired
       type: string
-    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
-      type: object
-      properties:
-        '[fieldName1]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
-        '[fieldName2]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
-      additionalProperties: false
-    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type
-          readOnly: true
-        title:
-          type: string
-          description: Title of the error response sent to user
-          readOnly: true
-        status:
-          $ref: '#/components/schemas/System.Net.HttpStatusCode'
-        traceId:
-          type: string
-          description: Trace ID
-          readOnly: true
-        errors:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
-      additionalProperties: false
-      description: ''
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
   securitySchemes:
     oauth2:
       type: oauth2
