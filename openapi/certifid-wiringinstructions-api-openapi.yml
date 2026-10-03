@@ -69,6 +69,37 @@ components:
       - CannotTransactWiresElectronically
       - CannotTransactWires
       type: string
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this specific set of wiring instructions.
+        name:
+          type: string
+          description: A name given to the instructions by the customer in the CertifID platform.
+          example: Main Central Account
+        creditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        finalCreditTo:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+        correspondentBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+      additionalProperties: false
+      description: View Model For Wiring Information
+    CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
+      type: object
+      properties:
+        accountName:
+          type: string
+          description: The name associated to the account.
+        accountNumber:
+          type: string
+          description: The mask representation of the account number.
+      additionalProperties: false
+      description: Credit to
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -94,37 +125,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel:
-      type: object
-      properties:
-        accountName:
-          type: string
-          description: The name associated to the account.
-        accountNumber:
-          type: string
-          description: The mask representation of the account number.
-      additionalProperties: false
-      description: Credit to
-    CertifID.V2.PublicAPI.ViewModels.WiringInformation.WiringInformationViewModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this specific set of wiring instructions.
-        name:
-          type: string
-          description: A name given to the instructions by the customer in the CertifID platform.
-          example: Main Central Account
-        creditTo:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
-        finalCreditTo:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.WiringInformation.CreditToViewModel'
-        beneficiaryBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
-        correspondentBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
-      additionalProperties: false
-      description: View Model For Wiring Information
     CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
       required:
       - abaRoutingNumber

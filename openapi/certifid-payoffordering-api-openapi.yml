@@ -313,110 +313,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PayoffOrdering.Common.Models.LenderSummary:
-      type: object
-      properties:
-        lenderId:
-          type: string
-        lenderName:
-          type: string
-        lenderAliases:
-          type: array
-          items:
-            type: string
-        lenderAddress:
-          type:
-          - string
-          - 'null'
-        nmls:
-          type:
-          - string
-          - 'null'
-        lenderNotes:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
-      type: object
-      properties:
-        fileId:
-          type: string
-        type:
-          type: string
-        fileNumber:
-          type: string
-        integrationId:
-          type: string
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-        eventCode:
-          type: string
-        eventDescription:
-          type: string
-        eventType:
-          type: string
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
-      enum:
-      - Pending
-      - InProgress
-      - SubmittedToLender
-      - Delivered
-      - Canceled
-      - Unorderable
-      type: string
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
-      type: object
-      properties:
-        payoffQuoteUrl:
-          type: string
-        wiringInstructionsVerified:
-          type: boolean
-        totalPayoffAmount:
-          type: string
-        wiringRoutingNumber:
-          type: string
-        wiringAccountNumber:
-          type: string
-        wiringBank:
-          type: string
-        deliveredAt:
-          type: string
-          format: date-time
-        quoteId:
-          type: string
-        goodThroughDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
-      type: object
-      properties:
-        lenderId:
-          type:
-          - string
-          - 'null'
-        lenderName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.FileAttachment:
-      type: object
-      properties:
-        fileName:
-          type: string
-        contentType:
-          type: string
-        base64Content:
-          type: string
-      additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.CancelPayoffOrderRequestModel:
       required:
       - id
@@ -431,63 +327,49 @@ components:
           - 'null'
           description: Optional reason for canceling the order
       additionalProperties: false
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel:
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder:
       type: object
       properties:
         id:
           type:
           - string
           - 'null'
-        createdUtc:
+        created:
           type:
           - string
           - 'null'
           format: date-time
-        modifiedUtc:
+        createdBy:
+          type:
+          - string
+          - 'null'
+        modified:
           type:
           - string
           - 'null'
           format: date-time
-        accountId:
+        modifiedBy:
           type:
           - string
           - 'null'
-          description: This is the location id. Integrations have historically called this accountId
+        companyId:
+          type: string
+        locationId:
+          type:
+          - string
+          - 'null'
+        userId:
+          type: string
         status:
           $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.IntegrationData'
+        createdAt:
+          type: string
         accountType:
           $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
         fileNumber:
           type: string
-        transactionId:
-          type:
-          - string
-          - 'null'
         loanNumber:
           type: string
         lender:
@@ -530,20 +412,112 @@ components:
           - 'null'
           items:
             type: string
-        payoffOrderEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel'
         payoffQuotes:
           type: array
           items:
-            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffQuoteModel'
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote'
+        payoffOrderEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent'
         unstructuredOrderData:
           type:
           - object
           - 'null'
           additionalProperties:
             type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
+      type: object
+      properties:
+        payoffQuoteUrl:
+          type: string
+        wiringInstructionsVerified:
+          type: boolean
+        totalPayoffAmount:
+          type: string
+        wiringRoutingNumber:
+          type: string
+        wiringAccountNumber:
+          type: string
+        wiringBank:
+          type: string
+        deliveredAt:
+          type: string
+          format: date-time
+        quoteId:
+          type: string
+        goodThroughDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.LenderSummary:
+      type: object
+      properties:
+        lenderId:
+          type: string
+        lenderName:
+          type: string
+        lenderAliases:
+          type: array
+          items:
+            type: string
+        lenderAddress:
+          type:
+          - string
+          - 'null'
+        nmls:
+          type:
+          - string
+          - 'null'
+        lenderNotes:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation:
+      required:
+      - base64Content
+      - contentType
+      - fileName
+      type: object
+      properties:
+        fileName:
+          minLength: 1
+          pattern: ^.+\.pdf$
+          type: string
+        contentType:
+          minLength: 1
+          pattern: ^application/pdf$
+          type: string
+        base64Content:
+          minLength: 1
+          type: string
+          format: byte
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: The IPO system identifier of the canceled order
+        status:
+          type: string
+          description: The status of the order after cancellation
+        message:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
+      type: object
+      properties:
+        fileId:
+          type: string
+        type:
+          type: string
+        fileNumber:
+          type: string
+        integrationId:
+          type: string
       additionalProperties: false
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffQuoteModel:
       type: object
@@ -572,44 +546,53 @@ components:
           type: string
           format: date-time
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation:
-      required:
-      - base64Content
-      - contentType
-      - fileName
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
+      type: object
+      properties:
+        lenderId:
+          type:
+          - string
+          - 'null'
+        lenderName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.FileAttachment:
       type: object
       properties:
         fileName:
-          minLength: 1
-          pattern: ^.+\.pdf$
           type: string
         contentType:
-          minLength: 1
-          pattern: ^application/pdf$
           type: string
         base64Content:
-          minLength: 1
           type: string
-          format: byte
       additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
-      enum:
-      - mortgage
-      - heloc
-      type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel:
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
-        createdAt:
-          type: string
-          format: date-time
-        eventCode:
-          type: string
-        eventDescription:
-          type: string
-        eventType:
-          type: string
-      additionalProperties: false
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.UpdatePayoffOrderRequestModel:
       required:
       - id
@@ -707,49 +690,38 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderModel:
       type: object
       properties:
         id:
           type:
           - string
           - 'null'
-        created:
+        createdUtc:
           type:
           - string
           - 'null'
           format: date-time
-        createdBy:
-          type:
-          - string
-          - 'null'
-        modified:
+        modifiedUtc:
           type:
           - string
           - 'null'
           format: date-time
-        modifiedBy:
+        accountId:
           type:
           - string
           - 'null'
-        companyId:
-          type: string
-        locationId:
-          type:
-          - string
-          - 'null'
-        userId:
-          type: string
+          description: This is the location id. Integrations have historically called this accountId
         status:
           $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus'
-        integrationData:
-          $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.IntegrationData'
-        createdAt:
-          type: string
         accountType:
           $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType'
         fileNumber:
           type: string
+        transactionId:
+          type:
+          - string
+          - 'null'
         loanNumber:
           type: string
         lender:
@@ -792,14 +764,14 @@ components:
           - 'null'
           items:
             type: string
-        payoffQuotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote'
         payoffOrderEvents:
           type: array
           items:
-            $ref: '#/components/schemas/CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent'
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel'
+        payoffQuotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffQuoteModel'
         unstructuredOrderData:
           type:
           - object
@@ -902,16 +874,44 @@ components:
           items:
             $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Inbound.PayoffOrdering.FileAttachmentWithValidation'
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.CancelPayoffOrderResponseModel:
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
       type: object
       properties:
-        orderId:
+        createdAt:
           type: string
-          description: The IPO system identifier of the canceled order
-        status:
+          format: date-time
+        eventCode:
           type: string
-          description: The status of the order after cancellation
-        message:
+        eventDescription:
+          type: string
+        eventType:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
+      enum:
+      - mortgage
+      - heloc
+      type: string
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
+      enum:
+      - Pending
+      - InProgress
+      - SubmittedToLender
+      - Delivered
+      - Canceled
+      - Unorderable
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffOrdering.PayoffOrderEventModel:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        eventType:
           type: string
       additionalProperties: false
   securitySchemes:
