@@ -126,13 +126,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
-      enum:
-      - Unknown
-      - Valid
-      - CannotTransactWiresElectronically
-      - CannotTransactWires
-      type: string
     CertifID.V2.PublicAPI.ViewModels.Banks.CorrespondentBankDetails:
       required:
       - abaRoutingNumber
@@ -180,40 +173,6 @@ components:
             a Fedwire ABA Routing Number as a beneficiary.'
       additionalProperties: false
       description: Correspondent bank details related to a beneficiary ABA Routing Number.
-    CertifID.V2.PublicAPI.ViewModels.Banks.BankWiringDetailsViewModel:
-      type: object
-      properties:
-        beneficiaryBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
-        correspondentBank:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.CorrespondentBankDetails'
-      additionalProperties: false
-      description: Wiring details for a bank.
-    Microsoft.AspNetCore.Mvc.ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
     CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails:
       required:
       - abaRoutingNumber
@@ -256,6 +215,47 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType'
       additionalProperties: false
       description: Details about a bank.
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWireStatusType:
+      enum:
+      - Unknown
+      - Valid
+      - CannotTransactWiresElectronically
+      - CannotTransactWires
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Banks.BankWiringDetailsViewModel:
+      type: object
+      properties:
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.BankDetails'
+        correspondentBank:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Banks.CorrespondentBankDetails'
+      additionalProperties: false
+      description: Wiring details for a bank.
   securitySchemes:
     oauth2:
       type: oauth2

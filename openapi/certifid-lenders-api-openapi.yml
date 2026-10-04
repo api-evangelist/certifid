@@ -108,22 +108,37 @@ components:
           $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
       additionalProperties: false
       description: ''
-    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel:
       type: object
       properties:
-        '[fieldName1]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
-        '[fieldName2]':
-          type: array
-          items:
-            type: string
-          description: Name of field containing errors, contains a list of error messages.
-          readOnly: true
+        city:
+          type:
+          - string
+          - 'null'
+          description: City
+        id:
+          type: string
+          description: Id
+        name:
+          type: string
+          description: Name
+        propertyAddress:
+          type:
+          - string
+          - 'null'
+          description: Property Address of the lender
+        state:
+          type:
+          - string
+          - 'null'
+          description: State
+        zip:
+          type:
+          - string
+          - 'null'
+          description: Zipcode
       additionalProperties: false
+      description: Lender response model
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -149,6 +164,22 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
+      type: object
+      properties:
+        '[fieldName1]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+        '[fieldName2]':
+          type: array
+          items:
+            type: string
+          description: Name of field containing errors, contains a list of error messages.
+          readOnly: true
+      additionalProperties: false
     System.Net.HttpStatusCode:
       enum:
       - Continue
@@ -213,37 +244,6 @@ components:
       - NotExtended
       - NetworkAuthenticationRequired
       type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.Lender.LenderResponseModel:
-      type: object
-      properties:
-        city:
-          type:
-          - string
-          - 'null'
-          description: City
-        id:
-          type: string
-          description: Id
-        name:
-          type: string
-          description: Name
-        propertyAddress:
-          type:
-          - string
-          - 'null'
-          description: Property Address of the lender
-        state:
-          type:
-          - string
-          - 'null'
-          description: State
-        zip:
-          type:
-          - string
-          - 'null'
-          description: Zipcode
-      additionalProperties: false
-      description: Lender response model
   securitySchemes:
     oauth2:
       type: oauth2

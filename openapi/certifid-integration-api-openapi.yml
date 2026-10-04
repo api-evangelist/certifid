@@ -532,33 +532,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus:
+    CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType:
       enum:
-      - UnableToValidate
-      - HighRisk
-      - CertifID
-      - Pending
-      - Canceled
-      - NeedsAttention
+      - Person
+      - Entity
       type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
-        typeDisplayText:
-          type: string
-        freeText:
-          type: string
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus'
+        verificationDetails:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails'
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
-      enum:
-      - Other
-      - IncorrectAccountHolder
-      - IncorrectAccountNumber
-      - IncorrectAbaNumber
-      - GetCheck
-      type: string
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -584,103 +570,15 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus'
-        verificationDetails:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails'
-      additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The resolved Lender's ID
-        name:
-          type: string
-          description: Lender name
-        userProvidedLenderName:
-          type: string
-          description: 'This is the original lender name provided by the payoff statement
-
-            It may differ from the official lender name in the lender record.
-
-            For example, the lender record could be "Wells Fargo", while the
-
-            provided lender name could be "Wells Fargo Home Mortgage".  We
-
-            preserve this so we can display it and avoid support issues when
-
-            a user is confused that the lender name has changed on them'
-      additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
       enum:
-      - mortgage
-      - heloc
+      - Pending
+      - InProgress
+      - SubmittedToLender
+      - Delivered
+      - Canceled
+      - Unorderable
       type: string
-    CertifID.MortgagePayoff.Common.Models.BankInfo:
-      type: object
-      properties:
-        bankId:
-          type:
-          - string
-          - 'null'
-        bankName:
-          type:
-          - string
-          - 'null'
-        abaRoutingNumber:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type
-          readOnly: true
-        title:
-          type: string
-          description: Title of the error response sent to user
-          readOnly: true
-        status:
-          $ref: '#/components/schemas/System.Net.HttpStatusCode'
-        traceId:
-          type: string
-          description: Trace ID
-          readOnly: true
-        errors:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
-      additionalProperties: false
-      description: ''
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
-      type: object
-      properties:
-        payoffQuoteUrl:
-          type: string
-        wiringInstructionsVerified:
-          type: boolean
-        totalPayoffAmount:
-          type: string
-        wiringRoutingNumber:
-          type: string
-        wiringAccountNumber:
-          type: string
-        wiringBank:
-          type: string
-        deliveredAt:
-          type: string
-          format: date-time
-        quoteId:
-          type: string
-        goodThroughDate:
-          type: string
-          format: date-time
-      additionalProperties: false
     CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation:
       type: object
       properties:
@@ -697,18 +595,11 @@ components:
           description: Name of field containing errors, contains a list of error messages.
           readOnly: true
       additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
-      type: object
-      properties:
-        fileId:
-          type: string
-        type:
-          type: string
-        fileNumber:
-          type: string
-        integrationId:
-          type: string
-      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Enums.PayoffAccountType:
+      enum:
+      - mortgage
+      - heloc
+      type: string
     CertifID.V2.Common.Models.Integrations.IntegrationData:
       type: object
       properties:
@@ -727,166 +618,94 @@ components:
         type:
           $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationProviderType'
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
+      enum:
+      - CertifId
+      - Expired
+      - Failed
+      - Started
+      - Sent
+      - Rejected
+      - Canceled
+      - HighRisk
+      type: string
+      description: The various statuses of a wiring instructions related request in the CertifID platform.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
       type: object
       properties:
-        accountId:
+        displayName:
           type: string
-          description: "Account (Enterprise) Id from which this Payoff was created.  \nCurrently with v2 released, this is actually Location Id"
-        bankAccountNumber:
+          description: Display name of the status of the request
+        uniqueLink:
+          type:
+          - string
+          - 'null'
+          description: Unique link if share_link was chosen as delivery method
+        descriptionTitle:
           type: string
-          description: The account number at the bank to wire funds to
-        beneficiaryBank:
-          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.BankInfo'
-        borrowers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel'
-          description: The Borrowers, as entered by the user
-        created:
+          description: Description title of the status of the verification request
+        descriptionLong:
           type: string
-          description: Date/Time Record was created
+          description: Verbose description of the status of the verification request
+        descriptionShort:
+          type: string
+          description: Concise description of the status of the verification request
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
+      type: object
+      properties:
+        lenderId:
+          type:
+          - string
+          - 'null'
+        lenderName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
+      type: object
+      properties:
+        createdAt:
+          type: string
           format: date-time
-        createdBy:
+        eventCode:
           type: string
-          description: The name of the user that created this Payoff record
-        fileNumber:
+        eventDescription:
           type: string
-          description: File number entered by the user
-        id:
+        eventType:
           type: string
-          description: Id of the record
-        lender:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel'
-        loan:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel'
-        status:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel'
-        propertyAddress:
-          type: string
-          description: The property address
-        userId:
-          type: string
-          description: The user id of the user that created this Payoff record
-        underwriterId:
-          type:
-          - string
-          - 'null'
-          description: UnderwriterId
-        underwriter:
-          type:
-          - string
-          - 'null'
-          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will use this Name for things like
-
-            None, Not Listed'
-        integrationData:
-          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationData'
       additionalProperties: false
-      description: Response model for a Payoff
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel:
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel:
       type: object
       properties:
-        entityName:
+        code:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus'
+        displayName:
+          enum:
+          - Unable To Validate
+          - High Risk
+          - CertifID
+          - Pending
+          - Canceled
+          - Needs Attention
           type: string
-          description: Entity Name
-        firstName:
+          description: Gets a human-readable display name for the Status enum value
+          readOnly: true
+        description:
           type: string
-          description: First Name
-        lastName:
-          type: string
-          description: Last Name
-        type:
-          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType'
+          description: Description of the Status along with any additional notes
+          readOnly: true
       additionalProperties: false
-      description: Payoff Protect Borrower
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel:
-      type: object
-      properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          description: Loan Amount
-          format: double
-        number:
-          type:
-          - string
-          - 'null'
-          description: Loan Number
-        type:
-          type:
-          - string
-          - 'null'
-          description: 'Type - typical values are but can be any value: [''Residential Mortgage'', ''HELOC'', ''Commercial Mortgage'' , ''Other'']'
-      additionalProperties: false
-      description: Request model for a Payoff Protect Loan
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      description: This will contain information about the Status of the Disbursement/Payoff
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType:
       enum:
       - Other
-      - Buyer
-      - Seller
-      - Lender
-      - RealEstateAgent
-      - Attorney
-      - TitleCompany
-      - LawFirm
-      - Builder
-      - GeneralContractor
+      - IncorrectAccountHolder
+      - IncorrectAccountNumber
+      - IncorrectAbaNumber
+      - GetCheck
       type: string
-      description: The role of the party in the real estate deal.
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
-      required:
-      - firstName
-      - lastName
-      type: object
-      properties:
-        firstName:
-          minLength: 1
-          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
-          type: string
-          description: The party's first name.
-          example: Alex
-        lastName:
-          minLength: 1
-          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
-          type: string
-          description: The party's last name.
-          example: Smith
-        email:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: The party's email address.
-          format: email
-          example: asmith@email.com
-        phone:
-          pattern: ^[0-9]{10}$
-          type:
-          - string
-          - 'null'
-          description: The party's phone number.
-          example: '5038675309'
-        role:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType'
-        roleOther:
-          type:
-          - string
-          - 'null'
-          description: 'If "Other" is selected for the party, allows the integrating system to send a value
-
-            other than the preset list.'
-        customEmailMessage:
-          maxLength: 550
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: Custom text section will be part of the recipient's invite message, in the email's body.
-          example: "\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\n            "
-      additionalProperties: false
-      description: A party to a file/deal.
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel:
       type: object
       properties:
@@ -973,39 +792,53 @@ components:
           description: The date and time when the request gets expired if the recipient do not act on it.
           format: date-time
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRequestStatus:
-      enum:
-      - CertifId
-      - Expired
-      - Failed
-      - Started
-      - Sent
-      - Rejected
-      - Canceled
-      - HighRisk
-      type: string
-      description: The various statuses of a wiring instructions related request in the CertifID platform.
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderEvent:
+    CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateRepresentation:
       type: object
       properties:
-        createdAt:
+        type:
           type: string
-          format: date-time
-        eventCode:
+          description: Type
+          readOnly: true
+        title:
           type: string
-        eventDescription:
+          description: Title of the error response sent to user
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/System.Net.HttpStatusCode'
+        traceId:
           type: string
-        eventType:
-          type: string
+          description: Trace ID
+          readOnly: true
+        errors:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.Models.ResponseModels.ModelStateErrorsRepresentation'
       additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Enums.PayoffOrderStatus:
+      description: ''
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel:
+      type: object
+      properties:
+        entityName:
+          type: string
+          description: Entity Name
+        firstName:
+          type: string
+          description: First Name
+        lastName:
+          type: string
+          description: Last Name
+        type:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType'
+      additionalProperties: false
+      description: Payoff Protect Borrower
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus:
       enum:
-      - Pending
-      - InProgress
-      - SubmittedToLender
-      - Delivered
+      - Verified
+      - Expired
+      - Started
+      - Sent
       - Canceled
-      - Unorderable
+      - HighRisk
+      - UnableToVerify
+      - PendingRetry
       type: string
     ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiIdentityRequestViewModel
     : required:
@@ -1046,33 +879,130 @@ components:
           type: string
           description: A unique identifier for this request, provided by the CertifID platform.
       additionalProperties: false
-    CertifID.MortgagePayoff.Common.Models.Borrowers.BorrowerType:
+    System.Net.HttpStatusCode:
       enum:
-      - Person
-      - Entity
+      - Continue
+      - SwitchingProtocols
+      - Processing
+      - EarlyHints
+      - OK
+      - Created
+      - Accepted
+      - NonAuthoritativeInformation
+      - NoContent
+      - ResetContent
+      - PartialContent
+      - MultiStatus
+      - AlreadyReported
+      - IMUsed
+      - MultipleChoices
+      - MovedPermanently
+      - Found
+      - SeeOther
+      - NotModified
+      - UseProxy
+      - Unused
+      - TemporaryRedirect
+      - PermanentRedirect
+      - BadRequest
+      - Unauthorized
+      - PaymentRequired
+      - Forbidden
+      - NotFound
+      - MethodNotAllowed
+      - NotAcceptable
+      - ProxyAuthenticationRequired
+      - RequestTimeout
+      - Conflict
+      - Gone
+      - LengthRequired
+      - PreconditionFailed
+      - RequestEntityTooLarge
+      - RequestUriTooLong
+      - UnsupportedMediaType
+      - RequestedRangeNotSatisfiable
+      - ExpectationFailed
+      - MisdirectedRequest
+      - UnprocessableEntity
+      - Locked
+      - FailedDependency
+      - UpgradeRequired
+      - PreconditionRequired
+      - TooManyRequests
+      - RequestHeaderFieldsTooLarge
+      - UnavailableForLegalReasons
+      - InternalServerError
+      - NotImplemented
+      - BadGateway
+      - ServiceUnavailable
+      - GatewayTimeout
+      - HttpVersionNotSupported
+      - VariantAlsoNegotiates
+      - InsufficientStorage
+      - LoopDetected
+      - NotExtended
+      - NetworkAuthenticationRequired
       type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel:
+    CertifID.MortgagePayoff.Common.Models.BankInfo:
       type: object
       properties:
-        code:
-          $ref: '#/components/schemas/CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus'
-        displayName:
-          enum:
-          - Unable To Validate
-          - High Risk
-          - CertifID
-          - Pending
-          - Canceled
-          - Needs Attention
-          type: string
-          description: Gets a human-readable display name for the Status enum value
-          readOnly: true
-        description:
-          type: string
-          description: Description of the Status along with any additional notes
-          readOnly: true
+        bankId:
+          type:
+          - string
+          - 'null'
+        bankName:
+          type:
+          - string
+          - 'null'
+        abaRoutingNumber:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-      description: This will contain information about the Status of the Disbursement/Payoff
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Loan Amount
+          format: double
+        number:
+          type:
+          - string
+          - 'null'
+          description: Loan Number
+        type:
+          type:
+          - string
+          - 'null'
+          description: 'Type - typical values are but can be any value: [''Residential Mortgage'', ''HELOC'', ''Commercial Mortgage'' , ''Other'']'
+      additionalProperties: false
+      description: Request model for a Payoff Protect Loan
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The resolved Lender's ID
+        name:
+          type: string
+          description: Lender name
+        userProvidedLenderName:
+          type: string
+          description: 'This is the original lender name provided by the payoff statement
+
+            It may differ from the official lender name in the lender record.
+
+            For example, the lender record could be "Wells Fargo", while the
+
+            provided lender name could be "Wells Fargo Home Mortgage".  We
+
+            preserve this so we can display it and avoid support issues when
+
+            a user is confused that the lender name has changed on them'
+      additionalProperties: false
     CertifID.V2.PayoffOrdering.Common.Models.PayoffOrder:
       type: object
       properties:
@@ -1173,6 +1103,16 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedback:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.RejectFeedbackType'
+        typeDisplayText:
+          type: string
+        freeText:
+          type: string
+      additionalProperties: false
     CertifID.V2.Common.Models.Integrations.IntegrationProviderType:
       enum:
       - None
@@ -1193,103 +1133,30 @@ components:
       - DeferredInc
       - EmailBridge
       type: string
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.VerificationDetails:
+    CertifID.V2.PayoffOrdering.Common.Models.PayoffQuote:
       type: object
       properties:
-        displayName:
+        payoffQuoteUrl:
           type: string
-          description: Display name of the status of the request
-        uniqueLink:
-          type:
-          - string
-          - 'null'
-          description: Unique link if share_link was chosen as delivery method
-        descriptionTitle:
+        wiringInstructionsVerified:
+          type: boolean
+        totalPayoffAmount:
           type: string
-          description: Description title of the status of the verification request
-        descriptionLong:
+        wiringRoutingNumber:
           type: string
-          description: Verbose description of the status of the verification request
-        descriptionShort:
+        wiringAccountNumber:
           type: string
-          description: Concise description of the status of the verification request
+        wiringBank:
+          type: string
+        deliveredAt:
+          type: string
+          format: date-time
+        quoteId:
+          type: string
+        goodThroughDate:
+          type: string
+          format: date-time
       additionalProperties: false
-    CertifID.V2.PayoffOrdering.Common.Models.PayoffOrderLenderInfo:
-      type: object
-      properties:
-        lenderId:
-          type:
-          - string
-          - 'null'
-        lenderName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    System.Net.HttpStatusCode:
-      enum:
-      - Continue
-      - SwitchingProtocols
-      - Processing
-      - EarlyHints
-      - OK
-      - Created
-      - Accepted
-      - NonAuthoritativeInformation
-      - NoContent
-      - ResetContent
-      - PartialContent
-      - MultiStatus
-      - AlreadyReported
-      - IMUsed
-      - MultipleChoices
-      - MovedPermanently
-      - Found
-      - SeeOther
-      - NotModified
-      - UseProxy
-      - Unused
-      - TemporaryRedirect
-      - PermanentRedirect
-      - BadRequest
-      - Unauthorized
-      - PaymentRequired
-      - Forbidden
-      - NotFound
-      - MethodNotAllowed
-      - NotAcceptable
-      - ProxyAuthenticationRequired
-      - RequestTimeout
-      - Conflict
-      - Gone
-      - LengthRequired
-      - PreconditionFailed
-      - RequestEntityTooLarge
-      - RequestUriTooLong
-      - UnsupportedMediaType
-      - RequestedRangeNotSatisfiable
-      - ExpectationFailed
-      - MisdirectedRequest
-      - UnprocessableEntity
-      - Locked
-      - FailedDependency
-      - UpgradeRequired
-      - PreconditionRequired
-      - TooManyRequests
-      - RequestHeaderFieldsTooLarge
-      - UnavailableForLegalReasons
-      - InternalServerError
-      - NotImplemented
-      - BadGateway
-      - ServiceUnavailable
-      - GatewayTimeout
-      - HttpVersionNotSupported
-      - VariantAlsoNegotiates
-      - InsufficientStorage
-      - LoopDetected
-      - NotExtended
-      - NetworkAuthenticationRequired
-      type: string
     ? CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.OutboundRequest_1_CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.ApiRequestDetailsViewModel
     : required:
       - recipient
@@ -1329,17 +1196,6 @@ components:
           type: string
           description: A unique identifier for this request, provided by the CertifID platform.
       additionalProperties: false
-    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicIdentityRequestStatus:
-      enum:
-      - Verified
-      - Expired
-      - Started
-      - Sent
-      - Canceled
-      - HighRisk
-      - UnableToVerify
-      - PendingRetry
-      type: string
     CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PropertyAddress:
       type: object
       properties:
@@ -1375,6 +1231,150 @@ components:
           example: '78642'
       additionalProperties: false
       description: A description of the property in question.
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.Party:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's first name.
+          example: Alex
+        lastName:
+          minLength: 1
+          pattern: ^[A-Za-z]{1}[A-Za-z-'\. ]{0,49}$
+          type: string
+          description: The party's last name.
+          example: Smith
+        email:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: The party's email address.
+          format: email
+          example: asmith@email.com
+        phone:
+          pattern: ^[0-9]{10}$
+          type:
+          - string
+          - 'null'
+          description: The party's phone number.
+          example: '5038675309'
+        role:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType'
+        roleOther:
+          type:
+          - string
+          - 'null'
+          description: 'If "Other" is selected for the party, allows the integrating system to send a value
+
+            other than the preset list.'
+        customEmailMessage:
+          maxLength: 550
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Custom text section will be part of the recipient's invite message, in the email's body.
+          example: "\n            This is a demo message from the title agent to the buyer, which will be added to the invite email.\n            "
+      additionalProperties: false
+      description: A party to a file/deal.
+    CertifID.V2.PublicAPIsService.Common.Models.PublicModels.PayoffStatus:
+      enum:
+      - UnableToValidate
+      - HighRisk
+      - CertifID
+      - Pending
+      - Canceled
+      - NeedsAttention
+      type: string
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectResponseModel:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: "Account (Enterprise) Id from which this Payoff was created.  \nCurrently with v2 released, this is actually Location Id"
+        bankAccountNumber:
+          type: string
+          description: The account number at the bank to wire funds to
+        beneficiaryBank:
+          $ref: '#/components/schemas/CertifID.MortgagePayoff.Common.Models.BankInfo'
+        borrowers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.BorrowerResponseModel'
+          description: The Borrowers, as entered by the user
+        created:
+          type: string
+          description: Date/Time Record was created
+          format: date-time
+        createdBy:
+          type: string
+          description: The name of the user that created this Payoff record
+        fileNumber:
+          type: string
+          description: File number entered by the user
+        id:
+          type: string
+          description: Id of the record
+        lender:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLenderResponseModel'
+        loan:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectLoanResponseModel'
+        status:
+          $ref: '#/components/schemas/CertifID.V2.PublicAPI.ViewModels.Requests.Api.Outbound.PayoffProtect.PayoffProtectUpsertStatusResponseModel'
+        propertyAddress:
+          type: string
+          description: The property address
+        userId:
+          type: string
+          description: The user id of the user that created this Payoff record
+        underwriterId:
+          type:
+          - string
+          - 'null'
+          description: UnderwriterId
+        underwriter:
+          type:
+          - string
+          - 'null'
+          description: 'Underwriter Name. This is resolved by the ID if ID is valid, If not then we will use this Name for things like
+
+            None, Not Listed'
+        integrationData:
+          $ref: '#/components/schemas/CertifID.V2.Common.Models.Integrations.IntegrationData'
+      additionalProperties: false
+      description: Response model for a Payoff
+    CertifID.V2.PayoffOrdering.Common.Models.IntegrationData:
+      type: object
+      properties:
+        fileId:
+          type: string
+        type:
+          type: string
+        fileNumber:
+          type: string
+        integrationId:
+          type: string
+      additionalProperties: false
+    CertifID.V2.PublicAPI.ViewModels.Requests.Api.RequestParts.PublicRecipientType:
+      enum:
+      - Other
+      - Buyer
+      - Seller
+      - Lender
+      - RealEstateAgent
+      - Attorney
+      - TitleCompany
+      - LawFirm
+      - Builder
+      - GeneralContractor
+      type: string
+      description: The role of the party in the real estate deal.
   securitySchemes:
     oauth2:
       type: oauth2
