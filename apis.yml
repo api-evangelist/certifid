@@ -74,6 +74,8 @@ apis:
   humanURL: https://api.certifid.com/swagger/index.html
   baseURL: https://api.certifid.com
   tags:
+  - Account Verifications
+  tags_raw:
   - AccountVerifications
   properties:
   - type: OpenAPI
